@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_field_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp">
+
+        <ImageView
+            android:id="@+id/iv_shangjia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/shangjia_blue" />
+
+        <TextView
+            android:id="@+id/tv_field_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@id/iv_shangjia"
+            android:text="玩具店"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_field_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_field_name"
+            android:layout_below="@+id/tv_field_name"
+            android:layout_toLeftOf="@+id/btn_state"
+            android:singleLine="true"
+            android:layout_marginTop="3dp"
+            android:text=""
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_state"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/blue_field_shape"
+            android:clickable="false"
+            android:text="审核通过"
+            android:textColor="@color/C3"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_divider_line" />
+</LinearLayout>

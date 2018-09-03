@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_activity_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <cn.bingoogolapple.qrcode.zxing.ZXingView
+            android:id="@+id/zxingview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:qrcv_animTime="1000"
+            app:qrcv_barcodeRectHeight="260dp"
+            app:qrcv_borderColor="@android:color/white"
+            app:qrcv_borderSize="1dp"
+            app:qrcv_cornerColor="#02a8e9"
+            app:qrcv_cornerLength="25dp"
+            app:qrcv_cornerSize="6dp"
+            app:qrcv_isBarcode="false"
+            app:qrcv_isOnlyDecodeScanBoxArea="true"
+            app:qrcv_isScanLineReverse="true"
+            app:qrcv_isShowDefaultGridScanLineDrawable="false"
+            app:qrcv_isShowDefaultScanLineDrawable="false"
+            app:qrcv_isShowTipBackground="true"
+            app:qrcv_isShowTipTextAsSingleLine="false"
+            app:qrcv_isTipTextBelowRect="false"
+            app:qrcv_maskColor="#7a000000"
+            app:qrcv_qrCodeTipText="将取景框对准二维码\n即可自动扫描"
+            app:qrcv_rectWidth="260dp"
+            app:qrcv_scanLineColor="#50b44c"
+            app:qrcv_scanLineMargin="0dp"
+            app:qrcv_scanLineSize="1dp"
+            app:qrcv_tipBackgroundColor="@android:color/transparent"
+            app:qrcv_tipTextColor="@android:color/white"
+            app:qrcv_tipTextSize="14sp"
+            app:qrcv_toolbarHeight="56dp"
+            app:qrcv_topOffset="60dp" />
+
+    </RelativeLayout>
+</LinearLayout>

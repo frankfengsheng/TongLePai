@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="4dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/C3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="图片上传 （每项最多可上传4张）"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
+        android:text="店内景"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/up_photo_one"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/upload_img" />
+
+        <ImageView
+            android:id="@+id/up_photo_two"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/upload_img"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/up_photo_three"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/upload_img"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/up_photo_four"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/upload_img"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="10dp"
+        android:text="门店街景"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/up_photo_next_one"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/upload_img" />
+
+        <ImageView
+            android:id="@+id/up_photo_next_two"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/upload_img"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/up_photo_next_three"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/upload_img"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/up_photo_next_four"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/upload_img"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="4dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/C3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="投放设备"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <com.cheng.tonglepai.tool.MyListView
+        android:id="@+id/lv_device_list"
+        android:layout_marginTop="5dp"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </com.cheng.tonglepai.tool.MyListView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="共计"
+            android:layout_toLeftOf="@+id/all_num"
+            android:textColor="@color/C4"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/all_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/tv_danwei"
+            android:textColor="@color/C4"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_danwei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="台"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/C4"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:text="注：确认报备后，经考察后再提审核，在审查阶段，会评估您是否成为第一报备人" />
+
+        <Button
+            android:id="@+id/btn_to_submit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/C3"
+            android:text="提交报备"
+            android:textColor="@color/C1"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

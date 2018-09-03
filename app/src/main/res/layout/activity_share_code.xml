@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_activity_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/share_code"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_share_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:gravity="center"
+            android:textColor="@color/C3"
+            android:textSize="33sp" />
+
+        <TextView
+            android:layout_below="@+id/tv_share_code"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="长按可复制该邀请码"
+            android:textColor="@color/C2"
+            android:textSize="14sp" />
+    </RelativeLayout>
+</LinearLayout>

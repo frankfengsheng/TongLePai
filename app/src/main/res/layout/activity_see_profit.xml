@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_activity_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/C3">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可提现金额"
+                android:textColor="@color/C1" />
+
+            <TextView
+                android:id="@+id/tv_can_apply_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="0.00元"
+                android:textColor="@color/C1"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_to_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/white_no_content_shape"
+            android:text="提现"
+            android:textColor="@color/C1" />
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/huadong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb12"
+                style="@style/rb_style"
+                android:visibility="gone"
+                android:text="12月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb11"
+                style="@style/rb_style"
+                android:visibility="gone"
+                android:text="11月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb10"
+                style="@style/rb_style"
+                android:visibility="gone"
+                android:text="10月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb9"
+                style="@style/rb_style"
+                android:text="9月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb8"
+                style="@style/rb_style"
+                android:text="8月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb7"
+                style="@style/rb_style"
+                android:text="7月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb6"
+                style="@style/rb_style"
+                android:text="6月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb5"
+                style="@style/rb_style"
+                android:text="5月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb4"
+                style="@style/rb_style"
+                android:text="4月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb3"
+                style="@style/rb_style"
+                android:text="3月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb2"
+                style="@style/rb_style"
+                android:text="2月份" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/C3" />
+
+            <RadioButton
+                android:id="@+id/rb1"
+                style="@style/rb_style"
+                android:text="1月份" />
+        </RadioGroup>
+    </HorizontalScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/C3" />
+
+    <TextView
+        android:id="@+id/tv_month_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/C3"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:layout_margin="5dp"
+        android:text="1月收益"/>
+
+    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+        android:id="@+id/bga_all_income"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_all_income"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+</LinearLayout>

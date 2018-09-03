@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cheng.tonglepai">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:name=".MyApplication"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".activity.LaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BindResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QRCodingNextActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FiledDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ApplyMoneyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderStatusDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ApplyDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ApplySuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BindDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QRCodingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LearnMoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.IncomeDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UpdateLevelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.InvestorDeviceMangeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HasPostFieldFieldActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PersonSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FieldListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FeedBackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FieldPostActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.FieldIncomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DeviceExceptionPostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PostFieldResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FreightListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SmsLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RepostFieldActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DeviceMangeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SeeProfitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PayOnlineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.InverstorFieldListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PostFieldSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PaySuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PayDeviceSuccessaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderStatusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PublicResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ShareCodeActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+
+</manifest>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:id="@+id/tv_status_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2222222222"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="60dp">
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="0dp"
+            android:background="@color/C3"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/wuliu"/>
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="0dp"
+            android:background="@color/C3"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/tv_status_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="22222222222222222222222" />
+    </RelativeLayout>
+</LinearLayout>

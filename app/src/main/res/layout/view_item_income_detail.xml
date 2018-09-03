@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ll_income_detail">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_income_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2011-05-45"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_income_money"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/C4"
+            android:text="收益"/>
+
+        <TextView
+            android:id="@+id/tv_income_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/C4"
+            android:layout_alignParentRight="true"
+            android:text="+1000"/>
+    </RelativeLayout>
+
+    <include layout="@layout/view_divider_line"/>
+</LinearLayout>

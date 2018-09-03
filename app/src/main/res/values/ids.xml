@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="layout_title" type="id"/>
+    <item name="title_left_back_iv" type="id"/>
+    <item name="title_middle_tv" type="id"/>
+    <item name="title_right_layout" type="id"/>
+</resources>
