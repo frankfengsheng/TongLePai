@@ -11,6 +11,7 @@ import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.retrofit20.http.CanApplyCmd;
 import com.cheng.tonglepai.activity.LoginActivity;
+import com.cheng.tonglepai.data.CanApplyData;
 
 import retrofit2.Response;
 
@@ -18,7 +19,7 @@ import retrofit2.Response;
  * Created by cheng on 2018/5/21.
  */
 
-public class CanApplyRequest extends BaseHttpRequest<CanApplyResult> {
+public class CanApplyRequest extends BaseHttpRequest<CanApplyData> {
 
     private Context mContext;
 

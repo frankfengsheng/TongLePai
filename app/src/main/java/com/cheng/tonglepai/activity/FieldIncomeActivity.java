@@ -32,6 +32,7 @@ public class FieldIncomeActivity extends TitleActivity {
     private TextView tvShopName, tvShopAddress, tvFieldTime, tvDeviceNo, tvAllIncome, tvReturnDevice;
     private TextView tvDayIncome, tvMonthIncome, tvYesterdayIncome, tvLastmonthIncome;
     private Button btnReturnDevice;
+    private String nums = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class FieldIncomeActivity extends TitleActivity {
                         Toast.makeText(FieldIncomeActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
-                mRequest.requestFieldMoveIn(getIntent().getStringExtra(FIELD_ID));
+                mRequest.requestFieldMoveIn(getIntent().getStringExtra(FIELD_ID),nums);
             }
         });
     }
@@ -95,6 +96,7 @@ public class FieldIncomeActivity extends TitleActivity {
                     tvShopName.setText(data.getStore_name());
                     tvShopAddress.setText(data.getDetails());
                     tvFieldTime.setText("起投时间：" + TimeUtil.alltimes(data.getUpdated()));
+                    nums = data.getNums();
                     tvDeviceNo.setText(data.getNums() + "台");
                     tvDayIncome.setText("￥  " + data.getToday());
                     tvMonthIncome.setText("￥  " + data.getThis_month());

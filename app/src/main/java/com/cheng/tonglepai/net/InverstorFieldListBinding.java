@@ -41,6 +41,8 @@ public class InverstorFieldListBinding implements IUiDataBinding<List<InvestorFi
             uiItem.setId(httpItem.getId());
             uiItem.setExpected_revenue(httpItem.getExpected_revenue());
             uiItem.setNums(httpItem.getNums());
+            uiItem.setMigrate_num(httpItem.getMigrate_num());
+            uiItem.setStatus_data(httpItem.getStatus_data());
             uiList.add(uiItem);
         }
         return uiList;

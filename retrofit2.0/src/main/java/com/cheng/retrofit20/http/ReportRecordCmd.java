@@ -11,19 +11,17 @@ import retrofit2.Call;
  * Created by cheng on 2018/5/21.
  */
 
-public class FieldTransferCmd extends BaseHttpCmd {
-    public static final String K_ID = "id";
+public class ReportRecordCmd extends BaseHttpCmd {
+    public static final String K_PAGE = "page";
     public static final String K_USER_ID = "userid";
     public static final String K_TOKEN = "token";
-    public static final String K_NUMS = "nums";
-    public static final String K_MIGRATE_NUM = "migrate_num";
 
-    public FieldTransferCmd(Context context, RequestParams params) {
+    public ReportRecordCmd(Context context, RequestParams params) {
         super(context, params);
     }
 
     @Override
     protected Call<?> getCall() {
-        return getApiService().getFieldTransfer(getParams().getParentParams());
+        return getApiService().getReportRecord(getParams().getParentParams());
     }
 }

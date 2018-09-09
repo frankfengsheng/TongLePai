@@ -7,11 +7,13 @@ import com.cheng.retrofit20.callbacks.BaseCallback;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.client.HttpCommand;
 import com.cheng.retrofit20.client.RequestParams;
-import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.retrofit20.data.HttpConfig;
-import com.cheng.retrofit20.http.FieldCanApplyCmd;
+import com.cheng.retrofit20.data.ReportRecordResult;
+import com.cheng.retrofit20.http.ReportRecordCmd;
 import com.cheng.tonglepai.activity.LoginActivity;
-import com.cheng.tonglepai.data.CanApplyData;
+import com.cheng.tonglepai.data.ReportRecordData;
+
+import java.util.List;
 
 import retrofit2.Response;
 
@@ -19,34 +21,35 @@ import retrofit2.Response;
  * Created by cheng on 2018/5/21.
  */
 
-public class FieldCanApplyRequest extends BaseHttpRequest<CanApplyData> {
+public class ReportRecordRequest extends BaseHttpRequest<List<ReportRecordData>> {
 
     private Context mContext;
 
-    public FieldCanApplyRequest(Context context) {
-        this.mContext = context;
+    public ReportRecordRequest(Context context) {
+        this.mContext=context;
     }
 
 
-    public void requestFieldCanApply() {
-        HttpCommand httpCmd = newHttpCommand();
+    public void requestReportRecord(String page) {
+        HttpCommand httpCmd = newHttpCommand(page);
         httpCmd.execute();
     }
 
-    private RequestParams getParams() {
+    private RequestParams getParams(String page) {
         RequestParams parameters = new RequestParams();
-        parameters.putParams(FieldCanApplyCmd.K_USER_ID, HttpConfig.newInstance(mContext).getUserid());
-        parameters.putParams(FieldCanApplyCmd.K_TOKEN, HttpConfig.newInstance(mContext).getAccessToken());
+        parameters.putParams(ReportRecordCmd.K_PAGE,page);
+        parameters.putParams(ReportRecordCmd.K_USER_ID,HttpConfig.newInstance(mContext).getUserid());
+        parameters.putParams(ReportRecordCmd.K_TOKEN, HttpConfig.newInstance(mContext).getAccessToken());
         return parameters;
     }
 
-    private HttpCommand newHttpCommand() {
-        HttpCommand httpCmd = new FieldCanApplyCmd(mContext, getParams());
-        httpCmd.setCallback(new BaseCallback<CanApplyResult>() {
+    private HttpCommand newHttpCommand(String page) {
+        HttpCommand httpCmd = new ReportRecordCmd(mContext, getParams(page));
+        httpCmd.setCallback(new BaseCallback<ReportRecordResult>() {
             @Override
-            public void onSuccess(Response<CanApplyResult> response) {
+            public void onSuccess(Response<ReportRecordResult> response) {
                 if (null != mListener) {
-                    mListener.onSuccess(new CanApplyBinding(response.body(), mContext).getUiData());
+                    mListener.onSuccess(new ReportRecordBinding(response.body(), mContext).getUiData());
                 }
             }
 

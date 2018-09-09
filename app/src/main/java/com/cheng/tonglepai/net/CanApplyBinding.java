@@ -4,12 +4,13 @@ import android.content.Context;
 
 import com.cheng.retrofit20.client.IUiDataBinding;
 import com.cheng.retrofit20.data.CanApplyResult;
+import com.cheng.tonglepai.data.CanApplyData;
 
 /**
  * Created by cheng on 2018/7/25.
  */
 
-public class CanApplyBinding implements IUiDataBinding<CanApplyResult,CanApplyResult> {
+public class CanApplyBinding implements IUiDataBinding<CanApplyData,CanApplyResult> {
     private CanApplyResult mResult;
     private Context mContext;
 
@@ -19,13 +20,15 @@ public class CanApplyBinding implements IUiDataBinding<CanApplyResult,CanApplyRe
     }
 
     @Override
-    public CanApplyResult getUiData() {
+    public CanApplyData getUiData() {
         return getData();
     }
 
-    private CanApplyResult getData() {
-        CanApplyResult uiList = new CanApplyResult();
-        uiList.setData(mResult.getData());
-        return uiList;
+    private CanApplyData getData() {
+        CanApplyData data = new CanApplyData();
+        data.setBank(mResult.getData().get(0).getBank());
+        data.setBank_account(mResult.getData().get(0).getBank_account());
+        data.setPrice(mResult.getData().get(0).getPrice());
+        return data;
     }
 }

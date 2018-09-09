@@ -39,7 +39,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
     private int userType;
     private TextView tvCanUse, tvhasUse, tvAllUse, tv_four;
     private TextView tvOne, tvTwo, tvThree, allIncome, lastIncome, dayIncome, line_weight;
-    private RelativeLayout rlHasPostField, rlGroundManage, rlOrderStatus, rlToInput, rlDeviceManagement, rlPersonSetting, rlBindDevice;
+    private RelativeLayout rlHasPostField, rlGroundManage, rlOrderStatus, rlToInput, rlDeviceManagement, rlPersonSetting, rlBindDevice,rlReportRecord;
     private RelativeLayout rlTixianDetail, rlFeedBack, rlMyIncome, rlPostField;
     private LinearLayout llHasPostField, llGroundManage, llOrderStatus, llFreight, llThree, lineOne, line_three, lineThree, llToDeviceManage, tv_five, tv_six;
     private TextView tvUserNmae, tvUserPhone, tvShareCode;
@@ -130,6 +130,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         rlOrderStatus = (RelativeLayout) headView.findViewById(R.id.rl_order_status);
         rlTixianDetail = (RelativeLayout) headView.findViewById(R.id.rl_tixian_detail);
         rlPersonSetting = (RelativeLayout) headView.findViewById(R.id.rl_person_setting);
+        rlReportRecord = (RelativeLayout) headView.findViewById(R.id.rl_report_record);
         rlFeedBack = (RelativeLayout) headView.findViewById(R.id.rl_feed_back);
         rlBindDevice = (RelativeLayout) headView.findViewById(R.id.rl_bind_device);
         lineThree = (LinearLayout) headView.findViewById(R.id.device_bind_device);
@@ -151,6 +152,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         rlGroundManage.setOnClickListener(this);
         rlFeedBack.setOnClickListener(this);
         rlPostField.setOnClickListener(this);
+        rlReportRecord.setOnClickListener(this);
         rlOrderStatus.setOnClickListener(this);
         llFreight.setOnClickListener(this);
         rlMyIncome.setOnClickListener(this);
@@ -187,6 +189,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             llHasPostField.setVisibility(View.VISIBLE);
             llGroundManage.setVisibility(View.VISIBLE);
             tv_five.setVisibility(View.VISIBLE);
+            rlReportRecord.setVisibility(View.VISIBLE);
             tv_six.setVisibility(View.VISIBLE);
             rlOrderStatus.setVisibility(View.GONE);
             llOrderStatus.setVisibility(View.GONE);
@@ -429,6 +432,10 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             //绑定设备
             case R.id.rl_bind_device:
                 jumpNextActivity(BindDeviceActivity.class, userType);
+                break;
+            //合伙人报备
+            case R.id.rl_report_record:
+                jumpNextActivity(ReportRecordActivity.class, userType);
                 break;
         }
     }

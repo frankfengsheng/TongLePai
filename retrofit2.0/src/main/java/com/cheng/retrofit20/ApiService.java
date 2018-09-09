@@ -27,6 +27,7 @@ import com.cheng.retrofit20.data.InvestorUserInfoResult;
 import com.cheng.retrofit20.data.OrderNoResult;
 import com.cheng.retrofit20.data.PartenerdesResult;
 import com.cheng.retrofit20.data.PayReturnInfoResult;
+import com.cheng.retrofit20.data.ReportRecordResult;
 import com.cheng.retrofit20.data.ShareCodeResult;
 import com.cheng.retrofit20.data.SmsLoginResult;
 import com.cheng.retrofit20.data.TestData;
@@ -116,7 +117,7 @@ public interface ApiService {
     /**
      * 合伙人提现
      */
-    @POST("index.php?s=/api/Maker/tixian")
+    @POST("index.php?s=/api/Maker/tixian_new")
     @FormUrlEncoded
     Call<BaseHttpResult> getPartnerApplyMoney(@FieldMap Map<String, String> params);
 
@@ -269,7 +270,7 @@ public interface ApiService {
     /**
      * 合伙人可提现金额
      */
-    @POST("index.php?s=/api/Maker/amount")
+    @POST("index.php?s=/api/Maker/amount_new")
     @FormUrlEncoded
     Call<CanApplyResult> getMarkerCanApply(@FieldMap Map<String, String> params);
 
@@ -331,14 +332,14 @@ public interface ApiService {
     /**
      * 投资人提现
      */
-    @POST("index.php?s=/api/Investor/tixian")
+    @POST("index.php?s=/api/Investor/tixian_new")
     @FormUrlEncoded
     Call<BaseHttpResult> getInvestorApplyMoney(@FieldMap Map<String, String> params);
 
     /**
      * 投资人场地列表
      */
-    @POST("index.php?s=/api/Investor/sitelist")
+    @POST("index.php?s=/api/Investor/sitelist_new")
     @FormUrlEncoded
     Call<InvestorFieldListResult> getInvestorFieldListpe(@FieldMap Map<String, String> params);
 
@@ -407,7 +408,7 @@ public interface ApiService {
     /**
      * 投资人可提现金额
      */
-    @POST("index.php?s=/api/Investor/amount")
+    @POST("index.php?s=/api/Investor/amount_new")
     @FormUrlEncoded
     Call<CanApplyResult> getInvestorCanApply(@FieldMap Map<String, String> params);
 
@@ -449,14 +450,14 @@ public interface ApiService {
     /**
      * 投资人撤回设备
      */
-    @POST("index.php?s=/api/Investor/fieldtransfer")
+    @POST("index.php?s=/api/Investor/fieldtransfer_new")
     @FormUrlEncoded
     Call<BaseHttpResult> getFieldMoveIn(@FieldMap Map<String, String> params);
 
     /**
      * 投资人迁入设备
      */
-    @POST("index.php?s=/api/Investor/fieldmovein")
+    @POST("index.php?s=/api/Investor/fieldmovein_new")
     @FormUrlEncoded
     Call<BaseHttpResult> getFieldTransfer(@FieldMap Map<String, String> params);
 
@@ -521,14 +522,14 @@ public interface ApiService {
     /**
      * 场地人提现
      */
-    @POST("index.php?s=/api/Field/tixian")
+    @POST("index.php?s=/api/Field/tixian_new")
     @FormUrlEncoded
     Call<BaseHttpResult> getFieldApplyMoney(@FieldMap Map<String, String> params);
 
     /**
      * 场地人可提现金额
      */
-    @POST("index.php?s=/api/Field/amount")
+    @POST("index.php?s=/api/Field/amount_new")
     @FormUrlEncoded
     Call<CanApplyResult> getFieldCanApply(@FieldMap Map<String, String> params);
 
@@ -573,4 +574,11 @@ public interface ApiService {
     @POST("index.php?s=/api/investor/checkinfo_bill")
     @FormUrlEncoded
     Call<CheckinfoBillResult> getInvestorCheckinfoBill(@FieldMap Map<String, String> params);
+
+    /**
+     * 收益详情
+     */
+    @POST("index.php?s=/api/maker/tj_list_new")
+    @FormUrlEncoded
+    Call<ReportRecordResult> getReportRecord(@FieldMap Map<String, String> params);
 }

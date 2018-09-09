@@ -11,11 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheng.retrofit20.client.BaseHttpRequest;
-import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.adapter.ProfitDetailAdapter;
+import com.cheng.tonglepai.data.CanApplyData;
 import com.cheng.tonglepai.data.InvestorAllIncomeData;
 import com.cheng.tonglepai.data.PostIncomeData;
 import com.cheng.tonglepai.net.AllIncomeRequest;
@@ -46,7 +46,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
     private boolean needLoad;
     private TextView tvCanApplyMoney;
     private TextView tvToApply;
-    private String canApplyMoney = "";
+    private String canApplyMoney = "",bankAccount="",bankName="";
     private ProfitDetailAdapter mAdapter;
     private BGARefreshLayout mRefreshLayout;
     private ListView lvAllIncome;
@@ -76,14 +76,16 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
     private void initHeadData() {
         if (userType == 1) {
             CanApplyRequest mRequest = new CanApplyRequest(this);
-            mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyResult>() {
+            mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyData>() {
                 @Override
-                public void onSuccess(CanApplyResult data) {
-                    if (Double.parseDouble(data.getData()) == 0) {
+                public void onSuccess(CanApplyData data) {
+                    if (Double.parseDouble(data.getPrice()) == 0) {
                         canApplyMoney = "0";
                     } else
-                        canApplyMoney = Double.parseDouble(data.getData()) + "";
+                        canApplyMoney = Double.parseDouble(data.getPrice()) + "";
                     tvCanApplyMoney.setText(canApplyMoney + "元");
+                    bankAccount = data.getBank_account();
+                    bankName = data.getBank();
                 }
 
                 @Override
@@ -94,14 +96,16 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             mRequest.requestCanApply();
         } else if (userType == 2) {
             MarkerCanApplyRequest mRequest = new MarkerCanApplyRequest(this);
-            mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyResult>() {
+            mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyData>() {
                 @Override
-                public void onSuccess(CanApplyResult data) {
-                    if (Double.parseDouble(data.getData()) == 0) {
+                public void onSuccess(CanApplyData data) {
+                    if (Double.parseDouble(data.getPrice()) == 0) {
                         canApplyMoney = "0";
                     } else
-                        canApplyMoney = Double.parseDouble(data.getData()) + "";
+                        canApplyMoney = Double.parseDouble(data.getPrice()) + "";
                     tvCanApplyMoney.setText(canApplyMoney + "元");
+                    bankAccount = data.getBank_account();
+                    bankName = data.getBank();
                 }
 
                 @Override
@@ -112,14 +116,16 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             mRequest.requestCanApply();
         } else if (userType == 3) {
             FieldCanApplyRequest mRequest = new FieldCanApplyRequest(this);
-            mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyResult>() {
+            mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyData>() {
                 @Override
-                public void onSuccess(CanApplyResult data) {
-                    if (Double.parseDouble(data.getData()) == 0) {
+                public void onSuccess(CanApplyData data) {
+                    if (Double.parseDouble(data.getPrice()) == 0) {
                         canApplyMoney = "0";
                     } else
-                        canApplyMoney = Double.parseDouble(data.getData()) + "";
+                        canApplyMoney = Double.parseDouble(data.getPrice()) + "";
                     tvCanApplyMoney.setText(canApplyMoney + "元");
+                    bankAccount = data.getBank_account();
+                    bankName = data.getBank();
                 }
 
                 @Override
@@ -179,9 +185,11 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
 //                    Toast.makeText(SeeProfitActivity.this, "没有提现金额", Toast.LENGTH_LONG).show();
 //                    return;
 //                }
-                Intent intent = new Intent(SeeProfitActivity.this, ApplyMoneyActivity.class);
-                intent.putExtra(ApplyMoneyActivity.CAN_APPLY_MONEY, canApplyMoney);
-                intent.putExtra(ApplyMoneyActivity.USER_TYPE, userType);
+                Intent intent = new Intent(SeeProfitActivity.this, ApplyMoneyActivityNew.class);
+                intent.putExtra(ApplyMoneyActivityNew.CAN_APPLY_MONEY, canApplyMoney);
+                intent.putExtra(ApplyMoneyActivityNew.BANK_ACCOUNT, bankAccount);
+                intent.putExtra(ApplyMoneyActivityNew.BANK_NAME, bankName);
+                intent.putExtra(ApplyMoneyActivityNew.USER_TYPE, userType);
                 startActivity(intent);
             }
         });

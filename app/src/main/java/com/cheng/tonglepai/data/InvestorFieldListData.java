@@ -9,7 +9,25 @@ public class InvestorFieldListData {
     private String name;
     private String details;
     private String expected_revenue;
-    private int nums;
+    private String nums;
+    private String migrate_num;
+    private String status_data;
+
+    public String getStatus_data() {
+        return status_data;
+    }
+
+    public void setStatus_data(String status_data) {
+        this.status_data = status_data;
+    }
+
+    public String getMigrate_num() {
+        return migrate_num;
+    }
+
+    public void setMigrate_num(String migrate_num) {
+        this.migrate_num = migrate_num;
+    }
 
     public String getId() {
         return id;
@@ -43,11 +61,11 @@ public class InvestorFieldListData {
         this.expected_revenue = expected_revenue;
     }
 
-    public int getNums() {
+    public String getNums() {
         return nums;
     }
 
-    public void setNums(int nums) {
+    public void setNums(String nums) {
         this.nums = nums;
     }
 }

@@ -27,6 +27,8 @@ public class ApplyMoneyActivity extends TitleActivity {
     private EditText etApplyMoney;
     private Button btnToApply;
     public static final String CAN_APPLY_MONEY = "apply.money";
+    public static final String BANK_ACCOUNT = "bank.account";
+    public static final String BANK_NAME = "bank.name";
     public static final String USER_TYPE = "user.type";
     private int userType = 0;
 
@@ -77,7 +79,7 @@ public class ApplyMoneyActivity extends TitleActivity {
                         }
                     });
 
-                    mRequest.requestApplyMoney(etApplyMoney.getText().toString().trim());
+//                    mRequest.requestApplyMoney(etApplyMoney.getText().toString().trim());
                 } else if (userType == 1) {
                     InvestorApplyMoneyRequest mRequest = new InvestorApplyMoneyRequest(ApplyMoneyActivity.this);
                     mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseHttpResult>() {
@@ -101,7 +103,7 @@ public class ApplyMoneyActivity extends TitleActivity {
                         }
                     });
 
-                    mRequest.requestInvestorApplyMoney(etApplyMoney.getText().toString().trim());
+//                    mRequest.requestInvestorApplyMoney(etApplyMoney.getText().toString().trim());
                 }else if (userType == 3) {
                     FieldApplyMoneyRequest mRequest = new FieldApplyMoneyRequest(ApplyMoneyActivity.this);
                     mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseHttpResult>() {
@@ -125,7 +127,7 @@ public class ApplyMoneyActivity extends TitleActivity {
                         }
                     });
 
-                    mRequest.requestFieldApplyMoney(etApplyMoney.getText().toString().trim());
+//                    mRequest.requestFieldApplyMoney(etApplyMoney.getText().toString().trim());
                 }
 
             }

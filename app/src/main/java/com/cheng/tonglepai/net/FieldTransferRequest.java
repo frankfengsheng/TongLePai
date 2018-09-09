@@ -27,21 +27,23 @@ public class FieldTransferRequest extends BaseHttpRequest<BaseHttpResult> {
     }
 
 
-    public void requestFieldTransfery(String id) {
-        HttpCommand httpCmd = newHttpCommand(id);
+    public void requestFieldTransfery(String id, String nums, String migrateNums) {
+        HttpCommand httpCmd = newHttpCommand(id, nums, migrateNums);
         httpCmd.execute();
     }
 
-    private RequestParams getParams(String id) {
+    private RequestParams getParams(String id, String nums, String migrateNums) {
         RequestParams parameters = new RequestParams();
         parameters.putParams(FieldTransferCmd.K_USER_ID, HttpConfig.newInstance(mContext).getUserid());
         parameters.putParams(FieldTransferCmd.K_ID, id);
+        parameters.putParams(FieldTransferCmd.K_NUMS, nums);
+        parameters.putParams(FieldTransferCmd.K_MIGRATE_NUM, migrateNums);
         parameters.putParams(FieldTransferCmd.K_TOKEN, HttpConfig.newInstance(mContext).getAccessToken());
         return parameters;
     }
 
-    private HttpCommand newHttpCommand(String money) {
-        HttpCommand httpCmd = new FieldTransferCmd(mContext, getParams(money));
+    private HttpCommand newHttpCommand(String id, String nums, String migrateNums) {
+        HttpCommand httpCmd = new FieldTransferCmd(mContext, getParams(id, nums, migrateNums));
         httpCmd.setCallback(new BaseCallback<BaseHttpResult>() {
             @Override
             public void onSuccess(Response<BaseHttpResult> response) {

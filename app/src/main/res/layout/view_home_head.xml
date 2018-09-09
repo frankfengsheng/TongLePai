@@ -642,10 +642,43 @@
                 layout="@layout/view_divider_line"
                 android:visibility="gone" />
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="#edf5ff" />
+
+            <RelativeLayout
+                android:id="@+id/rl_report_record"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/feed_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:text="合伙人报备" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/icon_right" />
+            </RelativeLayout>
 
             <include layout="@layout/view_divider_line" />
 

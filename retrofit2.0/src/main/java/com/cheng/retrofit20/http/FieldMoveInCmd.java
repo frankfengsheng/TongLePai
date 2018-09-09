@@ -15,6 +15,7 @@ public class FieldMoveInCmd extends BaseHttpCmd {
     public static final String K_ID = "id";
     public static final String K_USER_ID = "userid";
     public static final String K_TOKEN = "token";
+    public static final String K_NUMS = "nums";
 
     public FieldMoveInCmd(Context context, RequestParams params) {
         super(context, params);

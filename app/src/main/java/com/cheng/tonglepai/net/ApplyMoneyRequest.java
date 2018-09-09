@@ -27,21 +27,24 @@ public class ApplyMoneyRequest extends BaseHttpRequest<BaseHttpResult> {
     }
 
 
-    public void requestApplyMoney(String money) {
-        HttpCommand httpCmd = newHttpCommand(money);
+    public void requestApplyMoney(String money, String bank, String bankAccount, String realMoney) {
+        HttpCommand httpCmd = newHttpCommand(money,bank,bankAccount,realMoney);
         httpCmd.execute();
     }
 
-    private RequestParams getParams(String money) {
+    private RequestParams getParams(String money, String bank, String bankAccount, String realMoney) {
         RequestParams parameters = new RequestParams();
         parameters.putParams(PartnerApplyMoneyCmd.K_ID, HttpConfig.newInstance(mContext).getUserid());
         parameters.putParams(PartnerApplyMoneyCmd.K_MONEY, money);
+        parameters.putParams(PartnerApplyMoneyCmd.K_BANK, bank);
+        parameters.putParams(PartnerApplyMoneyCmd.K_BANK_ACCOUNT, bankAccount);
+        parameters.putParams(PartnerApplyMoneyCmd.K_PRICE_REAL, realMoney);
         parameters.putParams(PartnerApplyMoneyCmd.K_TOKEN, HttpConfig.newInstance(mContext).getAccessToken());
         return parameters;
     }
 
-    private HttpCommand newHttpCommand(String money) {
-        HttpCommand httpCmd = new PartnerApplyMoneyCmd(mContext, getParams(money));
+    private HttpCommand newHttpCommand(String money, String bank, String bankAccount, String realMoney) {
+        HttpCommand httpCmd = new PartnerApplyMoneyCmd(mContext, getParams(money,bank,bankAccount,realMoney));
         httpCmd.setCallback(new BaseCallback<BaseHttpResult>() {
             @Override
             public void onSuccess(Response<BaseHttpResult> response) {

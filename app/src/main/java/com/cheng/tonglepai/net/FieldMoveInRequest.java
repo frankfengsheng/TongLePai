@@ -27,21 +27,22 @@ public class FieldMoveInRequest extends BaseHttpRequest<BaseHttpResult> {
     }
 
 
-    public void requestFieldMoveIn(String id) {
-        HttpCommand httpCmd = newHttpCommand(id);
+    public void requestFieldMoveIn(String id,String nums) {
+        HttpCommand httpCmd = newHttpCommand(id,nums);
         httpCmd.execute();
     }
 
-    private RequestParams getParams(String id) {
+    private RequestParams getParams(String id, String nums) {
         RequestParams parameters = new RequestParams();
         parameters.putParams(FieldMoveInCmd.K_USER_ID, HttpConfig.newInstance(mContext).getUserid());
         parameters.putParams(FieldMoveInCmd.K_ID, id);
+        parameters.putParams(FieldMoveInCmd.K_NUMS, nums);
         parameters.putParams(FieldMoveInCmd.K_TOKEN, HttpConfig.newInstance(mContext).getAccessToken());
         return parameters;
     }
 
-    private HttpCommand newHttpCommand(String money) {
-        HttpCommand httpCmd = new FieldMoveInCmd(mContext, getParams(money));
+    private HttpCommand newHttpCommand(String id, String nums) {
+        HttpCommand httpCmd = new FieldMoveInCmd(mContext, getParams(id, nums));
         httpCmd.setCallback(new BaseCallback<BaseHttpResult>() {
             @Override
             public void onSuccess(Response<BaseHttpResult> response) {
