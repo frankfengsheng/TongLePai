@@ -57,6 +57,21 @@
             android:name=".activity.ReportRecordActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.ReportDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ReportFillInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ReportIncomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ReportResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CityIncomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity

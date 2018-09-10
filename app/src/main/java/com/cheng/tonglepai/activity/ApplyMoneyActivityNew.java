@@ -125,7 +125,7 @@ public class ApplyMoneyActivityNew extends TitleActivity {
             Toast.makeText(ApplyMoneyActivityNew.this, "请输入申请提现金额", Toast.LENGTH_LONG).show();
             return;
         }
-        if (Integer.parseInt(etApplyMoney.getText().toString().trim()) < 1) {
+        if (Integer.parseInt(etApplyMoney.getText().toString().trim()) < 10) {
             Toast.makeText(ApplyMoneyActivityNew.this, "单笔提现不小于10元", Toast.LENGTH_LONG).show();
             return;
         }

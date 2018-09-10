@@ -1,6 +1,7 @@
 package com.cheng.tonglepai.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -79,13 +80,19 @@ public class ReportRecordAdapter extends BaseAdapter {
         holder.tvTime.setText(TimeUtil.alltimes(data.getUpdated()));
         holder.tvAddress.setText(data.getCity());
         if (data.getStatus().equals("0")) {
-            holder.tvStatus.setText("报备中");
+            holder.tvStatus.setText("待加入");
+            holder.tvStatus.setTextColor(Color.parseColor("#ffffff"));
+            holder.tvStatus.setBackgroundResource(R.drawable.orange_field_shape);
         }
         if (data.getStatus().equals("1")) {
-            holder.tvStatus.setText("已报备");
+            holder.tvStatus.setText("成功加入");
+            holder.tvStatus.setTextColor(Color.parseColor("#ffffff"));
+            holder.tvStatus.setBackgroundResource(R.drawable.green_field_shape);
         }
         if (data.getStatus().equals("2")) {
-            holder.tvStatus.setText("已失效");
+            holder.tvStatus.setText("报备过期");
+            holder.tvStatus.setTextColor(Color.parseColor("#ffffff"));
+            holder.tvStatus.setBackgroundResource(R.drawable.red_field_shape_new);
         }
         holder.tvRemark.setText("备注：" + data.getRemarks());
 

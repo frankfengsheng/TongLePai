@@ -27,6 +27,7 @@ import com.cheng.retrofit20.data.InvestorUserInfoResult;
 import com.cheng.retrofit20.data.OrderNoResult;
 import com.cheng.retrofit20.data.PartenerdesResult;
 import com.cheng.retrofit20.data.PayReturnInfoResult;
+import com.cheng.retrofit20.data.RefereeListResult;
 import com.cheng.retrofit20.data.ReportRecordResult;
 import com.cheng.retrofit20.data.ShareCodeResult;
 import com.cheng.retrofit20.data.SmsLoginResult;
@@ -576,9 +577,31 @@ public interface ApiService {
     Call<CheckinfoBillResult> getInvestorCheckinfoBill(@FieldMap Map<String, String> params);
 
     /**
-     * 收益详情
+     * 合伙人报备列表
      */
     @POST("index.php?s=/api/maker/tj_list_new")
     @FormUrlEncoded
     Call<ReportRecordResult> getReportRecord(@FieldMap Map<String, String> params);
+
+    /**
+     * 推荐人报备
+     */
+    @POST("index.php?s=/api/user/referee_preparation")
+    @FormUrlEncoded
+    Call<BaseHttpResult> getRefereePreparation(@FieldMap Map<String, String> params);
+
+    /**
+     * 推荐人列表收益
+     */
+    @POST("index.php?s=/api/Maker/referee_list_new")
+    @FormUrlEncoded
+    Call<RefereeListResult> getRefereeList(@FieldMap Map<String, String> params);
+
+    /**
+     * 轄區收益
+     */
+    @POST("index.php?s=/api/Maker/district_revenue")
+    @FormUrlEncoded
+    Call<RefereeListResult> getCityIncome(@FieldMap Map<String, String> params);
+
 }

@@ -50,7 +50,8 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
     private TextView tvDividerThree;
     private BGARefreshLayout bgaRefreshLayout;
     private ListView lvHomePage;
-    private LinearLayout llTypeOne;
+    private LinearLayout llTypeOne,ll_partner_income;
+    private RelativeLayout rlReportIncome,rl_city_income;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,6 +105,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         llToDeviceManage = (LinearLayout) headView.findViewById(R.id.ll_device_management);
         llTypeOne = (LinearLayout) headView.findViewById(R.id.ll_type_one);
         rlMyIncome = (RelativeLayout) headView.findViewById(R.id.rl_my_income);
+        rlReportIncome = (RelativeLayout) headView.findViewById(R.id.rl_report_income);
         rlPostField = (RelativeLayout) headView.findViewById(R.id.rl_post_field);
         ivUserImage = (ImageView) headView.findViewById(R.id.iv_user_img);
         btnToFieldPost = (Button) headView.findViewById(R.id.btn_to_field_post);
@@ -132,8 +134,10 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         rlPersonSetting = (RelativeLayout) headView.findViewById(R.id.rl_person_setting);
         rlReportRecord = (RelativeLayout) headView.findViewById(R.id.rl_report_record);
         rlFeedBack = (RelativeLayout) headView.findViewById(R.id.rl_feed_back);
+        rl_city_income = (RelativeLayout) headView.findViewById(R.id.rl_city_income);
         rlBindDevice = (RelativeLayout) headView.findViewById(R.id.rl_bind_device);
         lineThree = (LinearLayout) headView.findViewById(R.id.device_bind_device);
+        ll_partner_income = (LinearLayout) headView.findViewById(R.id.ll_partner_income);
 
         llHasPostField = (LinearLayout) headView.findViewById(R.id.rl_has_post_filed_line);
         llGroundManage = (LinearLayout) headView.findViewById(R.id.rl_ground_manage_line);
@@ -148,6 +152,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         rlTixianDetail.setOnClickListener(this);
         btnToFieldPost.setOnClickListener(this);
         rlPersonSetting.setOnClickListener(this);
+        rlReportIncome.setOnClickListener(this);
         rlBindDevice.setOnClickListener(this);
         rlGroundManage.setOnClickListener(this);
         rlFeedBack.setOnClickListener(this);
@@ -162,6 +167,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         llToDeviceManage.setOnClickListener(this);
         llTypeOne.setOnClickListener(this);
         llThree.setOnClickListener(this);
+        rl_city_income.setOnClickListener(this);
 //        tvUpdateLevel.setOnClickListener(this);
 
 
@@ -195,11 +201,14 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             llOrderStatus.setVisibility(View.GONE);
             line_three.setVisibility(View.GONE);
             tv_four.setVisibility(View.VISIBLE);
+            ll_partner_income.setVisibility(View.VISIBLE);
+            rl_city_income.setVisibility(View.VISIBLE);
             tvShareCode.setVisibility(View.VISIBLE); //邀请码上线隐藏
             tvUpdateLevel.setVisibility(View.VISIBLE);  //等级上线隐藏
             rlBindDevice.setVisibility(View.VISIBLE);  //绑定设备
             lineThree.setVisibility(View.VISIBLE);
             rlPostField.setVisibility(View.VISIBLE);
+            rlReportIncome.setVisibility(View.VISIBLE);
             tvCanUse.setText("可投场地");
             tvhasUse.setText("已投场地");
             tvAllUse.setText("报备场地");
@@ -436,6 +445,14 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             //合伙人报备
             case R.id.rl_report_record:
                 jumpNextActivity(ReportRecordActivity.class, userType);
+                break;
+            //合伙人推荐收益
+            case R.id.rl_report_income:
+                jumpNextActivity(ReportIncomeActivity.class, userType);
+                break;
+            //合伙人辖区收益
+            case R.id.rl_city_income:
+                jumpNextActivity(CityIncomeActivity.class, userType);
                 break;
         }
     }

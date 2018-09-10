@@ -1,5 +1,6 @@
 package com.cheng.tonglepai.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -61,7 +62,8 @@ public class ReportRecordActivity extends TitleActivity implements BGARefreshLay
         btnToAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ReportRecordActivity.this,ReportDetailActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -130,5 +132,14 @@ public class ReportRecordActivity extends TitleActivity implements BGARefreshLay
         } else {
             return false;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isLoad = false;
+        isFirst = true;
+        page = 1;
+        initData();
     }
 }
