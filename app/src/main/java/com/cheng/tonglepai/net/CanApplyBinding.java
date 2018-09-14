@@ -29,6 +29,8 @@ public class CanApplyBinding implements IUiDataBinding<CanApplyData,CanApplyResu
         data.setBank(mResult.getData().get(0).getBank());
         data.setBank_account(mResult.getData().get(0).getBank_account());
         data.setPrice(mResult.getData().get(0).getPrice());
+        data.setZ_price(mResult.getData().get(0).getZ_price());
+        data.setPrice_pay(mResult.getData().get(0).getPrice_pay());
         return data;
     }
 }

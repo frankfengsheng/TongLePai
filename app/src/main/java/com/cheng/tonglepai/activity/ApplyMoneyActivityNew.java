@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,12 +30,15 @@ public class ApplyMoneyActivityNew extends TitleActivity {
     public static final String BANK_ACCOUNT = "bank.account";
     public static final String BANK_NAME = "bank.name";
     public static final String USER_TYPE = "user.type";
+    public static final String INCOME_ALL = "z.price";
+    public static final String NEED_PAY = "price.pay";
     private int userType = 0;
-    private TextView bankName, bankAccount, tvCanApplyMoney, tvRealMoney;
+    private TextView bankName, bankAccount, tvCanApplyMoney, tvRealMoney, tvNeedPay, tvLastMoney,tvToPost;
     private Button btnToApply;
     private EditText etApplyMoney;
     private String bankNameShow, bankShow;
     private TextView shouxu_money;
+    private LinearLayout llLastMoney, llNeedMoney;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +51,11 @@ public class ApplyMoneyActivityNew extends TitleActivity {
     }
 
     private void initView() {
+        llLastMoney = (LinearLayout) findViewById(R.id.ll_last_money);
+        llNeedMoney = (LinearLayout) findViewById(R.id.ll_need_money);
+        tvNeedPay = (TextView) findViewById(R.id.tv_need_money);
+        tvToPost = (TextView) findViewById(R.id.tv_to_post);
+        tvLastMoney = (TextView) findViewById(R.id.tv_last_money);
         bankName = (TextView) findViewById(R.id.bank_name);
         bankAccount = (TextView) findViewById(R.id.bank_account);
         tvCanApplyMoney = (TextView) findViewById(R.id.tv_can_apply_money);
@@ -57,6 +66,15 @@ public class ApplyMoneyActivityNew extends TitleActivity {
         bankName.setText(bankNameShow);
         bankAccount.setText(bankShow);
         tvCanApplyMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
+        if (userType == 3) {
+            llLastMoney.setVisibility(View.VISIBLE);
+            llNeedMoney.setVisibility(View.VISIBLE);
+            tvLastMoney.setText(getIntent().getStringExtra(INCOME_ALL));
+            tvNeedPay.setText(getIntent().getStringExtra(NEED_PAY));
+        } else {
+            llLastMoney.setVisibility(View.GONE);
+            llNeedMoney.setVisibility(View.GONE);
+        }
 
         shouxu_money = (TextView) findViewById(R.id.shouxu_money);
         etApplyMoney = (EditText) findViewById(R.id.et_apply_money);
@@ -101,6 +119,14 @@ public class ApplyMoneyActivityNew extends TitleActivity {
             @Override
             public void onClick(View v) {
                 toApply();
+            }
+        });
+
+        tvToPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(ApplyMoneyActivityNew.this,ToPostMoneyActivity.class);
+//                startActivity(intent);
             }
         });
     }

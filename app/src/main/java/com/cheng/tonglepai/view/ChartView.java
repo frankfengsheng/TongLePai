@@ -13,6 +13,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -77,6 +78,7 @@ public class ChartView extends View {
     private Rect xValueRect;
     //速度检测器
     private VelocityTracker velocityTracker;
+    private float mPosX, mPosY, mCurPosX, mCurPosY;
 
     public ChartView(Context context) {
         this(context, null);
@@ -382,13 +384,18 @@ public class ChartView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         if (isScrolling)
             return super.onTouchEvent(event);
-        this.getParent().requestDisallowInterceptTouchEvent(true);//当该view获得点击事件，就请求父控件不拦截事件
+        this.getParent().requestDisallowInterceptTouchEvent(false);//当该view获得点击事件，就请求父控件不拦截事件
         obtainVelocityTracker(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                mPosX = event.getX();
+                mPosY = event.getY();
                 startX = event.getX();
                 break;
             case MotionEvent.ACTION_MOVE:
+                mCurPosX = event.getX();
+                mCurPosY = event.getY();
+
                 if (interval * xValue.size() > width - xOri) {//当期的宽度不足以呈现全部数据
                     float dis = event.getX() - startX;
                     startX = event.getX();
@@ -403,6 +410,20 @@ public class ChartView extends View {
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                if (mCurPosY - mPosY > 0
+                        && (Math.abs(mCurPosY - mPosY) > 25)) {
+                    //向下滑動
+                    Log.i("走不走","222");
+                    this.getParent().requestDisallowInterceptTouchEvent(true);
+                    return true;
+
+                } else if (mCurPosY - mPosY < 0
+                        && (Math.abs(mCurPosY - mPosY) > 25)) {
+                    Log.i("走不走","111");
+                    //向上滑动
+                    this.getParent().requestDisallowInterceptTouchEvent(true);
+                    return true;
+                }
                 clickAction(event);
                 scrollAfterActionUp();
                 this.getParent().requestDisallowInterceptTouchEvent(false);

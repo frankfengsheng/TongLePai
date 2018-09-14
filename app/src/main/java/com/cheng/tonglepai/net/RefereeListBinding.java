@@ -31,9 +31,9 @@ public class RefereeListBinding implements IUiDataBinding<RefereeListData,Refere
         RefereeListData uiList = new RefereeListData();
         List<RefereeListData.DataBean> dataList = new ArrayList<>();
         List<RefereeListResult.DataBean> httpList = mResult.getData();
-        if (httpList == null || httpList.size() == 0) {
-            return null;
-        }
+//        if (httpList == null || httpList.size() == 0) {
+//            return null;
+//        }
         for (int i = 0; i < httpList.size(); i++) {
             RefereeListResult.DataBean httpItem = httpList.get(i);
             RefereeListData.DataBean uiItem = new RefereeListData.DataBean();

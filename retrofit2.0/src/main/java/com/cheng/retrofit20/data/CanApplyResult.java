@@ -30,6 +30,24 @@ public class CanApplyResult extends BaseHttpResult {
         private String bank_account;
         private String bank;
         private String price;
+        private String price_pay;
+        private String z_price;
+
+        public String getPrice_pay() {
+            return price_pay;
+        }
+
+        public void setPrice_pay(String price_pay) {
+            this.price_pay = price_pay;
+        }
+
+        public String getZ_price() {
+            return z_price;
+        }
+
+        public void setZ_price(String z_price) {
+            this.z_price = z_price;
+        }
 
         public String getBank_account() {
             return bank_account;

@@ -1,5 +1,6 @@
 package com.cheng.tonglepai.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,7 +18,11 @@ import com.cheng.tonglepai.data.FieldIncomeData;
 import com.cheng.tonglepai.data.InvestorIncomeData;
 import com.cheng.tonglepai.net.FieldIncomeRequest;
 import com.cheng.tonglepai.net.FieldMoveInRequest;
+import com.cheng.tonglepai.net.FieldTransferRequest;
 import com.cheng.tonglepai.net.InvestorIncomeRequest;
+import com.cheng.tonglepai.tool.MyChooseToastDialog;
+import com.cheng.tonglepai.tool.MyReturnDialog;
+import com.cheng.tonglepai.tool.MyToast;
 import com.cheng.tonglepai.tool.TimeUtil;
 
 /**
@@ -33,6 +38,7 @@ public class FieldIncomeActivity extends TitleActivity {
     private TextView tvDayIncome, tvMonthIncome, tvYesterdayIncome, tvLastmonthIncome;
     private Button btnReturnDevice;
     private String nums = "";
+    private MyReturnDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,24 +72,37 @@ public class FieldIncomeActivity extends TitleActivity {
         btnReturnDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FieldMoveInRequest mRequest = new FieldMoveInRequest(FieldIncomeActivity.this);
-                mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseHttpResult>() {
-                    @Override
-                    public void onSuccess(BaseHttpResult data) {
-                        Intent intent = new Intent(FieldIncomeActivity.this, PublicResultActivity.class);
-                        intent.putExtra(PublicResultActivity.TYPE, 1);
-                        startActivity(intent);
-                        finish();
-                    }
+                progressDialog = MyToast.showReturnDialog(FieldIncomeActivity.this,
+                        new View.OnClickListener() {
 
-                    @Override
-                    public void onFailed(String msg, int code) {
-                        Toast.makeText(FieldIncomeActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                mRequest.requestFieldMoveIn(getIntent().getStringExtra(FIELD_ID),nums);
+                            @Override
+                            public void onClick(View arg0) {
+                                FieldMoveInRequest mRequest = new FieldMoveInRequest(FieldIncomeActivity.this);
+                                mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseHttpResult>() {
+                                    @Override
+                                    public void onSuccess(BaseHttpResult data) {
+                                        progressDialog.dismiss();
+                                        Intent intent = new Intent(FieldIncomeActivity.this, PublicResultActivity.class);
+                                        intent.putExtra(PublicResultActivity.TYPE, 1);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onFailed(String msg, int code) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(FieldIncomeActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                mRequest.requestFieldMoveIn(getIntent().getStringExtra(FIELD_ID),nums);
+                            }
+                        });
+
+
+
             }
         });
+
     }
 
     private void initData() {

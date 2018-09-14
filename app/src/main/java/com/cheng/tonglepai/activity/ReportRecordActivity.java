@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheng.retrofit20.client.BaseHttpRequest;
@@ -26,17 +27,18 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by cheng on 2018/9/9.
  */
 
-public class ReportRecordActivity extends TitleActivity implements BGARefreshLayout.BGARefreshLayoutDelegate{
+public class ReportRecordActivity extends TitleActivity implements BGARefreshLayout.BGARefreshLayoutDelegate {
 
     private BGARefreshLayout mRefreshLayout;
     private int page = 1;
     private ListView lvDetail;
     private LoadingDialog loadingDialog;
     private boolean isLoad;
-    private boolean isFirst;
+    private boolean isFirst = true;
     private boolean needLoad;
     private ReportRecordAdapter mAdapter;
     private Button btnToAdd;
+    private TextView tv_no_content;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,11 +60,12 @@ public class ReportRecordActivity extends TitleActivity implements BGARefreshLay
         mAdapter = new ReportRecordAdapter(this);
         lvDetail.setAdapter(mAdapter);
 
+        tv_no_content = (TextView) findViewById(R.id.tv_no_content);
         btnToAdd = (Button) findViewById(R.id.btn_to_add);
         btnToAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReportRecordActivity.this,ReportDetailActivity.class);
+                Intent intent = new Intent(ReportRecordActivity.this, ReportDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -74,6 +77,8 @@ public class ReportRecordActivity extends TitleActivity implements BGARefreshLay
         mRequest.setListener(new BaseHttpRequest.IRequestListener<List<ReportRecordData>>() {
             @Override
             public void onSuccess(List<ReportRecordData> data) {
+                mRefreshLayout.setVisibility(View.VISIBLE);
+                tv_no_content.setVisibility(View.GONE);
                 if (isLoad) {
                     isLoad = false;
                     if (data.size() < 10)
@@ -99,12 +104,18 @@ public class ReportRecordActivity extends TitleActivity implements BGARefreshLay
             @Override
             public void onFailed(String msg, int code) {
                 loadingDialog.dismiss();
-                Toast.makeText(ReportRecordActivity.this, "没有更多数据", Toast.LENGTH_LONG);
                 mRefreshLayout.endRefreshing();
                 mRefreshLayout.endLoadingMore();
+
+                if (isFirst) {
+                    mRefreshLayout.setVisibility(View.GONE);
+                    tv_no_content.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(ReportRecordActivity.this, "没有更多数据", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        mRequest.requestReportRecord(page+"");
+        mRequest.requestReportRecord(page + "");
     }
 
     private void initRefreshLayout() {

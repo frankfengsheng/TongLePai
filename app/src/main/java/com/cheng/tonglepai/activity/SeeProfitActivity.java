@@ -46,7 +46,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
     private boolean needLoad;
     private TextView tvCanApplyMoney;
     private TextView tvToApply;
-    private String canApplyMoney = "",bankAccount="",bankName="";
+    private String canApplyMoney = "", bankAccount = "", bankName = "", pricePay = "", zPrice = "";
     private ProfitDetailAdapter mAdapter;
     private BGARefreshLayout mRefreshLayout;
     private ListView lvAllIncome;
@@ -126,6 +126,8 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                     tvCanApplyMoney.setText(canApplyMoney + "元");
                     bankAccount = data.getBank_account();
                     bankName = data.getBank();
+                    pricePay = data.getPrice_pay();
+                    zPrice = data.getZ_price();
                 }
 
                 @Override
@@ -190,6 +192,8 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                 intent.putExtra(ApplyMoneyActivityNew.BANK_ACCOUNT, bankAccount);
                 intent.putExtra(ApplyMoneyActivityNew.BANK_NAME, bankName);
                 intent.putExtra(ApplyMoneyActivityNew.USER_TYPE, userType);
+                intent.putExtra(ApplyMoneyActivityNew.INCOME_ALL, zPrice);
+                intent.putExtra(ApplyMoneyActivityNew.NEED_PAY, pricePay);
                 startActivity(intent);
             }
         });
@@ -297,7 +301,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                         loadingDialog.dismiss();
                         return;
                     }
-                    mAdapter.setData(data.getData(),"2018",month);
+                    mAdapter.setData(data.getData(), "2018", month);
                     if (data.getData().size() < 2)
                         needLoad = false;
                     else
@@ -334,7 +338,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                         loadingDialog.dismiss();
                         return;
                     }
-                    mAdapter.setData(data.getData(),"2018",month);
+                    mAdapter.setData(data.getData(), "2018", month);
                     if (data.getData().size() < 2)
                         needLoad = false;
                     else
@@ -371,7 +375,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                         loadingDialog.dismiss();
                         return;
                     }
-                    mAdapter.setData(data.getData(),"2018",month);
+                    mAdapter.setData(data.getData(), "2018", month);
                     if (data.getData().size() < 2)
                         needLoad = false;
                     else
@@ -562,6 +566,13 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
     protected void onResume() {
         super.onResume();
         initHeadData();
+        goFirstState();
         initData();
+    }
+
+    private void goFirstState() {
+        isLoad = false;
+        isFirst = true;
+        page = 1;
     }
 }

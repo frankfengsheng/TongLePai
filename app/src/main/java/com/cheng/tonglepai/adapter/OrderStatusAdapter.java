@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cheng.tonglepai.R;
@@ -73,6 +74,7 @@ public class OrderStatusAdapter extends BaseAdapter {
             holder.orderYunPrice = (TextView) convertView.findViewById(R.id.other_money);
             holder.ivOrderPhoto = (ImageView) convertView.findViewById(R.id.iv_order_photo);
             holder.orderNo = (TextView) convertView.findViewById(R.id.tv_all_no);
+            holder.llOrderStatus = (LinearLayout) convertView.findViewById(R.id.ll_item_order_status);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -90,7 +92,7 @@ public class OrderStatusAdapter extends BaseAdapter {
         holder.orderPrice.setText(data.getPrice());
         holder.orderYunPrice.setText("含运费￥("+data.getShipping_fee()+")");
 
-        holder.btnToSee.setOnClickListener(new View.OnClickListener() {
+        holder.llOrderStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,OrderStatusActivity.class);
@@ -104,6 +106,7 @@ public class OrderStatusAdapter extends BaseAdapter {
     public static class ViewHolder {
         private TextView orderId, orderNum, orderPrice, orderOnePrice, orderYunPrice, btnToSee, orderTime,orderNo;
         private ImageView ivOrderPhoto;
+        private LinearLayout llOrderStatus;
     }
 
 }

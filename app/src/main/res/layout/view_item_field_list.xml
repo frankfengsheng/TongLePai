@@ -32,16 +32,7 @@
                 android:text="玩具店"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tv_device_address"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:text="上海市浦东新区"
-                android:textSize="14sp" />
+
 
             <TextView
                 android:id="@+id/btn_to_transfer"
@@ -130,4 +121,20 @@
             android:layout_height="1dp"
             android:background="#C4C4C4" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_device_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:singleLine="true"
+        android:text="上海市浦东新区"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C4C4C4" />
 </LinearLayout>

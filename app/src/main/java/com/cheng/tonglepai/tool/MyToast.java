@@ -22,6 +22,14 @@ public class MyToast {
         return progressDialog;
     }
 
+    public static MyReturnDialog showReturnDialog(Activity activity, android.view.View.OnClickListener listener) {
+        MyReturnDialog progressDialog = MyReturnDialog.createDialog(activity);
+        progressDialog.setOnClickListener(listener);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        return progressDialog;
+    }
+
     public static SelectUnpassDialog showUnpassDialog(Activity activity, android.view.View.OnClickListener listener) {
         SelectUnpassDialog progressDialog = SelectUnpassDialog.createDialog(activity);
         progressDialog.setOnClickListener(listener);

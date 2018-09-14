@@ -20,7 +20,7 @@ public abstract class BaseCallback<T extends BaseHttpResult> implements Callback
 
             int code = response.body().getStatus();
 
-            if (code == 1 || code == 21 || code == 22 || code == 5 || code == 17 || code == 14 || code == 19) {
+            if (code == 1 || code == 21 || code == 22 || code == 5 || code == 17 || code == 14 || code == 19 || code == 40) {
                 if (code == 17) {
                     onLogin();
                 } else {

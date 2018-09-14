@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_item_order_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -40,6 +41,7 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/blue_small_corner_shape"
                 android:text="查看"
+                android:visibility="gone"
                 android:textColor="@color/C1" />
         </RelativeLayout>
 

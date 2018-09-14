@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,8 @@ public class CityIncomeActivity extends TitleActivity implements BGARefreshLayou
     private TextView tv_nums_content;
     private TextView tv_no_content;
     private View headView;
+    private LinearLayout llIncomeList;
+    private LinearLayout llHeadView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class CityIncomeActivity extends TitleActivity implements BGARefreshLayou
         loadingDialog.setMessage("加载中");
         loadingDialog.setCancelable(true);
 
+        llIncomeList = (LinearLayout) findViewById(R.id.ll_income_list);
         lvDetail = (ListView) findViewById(R.id.lv_recommend_list);
         tv_no_content = (TextView) findViewById(R.id.tv_no_content);
         headView = getLayoutInflater().inflate(R.layout.view_report_head, null);
@@ -68,6 +72,7 @@ public class CityIncomeActivity extends TitleActivity implements BGARefreshLayou
         tvRecommendNums = (TextView) headView.findViewById(R.id.tv_recommend_nums);
         tvScreenOne = (TextView) headView.findViewById(R.id.tv_screen_one);
         tvScreenTwo = (TextView) headView.findViewById(R.id.tv_screen_two);
+        llHeadView = (LinearLayout) headView.findViewById(R.id.ll_head_view);
 
         tvScreenOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +85,7 @@ public class CityIncomeActivity extends TitleActivity implements BGARefreshLayou
                 isFirst = true;
                 page = 1;
                 screen = "1";
+                mAdapter.clearData();
                 initData();
             }
         });
@@ -95,6 +101,7 @@ public class CityIncomeActivity extends TitleActivity implements BGARefreshLayou
                 isFirst = true;
                 page = 1;
                 screen = "2";
+                mAdapter.clearData();
                 initData();
             }
         });
@@ -143,6 +150,8 @@ public class CityIncomeActivity extends TitleActivity implements BGARefreshLayou
             @Override
             public void onSuccess(RefereeListData data) {
                 headView.setVisibility(View.VISIBLE);
+                llHeadView.setVisibility(View.VISIBLE);
+                llIncomeList.setVisibility(View.VISIBLE);
                 tv_no_content.setVisibility(View.GONE);
                 tvOneIncome.setText("￥" + data.getPrice_data().getXq_price());
                 tvTwoIncome.setText("￥" + data.getPrice_data().getLs_price());
@@ -159,6 +168,7 @@ public class CityIncomeActivity extends TitleActivity implements BGARefreshLayou
                         needLoad = false;
                     else
                         needLoad = true;
+
                     mAdapter.setLoadData(data.getData(), screen,true);
                     mRefreshLayout.endRefreshing();
                     mRefreshLayout.endLoadingMore();
@@ -181,8 +191,14 @@ public class CityIncomeActivity extends TitleActivity implements BGARefreshLayou
                 loadingDialog.dismiss();
                 mRefreshLayout.endRefreshing();
                 mRefreshLayout.endLoadingMore();
+
                 if(code == 36){
+                    headView.setVisibility(View.GONE);
+                    llHeadView.setVisibility(View.GONE);
                     tv_no_content.setVisibility(View.VISIBLE);
+                    llIncomeList.setVisibility(View.GONE);
+                }else{
+                    Toast.makeText(CityIncomeActivity.this, "没有更多数据", Toast.LENGTH_SHORT).show();
                 }
             }
         });

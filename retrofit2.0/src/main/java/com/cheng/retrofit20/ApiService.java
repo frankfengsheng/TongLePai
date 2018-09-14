@@ -604,4 +604,11 @@ public interface ApiService {
     @FormUrlEncoded
     Call<RefereeListResult> getCityIncome(@FieldMap Map<String, String> params);
 
+    /**
+     * 场地方可提现金额
+     */
+    @POST("index.php?s=/api/field/amount_newone")
+    @FormUrlEncoded
+    Call<CanApplyResult> getFieldIncomeNew(@FieldMap Map<String, String> params);
+
 }
