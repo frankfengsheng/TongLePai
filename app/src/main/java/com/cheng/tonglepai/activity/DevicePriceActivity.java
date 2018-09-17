@@ -2,6 +2,7 @@ package com.cheng.tonglepai.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,9 +65,9 @@ public class DevicePriceActivity extends TitleActivity {
                     tvAddress.setText(data.getInfo_data().getDetails());
                     tvStoreName.setText(data.getInfo_data().getStore_name());
                     tvPriceData.setText(year+"-"+month);
-                    tvDeviceNum.setText("设备："+data.getInfo_data().getDevice_nums());
+                    tvDeviceNum.setText("设备："+data.getInfo_data().getDevice_nums()+"台");
                     tvPrice.setText("累计收益：￥"+data.getInfo_data().getZ_price());
-                    mAdapter.setData(data.getData(),data.getInfo_data().getDetails(),data.getInfo_data().getStore_name(),year,month);
+                    mAdapter.setData(data.getData(),data.getInfo_data().getDetails(),data.getInfo_data().getStore_name(),year,month,id);
                 }
 
                 @Override
@@ -82,8 +83,10 @@ public class DevicePriceActivity extends TitleActivity {
                 public void onSuccess(DevicePriceData data) {
                     tvAddress.setText(data.getInfo_data().getDetails());
                     tvStoreName.setText(data.getInfo_data().getStore_name());
-                    tvDeviceNum.setText("设备："+data.getInfo_data().getDevice_nums());
-                    mAdapter.setData(data.getData(),data.getInfo_data().getDetails(),data.getInfo_data().getStore_name(),year,month);
+                    tvPriceData.setText(year+"-"+month);
+                    tvDeviceNum.setText("设备："+data.getInfo_data().getDevice_nums()+"台");
+                    tvPrice.setText("累计收益：￥"+data.getInfo_data().getZ_price());
+                    mAdapter.setData(data.getData(),data.getInfo_data().getDetails(),data.getInfo_data().getStore_name(),year,month,id);
                 }
 
                 @Override
@@ -99,8 +102,10 @@ public class DevicePriceActivity extends TitleActivity {
                 public void onSuccess(DevicePriceData data) {
                     tvAddress.setText(data.getInfo_data().getDetails());
                     tvStoreName.setText(data.getInfo_data().getStore_name());
-                    tvDeviceNum.setText("设备："+data.getInfo_data().getDevice_nums());
-                    mAdapter.setData(data.getData(),data.getInfo_data().getDetails(),data.getInfo_data().getStore_name(),year,month);
+                    tvPriceData.setText(year+"-"+month);
+                    tvDeviceNum.setText("设备："+data.getInfo_data().getDevice_nums()+"台");
+                    tvPrice.setText("累计收益：￥"+data.getInfo_data().getZ_price());
+                    mAdapter.setData(data.getData(),data.getInfo_data().getDetails(),data.getInfo_data().getStore_name(),year,month,id);
                 }
 
                 @Override

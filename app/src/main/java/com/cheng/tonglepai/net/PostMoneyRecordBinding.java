@@ -45,9 +45,9 @@ public class PostMoneyRecordBinding implements IUiDataBinding<PostMoneyRecordDat
         }
         uiList.setData(dataList);
         PostMoneyRecordData.PriceDataBean priceDataBean = new PostMoneyRecordData.PriceDataBean();
-        priceDataBean.setZ_price(mResult.getPrice_data().getZ_price());
-        priceDataBean.setWj_price(mResult.getPrice_data().getWj_price());
-        priceDataBean.setYj_price(mResult.getPrice_data().getYj_price());
+        priceDataBean.setZ_price(mResult.getPay_data().getZ_price());
+        priceDataBean.setWj_price(mResult.getPay_data().getWj_price());
+        priceDataBean.setYj_price(mResult.getPay_data().getYj_price());
         uiList.setPrice_data(priceDataBean);
         return uiList;
     }

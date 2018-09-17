@@ -125,8 +125,8 @@ public class ApplyMoneyActivityNew extends TitleActivity {
         tvToPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ApplyMoneyActivityNew.this,ToPostMoneyActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(ApplyMoneyActivityNew.this,ToPostMoneyActivity.class);
+                startActivity(intent);
             }
         });
     }

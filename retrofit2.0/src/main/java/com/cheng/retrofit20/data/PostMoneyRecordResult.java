@@ -9,15 +9,21 @@ import java.util.List;
  */
 
 public class PostMoneyRecordResult extends BaseHttpResult {
-    private PriceDataBean price_data;
+
+    /**
+     * data : [{"pay_type":"1","updated":"1537173662","price":"1.00"},{"pay_type":"0","updated":"1537173620","price":"2.00"},{"pay_type":"0","updated":"1537173587","price":"1.00"},{"pay_type":"0","updated":"1537173405","price":"1.00"},{"pay_type":"1","updated":"1537173332","price":"2.00"}]
+     * pay_data : {"wj_price":0,"yj_price":7,"z_price":7}
+     */
+
+    private PayDataBean pay_data;
     private List<DataBean> data;
 
-    public PriceDataBean getPrice_data() {
-        return price_data;
+    public PayDataBean getPay_data() {
+        return pay_data;
     }
 
-    public void setPrice_data(PriceDataBean price_data) {
-        this.price_data = price_data;
+    public void setPay_data(PayDataBean pay_data) {
+        this.pay_data = pay_data;
     }
 
     public List<DataBean> getData() {
@@ -28,7 +34,13 @@ public class PostMoneyRecordResult extends BaseHttpResult {
         this.data = data;
     }
 
-    public static class PriceDataBean {
+    public static class PayDataBean {
+        /**
+         * wj_price : 0
+         * yj_price : 7
+         * z_price : 7
+         */
+
         private String wj_price;
         private String yj_price;
         private String z_price;
@@ -59,9 +71,15 @@ public class PostMoneyRecordResult extends BaseHttpResult {
     }
 
     public static class DataBean {
+        /**
+         * pay_type : 1
+         * updated : 1537173662
+         * price : 1.00
+         */
+
         private String pay_type;
-        private String price;
         private String updated;
+        private String price;
 
         public String getPay_type() {
             return pay_type;
@@ -71,20 +89,20 @@ public class PostMoneyRecordResult extends BaseHttpResult {
             this.pay_type = pay_type;
         }
 
-        public String getPrice() {
-            return price;
-        }
-
-        public void setPrice(String price) {
-            this.price = price;
-        }
-
         public String getUpdated() {
             return updated;
         }
 
         public void setUpdated(String updated) {
             this.updated = updated;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
         }
     }
 }

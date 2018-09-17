@@ -22,17 +22,18 @@ import java.util.List;
 public class DevicePriceAdapter extends BaseAdapter {
     private Context context;
     private List<DevicePriceData.DataBean> mData = new ArrayList<>();
-    private String details,storeName,year,month;
+    private String details,storeName,year,month,id;
 
     public DevicePriceAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<DevicePriceData.DataBean> data,String details,String storeName,String year,String month) {
+    public void setData(List<DevicePriceData.DataBean> data,String details,String storeName,String year,String month,String id) {
         mData.clear();
         this.details = details;
         this.year = year;
         this.month = month;
+        this.id = id;
         this.storeName = storeName;
         if (null != data && data.size() > 0) {
             this.mData = data;
@@ -72,13 +73,13 @@ public class DevicePriceAdapter extends BaseAdapter {
 
         final DevicePriceData.DataBean data = mData.get(position);
         holder.tvName.setText(data.getDevice_name());
-        holder.tvMoney.setText("￥"+data.getDevice_name());
+        holder.tvMoney.setText("￥"+data.getPrice());
         holder.rlItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, IncomeDetailActivity.class);
                 intent.putExtra(IncomeDetailActivity.DEVICE_ID,data.getStore_device_id());
-                intent.putExtra(IncomeDetailActivity.ID,data.getStore_device_id());
+                intent.putExtra(IncomeDetailActivity.ID,id);
                 intent.putExtra(IncomeDetailActivity.INCOME_ADDRESS,details);
                 intent.putExtra(IncomeDetailActivity.INCOME_STORE_NAME,storeName);
                 intent.putExtra(IncomeDetailActivity.DEVICE_NAME,data.getDevice_name());
