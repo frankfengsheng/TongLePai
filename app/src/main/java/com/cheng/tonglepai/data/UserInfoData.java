@@ -14,6 +14,24 @@ public class UserInfoData {
     private String img;
     private String total;
     private String price;
+    private String sm_shouyi;
+    private String tb_shouyi;
+
+    public String getSm_shouyi() {
+        return sm_shouyi;
+    }
+
+    public void setSm_shouyi(String sm_shouyi) {
+        this.sm_shouyi = sm_shouyi;
+    }
+
+    public String getTb_shouyi() {
+        return tb_shouyi;
+    }
+
+    public void setTb_shouyi(String tb_shouyi) {
+        this.tb_shouyi = tb_shouyi;
+    }
 
     private String level;
 

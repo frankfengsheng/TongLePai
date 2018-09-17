@@ -60,6 +60,15 @@
             android:name=".activity.ReportDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.PostMoneyRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ToPostMoneyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DevicePriceActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.ReportFillInActivity"
             android:screenOrientation="portrait" />
         <activity

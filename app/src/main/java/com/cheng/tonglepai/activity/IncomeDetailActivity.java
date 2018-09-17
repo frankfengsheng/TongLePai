@@ -12,10 +12,11 @@ import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.adapter.IncomeDetailAdapter;
 import com.cheng.tonglepai.data.CheckBillData;
+import com.cheng.tonglepai.data.DeviceBillData;
 import com.cheng.tonglepai.data.InvestorAllIncomeData;
-import com.cheng.tonglepai.net.FieldCheckBillRequest;
-import com.cheng.tonglepai.net.InvestorCheckBillRequest;
-import com.cheng.tonglepai.net.MarkerCheckBillRequest;
+import com.cheng.tonglepai.net.FieldDeviceBillRequest;
+import com.cheng.tonglepai.net.InvestorDeviceBillRequest;
+import com.cheng.tonglepai.net.MarkerDeviceBillRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 
@@ -29,17 +30,15 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by cheng on 2018/8/2.
  */
 
-public class
-
-
-IncomeDetailActivity extends TitleActivity implements BGARefreshLayout.BGARefreshLayoutDelegate {
+public class IncomeDetailActivity extends TitleActivity implements BGARefreshLayout.BGARefreshLayoutDelegate {
     public static final String INCOME_DATA = "income.data";
     public static final String INCOME_ADDRESS = "income.address";
     public static final String INCOME_STORE_NAME = "store.name";
+    public static final String DEVICE_NAME = "device.name";
+    public static final String DEVICE_ID = "device.id";
     public static final String ID = "store.id";
     public static final String YEAR = "store.year";
     public static final String MONTH = "store.month";
-    private TextView tvAddress;
     private ListView lvIncome;
     private IncomeDetailAdapter mAdapter;
     private List<InvestorAllIncomeData.DataBean.TjBean> mData = new ArrayList<>();
@@ -52,6 +51,7 @@ IncomeDetailActivity extends TitleActivity implements BGARefreshLayout.BGARefres
     private boolean isFirst;
     private LoadingDialog loadingDialog;
     private boolean needLoad;
+    private TextView tvAddress, tvStoreName, tvDeviceNum, tvPriceData, tvPrice;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,8 +76,17 @@ IncomeDetailActivity extends TitleActivity implements BGARefreshLayout.BGARefres
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("加载中");
         loadingDialog.setCancelable(true);
-        tvAddress = (TextView) findViewById(R.id.tv_income_address);
-        tvName = (TextView) findViewById(R.id.tv_income_name);
+
+        tvAddress = (TextView) findViewById(R.id.device_price_address);
+        tvStoreName = (TextView) findViewById(R.id.device_price_field_name);
+        tvDeviceNum = (TextView) findViewById(R.id.device_price_field_num);
+        tvPriceData = (TextView) findViewById(R.id.time_price_data);
+        tvPrice = (TextView) findViewById(R.id.all_device_price);
+        tvAddress.setText(getIntent().getStringExtra(INCOME_ADDRESS));
+        tvStoreName.setText(getIntent().getStringExtra(INCOME_STORE_NAME));
+        tvDeviceNum.setText(getIntent().getStringExtra(DEVICE_NAME));
+        tvPriceData.setText(getIntent().getStringExtra(YEAR) + "-" + getIntent().getStringExtra(MONTH));
+
         lvIncome = (ListView) findViewById(R.id.lv_income_detail);
         mAdapter = new IncomeDetailAdapter(this);
         lvIncome.setAdapter(mAdapter);
@@ -87,31 +96,30 @@ IncomeDetailActivity extends TitleActivity implements BGARefreshLayout.BGARefres
 //               mDataList.add(mData.get(i));
 //            }
 //        }
-        tvAddress.setText(getIntent().getStringExtra(INCOME_ADDRESS));
-        tvName.setText(getIntent().getStringExtra(INCOME_STORE_NAME));
     }
 
     private void initData() {
         loadingDialog.show();
         if (HttpConfig.newInstance(this).getUserType() == 1) {
-            InvestorCheckBillRequest mRequest = new InvestorCheckBillRequest(this);
-            mRequest.setListener(new BaseHttpRequest.IRequestListener<List<CheckBillData>>() {
+            InvestorDeviceBillRequest mRequest = new InvestorDeviceBillRequest(this);
+            mRequest.setListener(new BaseHttpRequest.IRequestListener<DeviceBillData>() {
                 @Override
-                public void onSuccess(List<CheckBillData> data) {
+                public void onSuccess(DeviceBillData data) {
+                    tvPrice.setText(data.getPrice_data().getZ_price());
                     if (isLoad) {
                         isLoad = false;
-                        if (data.size() < 10)
+                        if (data.getData().size() < 10)
                             needLoad = false;
                         else
                             needLoad = true;
-                        mAdapter.setLoadData(data);
+                        mAdapter.setLoadData(data.getData());
                         mRefreshLayout.endRefreshing();
                         mRefreshLayout.endLoadingMore();
                         loadingDialog.dismiss();
                         return;
                     }
-                    mAdapter.setData(data);
-                    if (data.size() < 10)
+                    mAdapter.setData(data.getData());
+                    if (data.getData().size() < 10)
                         needLoad = false;
                     else
                         needLoad = true;
@@ -130,28 +138,29 @@ IncomeDetailActivity extends TitleActivity implements BGARefreshLayout.BGARefres
                     mRefreshLayout.endLoadingMore();
                 }
             });
-            mRequest.requestInvestorCheckBill(id, page + "", month, year);
+            mRequest.requestFieldDevicePrice(id, month, year, page + "", getIntent().getStringExtra(DEVICE_ID));
         }
 
         if (HttpConfig.newInstance(this).getUserType() == 2) {
-            MarkerCheckBillRequest mRequest = new MarkerCheckBillRequest(this);
-            mRequest.setListener(new BaseHttpRequest.IRequestListener<List<CheckBillData>>() {
+            MarkerDeviceBillRequest mRequest = new MarkerDeviceBillRequest(this);
+            mRequest.setListener(new BaseHttpRequest.IRequestListener<DeviceBillData>() {
                 @Override
-                public void onSuccess(List<CheckBillData> data) {
+                public void onSuccess(DeviceBillData data) {
+                    tvPrice.setText(data.getPrice_data().getZ_price());
                     if (isLoad) {
                         isLoad = false;
-                        if (data.size() < 10)
+                        if (data.getData().size() < 10)
                             needLoad = false;
                         else
                             needLoad = true;
-                        mAdapter.setLoadData(data);
+                        mAdapter.setLoadData(data.getData());
                         mRefreshLayout.endRefreshing();
                         mRefreshLayout.endLoadingMore();
                         loadingDialog.dismiss();
                         return;
                     }
-                    mAdapter.setData(data);
-                    if (data.size() < 10)
+                    mAdapter.setData(data.getData());
+                    if (data.getData().size() < 10)
                         needLoad = false;
                     else
                         needLoad = true;
@@ -170,28 +179,29 @@ IncomeDetailActivity extends TitleActivity implements BGARefreshLayout.BGARefres
                     mRefreshLayout.endLoadingMore();
                 }
             });
-            mRequest.requestMarkerCheckBill(id, page + "", month, year);
+            mRequest.requestFieldDevicePrice(id, month, year, page + "", getIntent().getStringExtra(DEVICE_ID));
         }
 
         if (HttpConfig.newInstance(this).getUserType() == 3) {
-            FieldCheckBillRequest mRequest = new FieldCheckBillRequest(this);
-            mRequest.setListener(new BaseHttpRequest.IRequestListener<List<CheckBillData>>() {
+            FieldDeviceBillRequest mRequest = new FieldDeviceBillRequest(this);
+            mRequest.setListener(new BaseHttpRequest.IRequestListener<DeviceBillData>() {
                 @Override
-                public void onSuccess(List<CheckBillData> data) {
+                public void onSuccess(DeviceBillData data) {
+                    tvPrice.setText(data.getPrice_data().getZ_price());
                     if (isLoad) {
                         isLoad = false;
-                        if (data.size() < 10)
+                        if (data.getData().size() < 10)
                             needLoad = false;
                         else
                             needLoad = true;
-                        mAdapter.setLoadData(data);
+                        mAdapter.setLoadData(data.getData());
                         mRefreshLayout.endRefreshing();
                         mRefreshLayout.endLoadingMore();
                         loadingDialog.dismiss();
                         return;
                     }
-                    mAdapter.setData(data);
-                    if (data.size() < 10)
+                    mAdapter.setData(data.getData());
+                    if (data.getData().size() < 10)
                         needLoad = false;
                     else
                         needLoad = true;
@@ -210,7 +220,7 @@ IncomeDetailActivity extends TitleActivity implements BGARefreshLayout.BGARefres
                     mRefreshLayout.endLoadingMore();
                 }
             });
-            mRequest.requestFieldCheckBill(id, page + "", month, year);
+            mRequest.requestFieldDevicePrice(id, month, year, page + "", getIntent().getStringExtra(DEVICE_ID));
         }
     }
 

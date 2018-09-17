@@ -276,6 +276,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_day_income"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical">
@@ -289,6 +290,56 @@
 
                 <TextView
                     android:id="@+id/day_income"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="60dp"
+                    android:text=""
+                    android:textColor="@color/C4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_day_saoma"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="今日扫码"
+                    android:textColor="@color/C4" />
+
+                <TextView
+                    android:id="@+id/day_saoma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="60dp"
+                    android:text=""
+                    android:textColor="@color/C4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_day_toubi"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="今日投币"
+                    android:textColor="@color/C4" />
+
+                <TextView
+                    android:id="@+id/day_toubi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -336,6 +387,43 @@
 
             <include
                 android:id="@+id/line_two"
+                layout="@layout/view_divider_line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_coin_post"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/coin_post" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:text="投币上缴" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/icon_right" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/line_shangjiao"
+                android:visibility="gone"
                 layout="@layout/view_divider_line" />
 
             <TextView
@@ -651,9 +739,9 @@
             <LinearLayout
                 android:id="@+id/ll_partner_income"
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/rl_report_record"
@@ -754,6 +842,7 @@
                         android:layout_marginRight="20dp"
                         android:background="@drawable/icon_right" />
                 </RelativeLayout>
+
                 <include layout="@layout/view_divider_line" />
 
                 <TextView
@@ -761,7 +850,6 @@
                     android:layout_height="10dp"
                     android:background="#edf5ff" />
             </LinearLayout>
-
 
 
             <RelativeLayout

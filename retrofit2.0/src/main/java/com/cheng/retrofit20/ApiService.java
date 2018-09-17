@@ -13,7 +13,9 @@ import com.cheng.retrofit20.data.CheckinfoBillResult;
 import com.cheng.retrofit20.data.CheckokInfoResult;
 import com.cheng.retrofit20.data.CheckokRecordsResult;
 import com.cheng.retrofit20.data.ChooseTypeResult;
+import com.cheng.retrofit20.data.DeviceBillResult;
 import com.cheng.retrofit20.data.DeviceListResult;
+import com.cheng.retrofit20.data.DevicePriceResult;
 import com.cheng.retrofit20.data.FieldIncomeResult;
 import com.cheng.retrofit20.data.FieldListResult;
 import com.cheng.retrofit20.data.HsaPostFieldResult;
@@ -27,6 +29,7 @@ import com.cheng.retrofit20.data.InvestorUserInfoResult;
 import com.cheng.retrofit20.data.OrderNoResult;
 import com.cheng.retrofit20.data.PartenerdesResult;
 import com.cheng.retrofit20.data.PayReturnInfoResult;
+import com.cheng.retrofit20.data.PostMoneyRecordResult;
 import com.cheng.retrofit20.data.RefereeListResult;
 import com.cheng.retrofit20.data.ReportRecordResult;
 import com.cheng.retrofit20.data.ShareCodeResult;
@@ -53,14 +56,14 @@ import retrofit2.http.POST;
 public interface ApiService {
 
     /**
-     *  更新版本
+     * 更新版本
      */
     @POST("index.php?s=/api/User/tlp_edition")
     @FormUrlEncoded
     Call<VersionControlResult> getVersionControl(@FieldMap Map<String, String> params);
 
     /**
-     *  首页收益情况
+     * 首页收益情况
      */
     @POST("index.php?s=/api/User/check_total")
     @FormUrlEncoded
@@ -470,7 +473,6 @@ public interface ApiService {
     Call<ShareCodeResult> getShareCode(@FieldMap Map<String, String> params);
 
 
-
     /**
      * 場地人用户信息
      */
@@ -548,6 +550,7 @@ public interface ApiService {
     Call<AllDeviceResult> getFieldDevice(@FieldMap Map<String, String> params);
 
     //-------------公共类-----------
+
     /**
      * 提现详情
      */
@@ -611,4 +614,66 @@ public interface ApiService {
     @FormUrlEncoded
     Call<CanApplyResult> getFieldIncomeNew(@FieldMap Map<String, String> params);
 
+    /**
+     * 场地方余额缴费
+     */
+    @POST("index.php?s=/api/field/amount_pay")
+    @FormUrlEncoded
+    Call<BaseHttpResult> getAmountPay(@FieldMap Map<String, String> params);
+
+    /**
+     * 场地方支付宝上缴
+     */
+    @POST("index.php?s=/api/field/alipay_pricepay")
+    @FormUrlEncoded
+    Call<AlipayResult> getAliPricePay(@FieldMap Map<String, String> params);
+
+    /**
+     * 场地方上缴记录
+     */
+    @POST("index.php?s=/api/field/turn_record")
+    @FormUrlEncoded
+    Call<PostMoneyRecordResult> getPostMoneyRecord(@FieldMap Map<String, String> params);
+
+    /**
+     * 合伙人场地设备收益
+     */
+    @POST("index.php?s=/api/maker/device_price")
+    @FormUrlEncoded
+    Call<DevicePriceResult> getMarkerDevicePrice(@FieldMap Map<String, String> params);
+
+    /**
+     * 投资人场地设备收益
+     */
+    @POST("index.php?s=/api/investor/device_price")
+    @FormUrlEncoded
+    Call<DevicePriceResult> getInvestorDevicePrice(@FieldMap Map<String, String> params);
+
+    /**
+     * 场地人场地设备收益
+     */
+    @POST("index.php?s=/api/field/device_price")
+    @FormUrlEncoded
+    Call<DevicePriceResult> getFieldDevicePrice(@FieldMap Map<String, String> params);
+
+    /**
+     * 合伙人场地设备收益明细
+     */
+    @POST("index.php?s=/api/maker/device_bill")
+    @FormUrlEncoded
+    Call<DeviceBillResult> getMarkerDeviceBill(@FieldMap Map<String, String> params);
+
+    /**
+     * 投资人场地设备收益明细
+     */
+    @POST("index.php?s=/api/maker/device_bill")
+    @FormUrlEncoded
+    Call<DeviceBillResult> getInvestorDeviceBill(@FieldMap Map<String, String> params);
+
+    /**
+     * 场地人场地设备收益明细
+     */
+    @POST("index.php?s=/api/maker/device_bill")
+    @FormUrlEncoded
+    Call<DeviceBillResult> getFieldDeviceBill(@FieldMap Map<String, String> params);
 }

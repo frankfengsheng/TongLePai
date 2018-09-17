@@ -7,33 +7,32 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.cheng.tonglepai.R;
-import com.cheng.tonglepai.data.DeviceBillData;
+import com.cheng.tonglepai.data.PostMoneyRecordData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by cheng on 2018/6/28.
+ * Created by cheng on 2018/9/10.
  */
 
-public class IncomeDetailAdapter extends BaseAdapter {
+public class PostMoneyRecordAdapter extends BaseAdapter {
     private Context context;
-    private List<DeviceBillData.DataBean> mData = new ArrayList<>();
+    private List<PostMoneyRecordData.DataBean> mData = new ArrayList<>();
 
-    public IncomeDetailAdapter(Context context) {
+    public PostMoneyRecordAdapter(Context context) {
         this.context = context;
     }
 
-    public void setData(List<DeviceBillData.DataBean> data) {
+    public void setData(List<PostMoneyRecordData.DataBean> data) {
         mData.clear();
         if (null != data && data.size() > 0) {
             this.mData = data;
-
         }
         notifyDataSetChanged();
     }
 
-    public void setLoadData(List<DeviceBillData.DataBean> data) {
+    public void setLoadData(List<PostMoneyRecordData.DataBean> data) {
         if (null == data || data.size() == 0 || mData == null)
             return;
         mData.addAll(data);
@@ -59,19 +58,23 @@ public class IncomeDetailAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (null == convertView) {
-            convertView = View.inflate(context, R.layout.view_item_income_detail, null);
+            convertView = View.inflate(context, R.layout.view_item_postmoney_record, null);
             holder = new ViewHolder();
-            holder.tvDate = (TextView) convertView.findViewById(R.id.tv_income_date);
-            holder.tvPrice = (TextView) convertView.findViewById(R.id.tv_income_money);
-            holder.tvType = (TextView) convertView.findViewById(R.id.tv_income_type);
+            holder.tvTime = (TextView) convertView.findViewById(R.id.tv_record_time);
+            holder.tvType = (TextView) convertView.findViewById(R.id.tv_record_type);
+            holder.tvMoney = (TextView) convertView.findViewById(R.id.tv_record_money);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        DeviceBillData.DataBean dataBean = mData.get(position);
-        holder.tvPrice.setText(dataBean.getPrice());
-        holder.tvDate.setText(dataBean.getUpdated());
-        holder.tvType.setText(dataBean.getPay_source());
+
+        final PostMoneyRecordData.DataBean data = mData.get(position);
+        holder.tvTime.setText(data.getUpdated());
+        if ("1".equals(data.getPay_type()))
+            holder.tvType.setText("转账上缴");
+        else if ("0".equals(data.getPay_type()))
+            holder.tvType.setText("余额上缴");
+        holder.tvMoney.setText("￥" + data.getPrice());
         return convertView;
     }
 
@@ -80,8 +83,8 @@ public class IncomeDetailAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-
     class ViewHolder {
-        private TextView tvPrice, tvDate,tvType;
+        private TextView tvTime, tvType, tvMoney;
     }
+
 }

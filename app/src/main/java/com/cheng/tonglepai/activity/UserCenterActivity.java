@@ -47,11 +47,11 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
     private ImageView ivUserImage;
     private TextView tvUpdateLevel;
     private String useImg;
-    private TextView tvDividerThree;
+    private TextView tvDividerThree,tvSaoma,tvToubi;
     private BGARefreshLayout bgaRefreshLayout;
     private ListView lvHomePage;
-    private LinearLayout llTypeOne,ll_partner_income;
-    private RelativeLayout rlReportIncome,rl_city_income;
+    private LinearLayout llTypeOne,ll_partner_income,llLinePost;
+    private RelativeLayout rlReportIncome,rl_city_income,rlCoinPost,rlDayIncome,rlDaySaoma,rlDayToubi;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,6 +125,8 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         tvhasUse = (TextView) headView.findViewById(R.id.tv_has_use);
         tvAllUse = (TextView) headView.findViewById(R.id.tv_all_use);
         tvShareCode = (TextView) headView.findViewById(R.id.tv_share_code);
+        tvToubi = (TextView) headView.findViewById(R.id.day_toubi);
+        tvSaoma = (TextView) headView.findViewById(R.id.day_saoma);
         tvUpdateLevel = (TextView) headView.findViewById(R.id.tv_update_level);
         tvDividerThree = (TextView) headView.findViewById(R.id.tv_three_divider);
         rlHasPostField = (RelativeLayout) headView.findViewById(R.id.rl_has_post_filed);
@@ -133,12 +135,16 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         rlTixianDetail = (RelativeLayout) headView.findViewById(R.id.rl_tixian_detail);
         rlPersonSetting = (RelativeLayout) headView.findViewById(R.id.rl_person_setting);
         rlReportRecord = (RelativeLayout) headView.findViewById(R.id.rl_report_record);
+        rlCoinPost = (RelativeLayout) headView.findViewById(R.id.rl_coin_post);
         rlFeedBack = (RelativeLayout) headView.findViewById(R.id.rl_feed_back);
         rl_city_income = (RelativeLayout) headView.findViewById(R.id.rl_city_income);
         rlBindDevice = (RelativeLayout) headView.findViewById(R.id.rl_bind_device);
+        rlDayIncome = (RelativeLayout) headView.findViewById(R.id.rl_day_income);
+        rlDaySaoma = (RelativeLayout) headView.findViewById(R.id.rl_day_saoma);
+        rlDayToubi = (RelativeLayout) headView.findViewById(R.id.rl_day_toubi);
         lineThree = (LinearLayout) headView.findViewById(R.id.device_bind_device);
         ll_partner_income = (LinearLayout) headView.findViewById(R.id.ll_partner_income);
-
+        llLinePost = (LinearLayout) findViewById(R.id.line_shangjiao);
         llHasPostField = (LinearLayout) headView.findViewById(R.id.rl_has_post_filed_line);
         llGroundManage = (LinearLayout) headView.findViewById(R.id.rl_ground_manage_line);
         llOrderStatus = (LinearLayout) headView.findViewById(R.id.rl_order_status_line);
@@ -168,6 +174,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         llTypeOne.setOnClickListener(this);
         llThree.setOnClickListener(this);
         rl_city_income.setOnClickListener(this);
+        rlCoinPost.setOnClickListener(this);
 //        tvUpdateLevel.setOnClickListener(this);
 
 
@@ -228,6 +235,11 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             llThree.setVisibility(View.GONE);
             tvDividerThree.setVisibility(View.GONE);
             line_weight.setVisibility(View.GONE);
+            rlCoinPost.setVisibility(View.VISIBLE);
+            llLinePost.setVisibility(View.VISIBLE);
+            rlDayIncome.setVisibility(View.GONE);
+            rlDaySaoma.setVisibility(View.VISIBLE);
+            rlDayToubi.setVisibility(View.VISIBLE);
             tvCanUse.setText("我的场地");
             tvhasUse.setText("已投设备");
         }
@@ -331,7 +343,8 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
                     allIncome.setText(data.getTotal());
                     lastIncome.setText(data.getPrice());
                     dayIncome.setText(data.getNum());
-
+                    tvSaoma.setText(data.getSm_shouyi());
+                    tvToubi.setText(data.getTb_shouyi());
                     if (!TextUtils.isEmpty(data.getImg())) {
                         useImg = data.getImg();
                         MyBitmapUtil myBitmapUtil = new MyBitmapUtil(UserCenterActivity.this, data.getImg());
@@ -453,6 +466,10 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             //合伙人辖区收益
             case R.id.rl_city_income:
                 jumpNextActivity(CityIncomeActivity.class, userType);
+                break;
+            //投币上缴
+            case R.id.rl_coin_post:
+                jumpNextActivity(PostMoneyRecordActivity.class, userType);
                 break;
         }
     }

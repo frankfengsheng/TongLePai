@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cheng.tonglepai.R;
-import com.cheng.tonglepai.activity.IncomeDetailActivity;
+import com.cheng.tonglepai.activity.DevicePriceActivity;
 import com.cheng.tonglepai.data.InvestorAllIncomeData;
 import com.cheng.tonglepai.view.ChartView;
 
@@ -125,29 +125,50 @@ public class ProfitDetailAdapter extends BaseAdapter {
         holder.tvIncomeDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, IncomeDetailActivity.class);
-                intent.putExtra(IncomeDetailActivity.INCOME_DATA, (Serializable) dataBean.getTj());
-                intent.putExtra(IncomeDetailActivity.ID, (Serializable) dataBean.getId());
-                intent.putExtra(IncomeDetailActivity.INCOME_ADDRESS, dataBean.getDetails());
-                intent.putExtra(IncomeDetailActivity.INCOME_STORE_NAME, dataBean.getStore_name());
-                intent.putExtra(IncomeDetailActivity.YEAR, year);
-                intent.putExtra(IncomeDetailActivity.MONTH, month);
+                Intent intent = new Intent(context, DevicePriceActivity.class);
+                intent.putExtra(DevicePriceActivity.ID, (Serializable) dataBean.getId());
+                intent.putExtra(DevicePriceActivity.YEAR, year);
+                intent.putExtra(DevicePriceActivity.MONTH, month);
                 context.startActivity(intent);
             }
         });
         holder.rlIncomeHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, IncomeDetailActivity.class);
-                intent.putExtra(IncomeDetailActivity.INCOME_DATA, (Serializable) dataBean.getTj());
-                intent.putExtra(IncomeDetailActivity.INCOME_ADDRESS, dataBean.getDetails());
-                intent.putExtra(IncomeDetailActivity.ID, (Serializable) dataBean.getId());
-                intent.putExtra(IncomeDetailActivity.INCOME_STORE_NAME, dataBean.getStore_name());
-                intent.putExtra(IncomeDetailActivity.YEAR, year);
-                intent.putExtra(IncomeDetailActivity.MONTH, month);
+                Intent intent = new Intent(context, DevicePriceActivity.class);
+                intent.putExtra(DevicePriceActivity.ID, (Serializable) dataBean.getId());
+                intent.putExtra(DevicePriceActivity.YEAR, year);
+                intent.putExtra(DevicePriceActivity.MONTH, month);
                 context.startActivity(intent);
             }
         });
+
+//        holder.tvIncomeDetail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, IncomeDetailActivity.class);
+//                intent.putExtra(IncomeDetailActivity.INCOME_DATA, (Serializable) dataBean.getTj());
+//                intent.putExtra(IncomeDetailActivity.ID, (Serializable) dataBean.getId());
+//                intent.putExtra(IncomeDetailActivity.INCOME_ADDRESS, dataBean.getDetails());
+//                intent.putExtra(IncomeDetailActivity.INCOME_STORE_NAME, dataBean.getStore_name());
+//                intent.putExtra(IncomeDetailActivity.YEAR, year);
+//                intent.putExtra(IncomeDetailActivity.MONTH, month);
+//                context.startActivity(intent);
+//            }
+//        });
+//        holder.rlIncomeHead.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, IncomeDetailActivity.class);
+//                intent.putExtra(IncomeDetailActivity.INCOME_DATA, (Serializable) dataBean.getTj());
+//                intent.putExtra(IncomeDetailActivity.INCOME_ADDRESS, dataBean.getDetails());
+//                intent.putExtra(IncomeDetailActivity.ID, (Serializable) dataBean.getId());
+//                intent.putExtra(IncomeDetailActivity.INCOME_STORE_NAME, dataBean.getStore_name());
+//                intent.putExtra(IncomeDetailActivity.YEAR, year);
+//                intent.putExtra(IncomeDetailActivity.MONTH, month);
+//                context.startActivity(intent);
+//            }
+//        });
         return convertView;
     }
 

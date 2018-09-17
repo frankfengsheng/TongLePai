@@ -23,6 +23,8 @@ public class UserInfoBinding implements IUiDataBinding<UserInfoData,UserInfoResu
     @Override
     public UserInfoData getUiData() {
         UserInfoData data = new UserInfoData();
+        data.setSm_shouyi(mResult.getData().getSm_shouyi());
+        data.setTb_shouyi(mResult.getData().getTb_shouyi());
         data.setCount(mResult.getData().getYt_nums());
         data.setCount1(mResult.getData().getZg_nums());
         data.setCt(mResult.getData().getCd_nums());

@@ -19,12 +19,12 @@
             android:text="2011-05-45"/>
 
         <TextView
+            android:id="@+id/tv_income_type"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/tv_income_money"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/C4"
-            android:text="收益"/>
+            android:layout_toRightOf="@+id/tv_income_date"
+            android:text=""/>
 
         <TextView
             android:id="@+id/tv_income_money"
