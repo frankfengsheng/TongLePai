@@ -225,7 +225,6 @@ public class ToPostMoneyActivity extends TitleActivity {
             Toast.makeText(this, "未安装相关支付宝组件", Toast.LENGTH_LONG).show();
             return;
         }
-        Log.i("走不走","111");
         FieldAlipayRequest mRequest = new FieldAlipayRequest(this);
         mRequest.setListener(new BaseHttpRequest.IRequestListener<AlipayResult>() {
             @Override
@@ -267,6 +266,8 @@ public class ToPostMoneyActivity extends TitleActivity {
             @Override
             public void onSuccess(BaseHttpResult data) {
                 loadingDialog.dismiss();
+                etToPost.setText("");
+                etToPost.setHint("输入上缴金额");
                 initData();
                 Toast.makeText(ToPostMoneyActivity.this, "上缴成功", Toast.LENGTH_SHORT).show();
             }
