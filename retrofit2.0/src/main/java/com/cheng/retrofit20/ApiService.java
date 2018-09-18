@@ -9,6 +9,7 @@ import com.cheng.retrofit20.data.BaseBackResult;
 import com.cheng.retrofit20.data.BindDeviceListResult;
 import com.cheng.retrofit20.data.BusinessTypeResult;
 import com.cheng.retrofit20.data.CanApplyResult;
+import com.cheng.retrofit20.data.CanApplyResultNew;
 import com.cheng.retrofit20.data.CheckinfoBillResult;
 import com.cheng.retrofit20.data.CheckokInfoResult;
 import com.cheng.retrofit20.data.CheckokRecordsResult;
@@ -612,7 +613,7 @@ public interface ApiService {
      */
     @POST("index.php?s=/api/field/amount_newone")
     @FormUrlEncoded
-    Call<CanApplyResult> getFieldIncomeNew(@FieldMap Map<String, String> params);
+    Call<CanApplyResultNew> getFieldIncomeNew(@FieldMap Map<String, String> params);
 
     /**
      * 场地方余额缴费

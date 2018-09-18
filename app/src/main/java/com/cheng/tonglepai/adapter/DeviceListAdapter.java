@@ -73,7 +73,7 @@ public class DeviceListAdapter extends BaseAdapter {
             MyBitmapUtil myBitmapUtil = new MyBitmapUtil(context, data.getImg());
             myBitmapUtil.display(data.getImg(), holder.ivDevice);
         }
-        holder.tvName.setText("需" + data.getDevice_name());
+        holder.tvName.setText(data.getDevice_name());
         final int allNo = data.getShowNO();
         holder.tvNoCount.setText(data.getShowNO() + "");
         holder.ivNoReduce.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +83,7 @@ public class DeviceListAdapter extends BaseAdapter {
                     Toast.makeText(context, "已经到了最小值", Toast.LENGTH_LONG).show();
                     return;
                 } else {
-                    data.setShowNO(allNo-1);
+                    data.setShowNO(allNo - 1);
                     deviceListListener.reduceNo();
                     notifyDataSetChanged();
                 }
@@ -92,7 +92,7 @@ public class DeviceListAdapter extends BaseAdapter {
         holder.ivNoAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                data.setShowNO(allNo+1);
+                data.setShowNO(allNo + 1);
                 deviceListListener.addNo();
                 notifyDataSetChanged();
             }

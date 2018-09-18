@@ -1,7 +1,6 @@
 package com.cheng.tonglepai.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,6 +30,7 @@ import com.cheng.tonglepai.net.FieldCanApplyRequest;
 import com.cheng.tonglepai.net.PricePayRequest;
 import com.cheng.tonglepai.pay.AuthResult;
 import com.cheng.tonglepai.pay.PayResult;
+import com.cheng.tonglepai.tool.AlipayUtil;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 
@@ -68,6 +69,8 @@ public class ToPostMoneyActivity extends TitleActivity {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(ToPostMoneyActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        etToPost.setText("");
+                        etToPost.setHint("输入上缴金额");
                         initData();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
@@ -117,7 +120,7 @@ public class ToPostMoneyActivity extends TitleActivity {
             @Override
             public void onSuccess(CanApplyData data) {
                 pricePay = data.getPrice_pay();
-                zPrice = data.getZ_price();
+                zPrice = data.getPrice();
                 tvNeedPay.setText("￥" + pricePay);
                 tvLastMoney.setText("￥" + zPrice);
             }
@@ -143,11 +146,24 @@ public class ToPostMoneyActivity extends TitleActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    ivChooseTwo.setBackgroundResource(R.drawable.has_select_point);
-                    ivChooseOne.setBackgroundResource(R.drawable.select_point);
+                    ivChooseOne.setChecked(true);
+                    ivChooseTwo.setChecked(false);
                 } else {
-                    ivChooseTwo.setBackgroundResource(R.drawable.select_point);
-                    ivChooseOne.setBackgroundResource(R.drawable.has_select_point);
+                    ivChooseOne.setChecked(false);
+                    ivChooseTwo.setChecked(true);
+                }
+            }
+        });
+
+        ivChooseTwo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    ivChooseOne.setChecked(false);
+                    ivChooseTwo.setChecked(true);
+                } else {
+                    ivChooseOne.setChecked(true);
+                    ivChooseTwo.setChecked(false);
                 }
             }
         });
@@ -177,16 +193,23 @@ public class ToPostMoneyActivity extends TitleActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String editStr = s.toString().trim();
+                if (s.toString().contains(".")) {
 
-                int posDot = editStr.indexOf(".");
-                //不允许输入3位小数,超过三位就删掉
-                if (posDot < 0) {
-                    return;
+                    if (s.length() - 1 - s.toString().indexOf(".") >= 0) {
+                        etToPost.setText(s.toString().subSequence(0, s.toString().indexOf(".")));
+                        etToPost.setSelection(s.toString().subSequence(0, s.toString().indexOf(".")).length());
+                    }
                 }
-                if (editStr.length() - posDot - 1 > 2) {
-                    s.delete(posDot + 3, posDot + 4);
-                } else {
+                if (s.toString().trim().substring(0).equals(".")) {
+                    etToPost.setText("0");
+                    etToPost.setSelection(1);
+                }
+                if (s.toString().startsWith("0") && s.toString().trim().length() > 1) {
+                    if (!s.toString().substring(1, 2).equals(".")) {
+                        etToPost.setText(s.subSequence(0, 1));
+                        etToPost.setSelection(1);
+                        return;
+                    }
                 }
             }
         });
@@ -197,6 +220,12 @@ public class ToPostMoneyActivity extends TitleActivity {
             Toast.makeText(this, "请输入上缴金额", Toast.LENGTH_SHORT).show();
             return;
         }
+        boolean canPay = AlipayUtil.canPay(this);
+        if (!canPay) {
+            Toast.makeText(this, "未安装相关支付宝组件", Toast.LENGTH_LONG).show();
+            return;
+        }
+        Log.i("走不走","111");
         FieldAlipayRequest mRequest = new FieldAlipayRequest(this);
         mRequest.setListener(new BaseHttpRequest.IRequestListener<AlipayResult>() {
             @Override
@@ -224,6 +253,7 @@ public class ToPostMoneyActivity extends TitleActivity {
 
             }
         });
+        mRequest.requestFieldAlipay(etToPost.getText().toString().trim());
     }
 
     private void postMoney() {
@@ -238,6 +268,7 @@ public class ToPostMoneyActivity extends TitleActivity {
             public void onSuccess(BaseHttpResult data) {
                 loadingDialog.dismiss();
                 initData();
+                Toast.makeText(ToPostMoneyActivity.this, "上缴成功", Toast.LENGTH_SHORT).show();
             }
 
             @Override

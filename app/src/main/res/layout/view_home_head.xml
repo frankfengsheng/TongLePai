@@ -303,8 +303,8 @@
                 android:id="@+id/rl_day_saoma"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:visibility="gone"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -328,8 +328,8 @@
                 android:id="@+id/rl_day_toubi"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:visibility="gone"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -352,6 +352,43 @@
             <include
                 android:id="@+id/line_one"
                 layout="@layout/view_divider_line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_coin_post"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/coin_post" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:text="投币上缴" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/icon_right" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/line_shangjiao"
+                layout="@layout/view_divider_line"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/rl_tixian_detail"
@@ -389,42 +426,6 @@
                 android:id="@+id/line_two"
                 layout="@layout/view_divider_line" />
 
-            <RelativeLayout
-                android:id="@+id/rl_coin_post"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:visibility="gone"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/coin_post" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center"
-                    android:text="投币上缴" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/icon_right" />
-            </RelativeLayout>
-
-            <include
-                android:id="@+id/line_shangjiao"
-                android:visibility="gone"
-                layout="@layout/view_divider_line" />
 
             <TextView
                 android:layout_width="match_parent"

@@ -71,7 +71,7 @@ public class JsonConverterFactory extends Converter.Factory {
 //                JSONObject jsonObject = new JSONObject(value.string());
 //                json = jsonObject.toString();
                 int code = (int) jsonObject.get("status");
-                if (code != 1 && code != 19) {
+                if (code != 1 && code != 19 && code != 48) {
                     //code 不是成功 这个时候 data就是异常的情况 直接替换掉
                     responseBodyStr = responseBodyStr.replace("data", "dataerror");
                 }

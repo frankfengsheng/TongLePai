@@ -13,11 +13,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 
 import com.cheng.tonglepai.R;
@@ -148,7 +148,10 @@ public class ChartView extends View {
                     linecolor = array.getColor(attr, linecolor);
                     break;
                 case R.styleable.chartView_interval://x轴各个坐标点水平间距
-                    interval = (int) array.getDimension(attr, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, interval, getResources().getDisplayMetrics()));
+                    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+                    int width = wm.getDefaultDisplay().getWidth();
+                    interval = (int) width / 33;
+//                    interval = (int) array.getDimension(attr, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, interval, getResources().getDisplayMetrics()));
                     break;
                 case R.styleable.chartView_bgcolor: //背景颜色
                     bgcolor = array.getColor(attr, bgcolor);
@@ -365,6 +368,11 @@ public class ChartView extends View {
                 canvas.drawLine(x, yOri, x, yOri - length, xyPaint);
                 //绘制X轴文本
                 String text = xValue.get(i);
+                if(text.equals("1号")||text.equals("6号")||text.equals("11号")||text.equals("16号")||text.equals("21号")||text.equals("26号")||text.equals("31号")) {
+                    text = xValue.get(i);
+                }else{
+                    text="";
+                }
                 Rect rect = getTextBounds(text, xyTextPaint);
                 if (i == selectIndex - 1) {
                     xyTextPaint.setColor(linecolor);
@@ -413,13 +421,11 @@ public class ChartView extends View {
                 if (mCurPosY - mPosY > 0
                         && (Math.abs(mCurPosY - mPosY) > 25)) {
                     //向下滑動
-                    Log.i("走不走","222");
                     this.getParent().requestDisallowInterceptTouchEvent(true);
                     return true;
 
                 } else if (mCurPosY - mPosY < 0
                         && (Math.abs(mCurPosY - mPosY) > 25)) {
-                    Log.i("走不走","111");
                     //向上滑动
                     this.getParent().requestDisallowInterceptTouchEvent(true);
                     return true;

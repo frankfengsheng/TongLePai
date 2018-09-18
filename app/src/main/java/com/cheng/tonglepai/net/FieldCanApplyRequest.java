@@ -7,7 +7,7 @@ import com.cheng.retrofit20.callbacks.BaseCallback;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.client.HttpCommand;
 import com.cheng.retrofit20.client.RequestParams;
-import com.cheng.retrofit20.data.CanApplyResult;
+import com.cheng.retrofit20.data.CanApplyResultNew;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.retrofit20.http.FieldCanApplyNewCmd;
 import com.cheng.tonglepai.activity.LoginActivity;
@@ -42,11 +42,11 @@ public class FieldCanApplyRequest extends BaseHttpRequest<CanApplyData> {
 
     private HttpCommand newHttpCommand() {
         HttpCommand httpCmd = new FieldCanApplyNewCmd(mContext, getParams());
-        httpCmd.setCallback(new BaseCallback<CanApplyResult>() {
+        httpCmd.setCallback(new BaseCallback<CanApplyResultNew>() {
             @Override
-            public void onSuccess(Response<CanApplyResult> response) {
+            public void onSuccess(Response<CanApplyResultNew> response) {
                 if (null != mListener) {
-                    mListener.onSuccess(new CanApplyBinding(response.body(), mContext).getUiData());
+                    mListener.onSuccess(new CanApplyNewBinding(response.body(), mContext).getUiData());
                 }
             }
 

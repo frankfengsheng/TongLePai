@@ -1,8 +1,14 @@
 package com.cheng.tonglepai.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -20,6 +26,8 @@ import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.net.ApplyMoneyRequest;
 import com.cheng.tonglepai.net.FieldApplyMoneyRequest;
 import com.cheng.tonglepai.net.InvestorApplyMoneyRequest;
+import com.cheng.tonglepai.tool.MyChooseToastDialog;
+import com.cheng.tonglepai.tool.MyToast;
 
 /**
  * Created by cheng on 2018/9/9.
@@ -33,12 +41,14 @@ public class ApplyMoneyActivityNew extends TitleActivity {
     public static final String INCOME_ALL = "z.price";
     public static final String NEED_PAY = "price.pay";
     private int userType = 0;
-    private TextView bankName, bankAccount, tvCanApplyMoney, tvRealMoney, tvNeedPay, tvLastMoney,tvToPost;
+    private TextView bankName, bankAccount, tvCanApplyMoney, tvRealMoney, tvNeedPay, tvLastMoney, tvToPost;
     private Button btnToApply;
     private EditText etApplyMoney;
     private String bankNameShow, bankShow;
     private TextView shouxu_money;
-    private LinearLayout llLastMoney, llNeedMoney;
+    private LinearLayout llLastMoney, llNeedMoney, llHeadApply;
+    private MyChooseToastDialog progressDialog;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +63,7 @@ public class ApplyMoneyActivityNew extends TitleActivity {
     private void initView() {
         llLastMoney = (LinearLayout) findViewById(R.id.ll_last_money);
         llNeedMoney = (LinearLayout) findViewById(R.id.ll_need_money);
+        llHeadApply = (LinearLayout) findViewById(R.id.ll_head_apply);
         tvNeedPay = (TextView) findViewById(R.id.tv_need_money);
         tvToPost = (TextView) findViewById(R.id.tv_to_post);
         tvLastMoney = (TextView) findViewById(R.id.tv_last_money);
@@ -60,12 +71,64 @@ public class ApplyMoneyActivityNew extends TitleActivity {
         bankAccount = (TextView) findViewById(R.id.bank_account);
         tvCanApplyMoney = (TextView) findViewById(R.id.tv_can_apply_money);
         tvRealMoney = (TextView) findViewById(R.id.tv_real_money);
+        btnToApply = (Button) findViewById(R.id.btn_to_apply);
 
         bankNameShow = getIntent().getStringExtra(BANK_NAME);
         bankShow = getIntent().getStringExtra(BANK_ACCOUNT);
-        bankName.setText(bankNameShow);
-        bankAccount.setText(bankShow);
-        tvCanApplyMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
+        if (TextUtils.isEmpty(bankShow) || "0".equals(bankShow)) {
+            bankName.setText("暂未绑定银行卡，请联系工作人员");
+            bankAccount.setText("4000-366-118");
+//            llHeadApply.setVisibility(View.INVISIBLE);
+            btnToApply.setEnabled(false);
+        } else {
+            bankName.setText(bankNameShow);
+            bankAccount.setText(bankShow);
+//            llHeadApply.setVisibility(View.VISIBLE);
+            btnToApply.setEnabled(true);
+        }
+
+        bankAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ("4000-366-118".equals(bankAccount.getText().toString().trim())) {
+                    progressDialog = MyToast.showChooseDialog(ApplyMoneyActivityNew.this, "您确定拨打：4000-366-118", "拨打电话", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (ContextCompat.checkSelfPermission(ApplyMoneyActivityNew.this,
+                                    Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(ApplyMoneyActivityNew.this,
+                                        Manifest.permission.CALL_PHONE)) {
+                                    Toast.makeText(ApplyMoneyActivityNew.this, "请授权！", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                    intent.setData(uri);
+                                    startActivity(intent);
+                                } else {
+                                    ActivityCompat.requestPermissions(ApplyMoneyActivityNew.this,
+                                            new String[]{Manifest.permission.CALL_PHONE},
+                                            MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                                }
+                            } else {
+                                // 已经获得授权，可以打电话
+                                CallPhone();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        if ("0".equals(getIntent().getStringExtra(CAN_APPLY_MONEY)))
+            tvCanApplyMoney.setText("0.00");
+        else {
+            if (Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) < 10) {
+                btnToApply.setEnabled(false);
+            } else {
+                btnToApply.setEnabled(true);
+            }
+            tvCanApplyMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
+        }
+
         if (userType == 3) {
             llLastMoney.setVisibility(View.VISIBLE);
             llNeedMoney.setVisibility(View.VISIBLE);
@@ -114,7 +177,7 @@ public class ApplyMoneyActivityNew extends TitleActivity {
             }
         });
 
-        btnToApply = (Button) findViewById(R.id.btn_to_apply);
+
         btnToApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +188,7 @@ public class ApplyMoneyActivityNew extends TitleActivity {
         tvToPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ApplyMoneyActivityNew.this,ToPostMoneyActivity.class);
+                Intent intent = new Intent(ApplyMoneyActivityNew.this, ToPostMoneyActivity.class);
                 startActivity(intent);
             }
         });
@@ -226,7 +289,12 @@ public class ApplyMoneyActivityNew extends TitleActivity {
 
             mRequest.requestFieldApplyMoney(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim());
         }
+    }
 
-
+    private void CallPhone() {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + "400-0366118");
+        intent.setData(data);
+        startActivity(intent);
     }
 }
