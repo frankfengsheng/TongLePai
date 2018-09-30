@@ -660,14 +660,14 @@ public interface ApiService {
     /**
      * 合伙人场地设备收益明细
      */
-    @POST("index.php?s=/api/investor/device_bill")
+    @POST("index.php?s=/api/maker/device_bill")
     @FormUrlEncoded
     Call<DeviceBillResult> getMarkerDeviceBill(@FieldMap Map<String, String> params);
 
     /**
      * 投资人场地设备收益明细
      */
-    @POST("index.php?s=/api/maker/device_bill")
+    @POST("index.php?s=/api/investor/device_bill")
     @FormUrlEncoded
     Call<DeviceBillResult> getInvestorDeviceBill(@FieldMap Map<String, String> params);
 

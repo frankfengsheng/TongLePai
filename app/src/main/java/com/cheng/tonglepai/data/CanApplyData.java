@@ -8,8 +8,8 @@ public class CanApplyData {
     private String bank_account;
     private String bank;
     private String price;
-    private String price_pay;
-    private String z_price;
+    private String price_pay;//需缴金额
+    private String z_price;//收益余额
 
     public String getPrice_pay() {
         return price_pay;

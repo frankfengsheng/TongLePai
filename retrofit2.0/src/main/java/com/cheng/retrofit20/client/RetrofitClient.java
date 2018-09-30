@@ -13,7 +13,8 @@ public class RetrofitClient {
     private static Retrofit retrofit;
 
     private static void createRetrofitClient(Context context) {
-
+        //http://test.tonglepai.com/
+        //http://app.tonglepai.cn/
         retrofit = new Retrofit.Builder()
                 //设置OKHttpClient
                 .client(OkHttpFactory.getOkHttpClient(context))
@@ -21,7 +22,7 @@ public class RetrofitClient {
                         //baseUrl
                 .baseUrl("http://app.tonglepai.cn/")
 
-                        //gson转化器
+                        //gson转化器 m
                 .addConverterFactory(JsonConverterFactory.create())
 
                 .build();

@@ -37,6 +37,7 @@ public class ApplyMoneyActivityNew extends TitleActivity {
     public static final String CAN_APPLY_MONEY = "apply.money";
     public static final String BANK_ACCOUNT = "bank.account";
     public static final String BANK_NAME = "bank.name";
+
     public static final String USER_TYPE = "user.type";
     public static final String INCOME_ALL = "z.price";
     public static final String NEED_PAY = "price.pay";
@@ -118,21 +119,31 @@ public class ApplyMoneyActivityNew extends TitleActivity {
             }
         });
 
-        if ("0".equals(getIntent().getStringExtra(CAN_APPLY_MONEY)))
+      /*  if ("0".equals(getIntent().getStringExtra(CAN_APPLY_MONEY)))
             tvCanApplyMoney.setText("0.00");
-        else {
-            if (Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) < 10) {
-                btnToApply.setEnabled(false);
+        else {*/
+            if (userType == 3) {
+                if ((Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) - Double.parseDouble(getIntent().getStringExtra(NEED_PAY))) < 10) {
+                    btnToApply.setEnabled(false);
+                } else {
+                    btnToApply.setEnabled(true);
+                }
+                tvCanApplyMoney.setText(String.valueOf(Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) - Double.parseDouble(getIntent().getStringExtra(NEED_PAY))));
             } else {
-                btnToApply.setEnabled(true);
+                if (Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) < 10) {
+                    btnToApply.setEnabled(false);
+                } else {
+                    btnToApply.setEnabled(true);
+                }
+                tvCanApplyMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
             }
-            tvCanApplyMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
-        }
+
+       /* }*/
 
         if (userType == 3) {
             llLastMoney.setVisibility(View.VISIBLE);
             llNeedMoney.setVisibility(View.VISIBLE);
-            tvLastMoney.setText(getIntent().getStringExtra(INCOME_ALL));
+            tvLastMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
             tvNeedPay.setText(getIntent().getStringExtra(NEED_PAY));
         } else {
             llLastMoney.setVisibility(View.GONE);
@@ -210,13 +221,20 @@ public class ApplyMoneyActivityNew extends TitleActivity {
     }
 
     private void toApply() {
-        if (TextUtils.isEmpty(etApplyMoney.getText().toString().trim())) {
+        String applyMoney = etApplyMoney.getText().toString().trim();
+        if (TextUtils.isEmpty(applyMoney)) {
             Toast.makeText(ApplyMoneyActivityNew.this, "请输入申请提现金额", Toast.LENGTH_LONG).show();
             return;
         }
-        if (Integer.parseInt(etApplyMoney.getText().toString().trim()) < 10) {
+        if (Integer.parseInt(applyMoney) < 10) {
             Toast.makeText(ApplyMoneyActivityNew.this, "单笔提现不小于10元", Toast.LENGTH_LONG).show();
             return;
+        }
+        if(userType == 3){
+            if((Double.parseDouble(applyMoney)+Double.parseDouble(shouxu_money.getText().toString()))>(Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) - Double.parseDouble(getIntent().getStringExtra(NEED_PAY)))){
+                Toast.makeText(ApplyMoneyActivityNew.this, "提现金额超出可提现金额", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
         if (userType == 2) {
             ApplyMoneyRequest mRequest = new ApplyMoneyRequest(ApplyMoneyActivityNew.this);

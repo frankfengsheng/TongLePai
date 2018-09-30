@@ -90,6 +90,8 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
 
                 @Override
                 public void onFailed(String msg, int code) {
+
+
                     Toast.makeText(SeeProfitActivity.this, msg, Toast.LENGTH_LONG).show();
                 }
             });
@@ -301,6 +303,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                         loadingDialog.dismiss();
                         return;
                     }
+                    mAdapter.clearData();
                     mAdapter.setData(data.getData(), "2018", month);
                     if (data.getData().size() < 2)
                         needLoad = false;
@@ -338,6 +341,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                         loadingDialog.dismiss();
                         return;
                     }
+                    mAdapter.clearData();
                     mAdapter.setData(data.getData(), "2018", month);
                     if (data.getData().size() < 2)
                         needLoad = false;
@@ -375,6 +379,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                         loadingDialog.dismiss();
                         return;
                     }
+                    mAdapter.clearData();
                     mAdapter.setData(data.getData(), "2018", month);
                     if (data.getData().size() < 2)
                         needLoad = false;

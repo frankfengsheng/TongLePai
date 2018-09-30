@@ -237,9 +237,9 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             line_weight.setVisibility(View.GONE);
             rlCoinPost.setVisibility(View.VISIBLE);
             llLinePost.setVisibility(View.VISIBLE);
-            rlDayIncome.setVisibility(View.GONE);
-            rlDaySaoma.setVisibility(View.VISIBLE);
-            rlDayToubi.setVisibility(View.VISIBLE);
+            rlDayIncome.setVisibility(View.VISIBLE);
+            rlDaySaoma.setVisibility(View.GONE);
+            rlDayToubi.setVisibility(View.GONE);
             tvCanUse.setText("我的场地");
             tvhasUse.setText("已投设备");
         }

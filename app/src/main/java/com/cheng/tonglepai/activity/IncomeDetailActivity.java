@@ -11,7 +11,6 @@ import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.adapter.IncomeDetailAdapter;
-import com.cheng.tonglepai.data.CheckBillData;
 import com.cheng.tonglepai.data.DeviceBillData;
 import com.cheng.tonglepai.data.InvestorAllIncomeData;
 import com.cheng.tonglepai.net.FieldDeviceBillRequest;
@@ -105,7 +104,7 @@ public class IncomeDetailActivity extends TitleActivity implements BGARefreshLay
             mRequest.setListener(new BaseHttpRequest.IRequestListener<DeviceBillData>() {
                 @Override
                 public void onSuccess(DeviceBillData data) {
-                    tvPrice.setText(data.getPrice_data().getZ_price());
+                    tvPrice.setText("累计收益：￥"+data.getPrice_data().getZ_price());
                     if (isLoad) {
                         isLoad = false;
                         if (data.getData().size() < 10)
@@ -146,7 +145,7 @@ public class IncomeDetailActivity extends TitleActivity implements BGARefreshLay
             mRequest.setListener(new BaseHttpRequest.IRequestListener<DeviceBillData>() {
                 @Override
                 public void onSuccess(DeviceBillData data) {
-                    tvPrice.setText(data.getPrice_data().getZ_price());
+                    tvPrice.setText("累计收益：￥"+data.getPrice_data().getZ_price());
                     if (isLoad) {
                         isLoad = false;
                         if (data.getData().size() < 10)
@@ -167,11 +166,13 @@ public class IncomeDetailActivity extends TitleActivity implements BGARefreshLay
                     mRefreshLayout.endRefreshing();
                     mRefreshLayout.endLoadingMore();
                     loadingDialog.dismiss();
+
                 }
 
                 @Override
                 public void onFailed(String msg, int code) {
                     loadingDialog.dismiss();
+
                     Toast.makeText(IncomeDetailActivity.this, "没有数据", Toast.LENGTH_LONG).show();
                     if (isFirst)
                         mAdapter.clearData();
@@ -187,7 +188,7 @@ public class IncomeDetailActivity extends TitleActivity implements BGARefreshLay
             mRequest.setListener(new BaseHttpRequest.IRequestListener<DeviceBillData>() {
                 @Override
                 public void onSuccess(DeviceBillData data) {
-                    tvPrice.setText(data.getPrice_data().getZ_price());
+                    tvPrice.setText("累计收益：￥"+data.getPrice_data().getZ_price());
                     if (isLoad) {
                         isLoad = false;
                         if (data.getData().size() < 10)

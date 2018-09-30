@@ -5,10 +5,11 @@ android {
     buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.cheng.tonglepai"
+
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
-        versionName "2.2"
+        versionName "2.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

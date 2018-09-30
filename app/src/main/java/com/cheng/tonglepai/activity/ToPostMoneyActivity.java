@@ -71,7 +71,20 @@ public class ToPostMoneyActivity extends TitleActivity {
                         Toast.makeText(ToPostMoneyActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                         etToPost.setText("");
                         etToPost.setHint("输入上缴金额");
-                        initData();
+                        if(loadingDialog!=null) loadingDialog.show();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Thread.sleep(1500);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    initData();
+                                }
+                            }).start();
+
+
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(ToPostMoneyActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
@@ -119,6 +132,7 @@ public class ToPostMoneyActivity extends TitleActivity {
         mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyData>() {
             @Override
             public void onSuccess(CanApplyData data) {
+               if(loadingDialog!=null) loadingDialog.dismiss();
                 pricePay = data.getPrice_pay();
                 zPrice = data.getPrice();
                 tvNeedPay.setText("￥" + pricePay);
@@ -127,6 +141,7 @@ public class ToPostMoneyActivity extends TitleActivity {
 
             @Override
             public void onFailed(String msg, int code) {
+                if(loadingDialog!=null) loadingDialog.dismiss();
                 Toast.makeText(ToPostMoneyActivity.this, msg, Toast.LENGTH_LONG).show();
             }
         });
@@ -175,6 +190,7 @@ public class ToPostMoneyActivity extends TitleActivity {
                 if (ivChooseOne.isChecked()) {
                     postMoney();
                 } else if (ivChooseTwo.isChecked()) {
+
                     postAliMoney();
                 }
             }
