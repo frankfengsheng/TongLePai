@@ -177,6 +177,9 @@
         <activity
             android:name=".activity.ShareCodeActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FieldPostSelectEquipmentActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 

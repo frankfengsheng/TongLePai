@@ -140,41 +140,50 @@
         android:layout_height="wrap_content">
 
     </com.cheng.tonglepai.tool.MyListView>
-
+    <LinearLayout
+        android:id="@+id/ly_field_select_equiment"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/tlp_marginleft"
+        android:layout_marginRight="@dimen/tlp_marginleft"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/chang_count_mid">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chang_count_right"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_equiment"/>
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+       <TextView
+           android:id="@+id/tv_equipment_count"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerVertical="true"
+           android:layout_marginLeft="@dimen/tlp_marginleft"
+           android:textColor="@color/C5"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="共计"
-            android:layout_toLeftOf="@+id/all_num"
-            android:textColor="@color/C4"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/all_num"
+            android:id="@+id/tv_equipment_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/tv_danwei"
-            android:textColor="@color/C4"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_danwei"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="台"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="@dimen/tlp_marginleft"
             android:layout_alignParentRight="true"
             android:textColor="@color/C4"
             android:textSize="18sp" />
+
     </RelativeLayout>
 
     <TextView

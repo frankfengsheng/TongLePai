@@ -1,15 +1,18 @@
 package com.cheng.tonglepai.data;
 
+import java.io.Serializable;
+
 /**
  * Created by cheng on 2018/7/10.
  */
 
-public class DeviceListData {
+public class DeviceListData implements Serializable {
     private String device_model;
     private String img;
     private String device_name;
     private String id;
     private int showNO;
+    private double price_purchase;
 
     public int getShowNO() {
         return showNO;
@@ -49,5 +52,13 @@ public class DeviceListData {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public double getPrice_purchase() {
+        return price_purchase;
+    }
+
+    public void setPrice_purchase(double price_purchase) {
+        this.price_purchase = price_purchase;
     }
 }

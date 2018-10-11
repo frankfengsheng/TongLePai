@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +64,7 @@ import java.util.Map;
  */
 
 
-public class FieldPostActivity extends TitleActivity implements DeviceListAdapter.DeviceListListener {
+public class FieldPostActivity extends TitleActivity implements DeviceListAdapter.DeviceListListener,View.OnClickListener {
 
     public static final String STORE_IN_ID = "store.in.id";
     private EditText etShopName, etShopArea, etDeviceArea, etVisitPeople, etCanIncome, etDetailAddress;
@@ -74,7 +75,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     private ImageView upPhotoOne, upPhotoTwo, upPhotoThree, upPhotoFour;
     private ImageView upPhotoOneNext, upPhotoTwoNext, upPhotoThreeNext, upPhotoFourNext;
     private Button btnSubmit, btnToFieldList;
-    private TextView tvNumAll;
+    private TextView tv_totlPrice,tv_count;
     private static final int MSG_LOAD_DATA = 0x0001;
     private static final int MSG_LOAD_SUCCESS = 0x0002;
     private static final int MSG_LOAD_FAILED = 0x0003;
@@ -92,8 +93,11 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     private String manageTypeId;
     private LoadingDialog loadingDialog;
     private MyListView lvDevice;
+    private LinearLayout ly_select;
+
     private DeviceListAdapter mAdapter;
     private int allnum = 0;
+    private double totalPrice=0;
     private List<DeviceListData> dataList = new ArrayList<>();
     private static final String[] PERMISSION_EXTERNAL_STORAGE = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -145,10 +149,13 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         loadingDialog.setCancelable(true);
 
         lvDevice = (MyListView) findViewById(R.id.lv_device_list);
+        lvDevice.setVisibility(View.GONE);
         mAdapter = new DeviceListAdapter(this);
         lvDevice.setAdapter(mAdapter);
         mAdapter.setOnIPostPackageNoListener(this);
 
+        ly_select= (LinearLayout) findViewById(R.id.ly_field_select_equiment);
+        ly_select.setOnClickListener(this);
         btnToFieldList = (Button) findViewById(R.id.btn_to_field_list);
         btnToFieldList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,9 +168,10 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         tvAddressShow = (TextView) findViewById(R.id.tv_address_show);
 
 
-        tvNumAll = (TextView) findViewById(R.id.all_num);
-        tvNumAll.setText(String.valueOf(allnum));
-
+        tv_totlPrice = (TextView) findViewById(R.id.tv_equipment_total_price);
+        tv_count= (TextView) findViewById(R.id.tv_equipment_count);
+        tv_totlPrice.setText("总计：￥"+String.valueOf(allnum));
+        tv_count.setText("已选设备"+allnum+"台");
 
         etManageType = (TextView) findViewById(R.id.et_manage_type);//经营属性
         etShopName = (EditText) findViewById(R.id.et_shop_name);//门店名称
@@ -289,7 +297,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     }
 
     private void toSubmit() {
-        if ("0".equals(tvNumAll.getText().toString().trim())) {
+        if ("0".equals(tv_count.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请选择需要设备台数");
             return;
         }
@@ -518,7 +526,25 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
                     }
                 }
                 break;
+            case 0x1001:
+                if(data!=null) {
+                    dataList = (List<DeviceListData>) data.getSerializableExtra("list");
+                    if (dataList != null && dataList.size() > 0) refreshList();
+                }
+                break;
         }
+    }
+    private  void refreshList(){
+        lvDevice.setVisibility(View.VISIBLE);
+        ly_select.setVisibility(View.GONE);
+        mAdapter.setData(dataList);
+        for(DeviceListData data:dataList){
+            totalPrice=totalPrice+(data.getPrice_purchase()*data.getShowNO());
+            allnum=allnum+data.getShowNO();
+        }
+        tv_totlPrice.setText("总计：￥"+totalPrice);
+        tv_count.setText("已选设备"+allnum+"台");
+
     }
 
     private void showPickerView() {// 弹出选择器
@@ -735,20 +761,24 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     }
 
     @Override
-    public void reduceNo() {
+    public void reduceNo(int position) {
         if (0 == allnum) {
             Toast.makeText(FieldPostActivity.this, "已经到了最小值", Toast.LENGTH_SHORT).show();
             return;
         }
         allnum = allnum - 1;
-        tvNumAll.setText(allnum + "");
+        totalPrice=totalPrice-dataList.get(position).getPrice_purchase();
+        tv_count.setText("已选设备"+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+(totalPrice));
         Log.i("走不走", dataList.get(0).getShowNO() + "我我我");
     }
 
     @Override
-    public void addNo() {
+    public void addNo(int position) {
         allnum = allnum + 1;
-        tvNumAll.setText(allnum + "");
+        totalPrice=totalPrice+dataList.get(position).getPrice_purchase();
+        tv_count.setText("已选设备"+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+(totalPrice));
         Log.i("走不走", dataList.get(0).getShowNO() + "我我");
     }
 
@@ -812,5 +842,15 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
         Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
         return bitmap;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ly_field_select_equiment:
+                Intent intent=new Intent(getApplicationContext(),FieldPostSelectEquipmentActivity.class);
+                startActivityForResult(intent,0x1001);
+                break;
+        }
     }
 }

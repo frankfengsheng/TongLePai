@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_activity_title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/C3"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/tlp_marginleft"
+            android:text="@string/select_equiment_note"
+            android:textColor="@color/C1"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+       <ListView
+           android:id="@+id/lv_field_select_equiment"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_above="@+id/btn_to_submit">
+
+
+       </ListView>
+        <Button
+            android:id="@+id/btn_to_submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/C3"
+            android:text="确   定"
+            android:textColor="@color/C1"
+            android:textSize="16sp"
+            android:layout_margin="10dp"/>
+    </RelativeLayout>
+</LinearLayout>

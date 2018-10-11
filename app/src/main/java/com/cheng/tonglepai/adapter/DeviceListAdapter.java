@@ -64,6 +64,7 @@ public class DeviceListAdapter extends BaseAdapter {
             holder.ivDevice = (ImageView) convertView.findViewById(R.id.iv_device);
             holder.ivNoReduce = (ImageView) convertView.findViewById(R.id.iv_number_reduce);
             holder.ivNoAdd = (ImageView) convertView.findViewById(R.id.iv_number_add);
+            holder.tvPrice= (TextView) convertView.findViewById(R.id.tv_equipment_price);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -74,6 +75,7 @@ public class DeviceListAdapter extends BaseAdapter {
             myBitmapUtil.display(data.getImg(), holder.ivDevice);
         }
         holder.tvName.setText(data.getDevice_name());
+        holder.tvPrice.setText("￥ "+data.getPrice_purchase());
         final int allNo = data.getShowNO();
         holder.tvNoCount.setText(data.getShowNO() + "");
         holder.ivNoReduce.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +86,7 @@ public class DeviceListAdapter extends BaseAdapter {
                     return;
                 } else {
                     data.setShowNO(allNo - 1);
-                    deviceListListener.reduceNo();
+                    deviceListListener.reduceNo(position);
                     notifyDataSetChanged();
                 }
             }
@@ -93,7 +95,7 @@ public class DeviceListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 data.setShowNO(allNo + 1);
-                deviceListListener.addNo();
+                deviceListListener.addNo(position);
                 notifyDataSetChanged();
             }
         });
@@ -108,13 +110,13 @@ public class DeviceListAdapter extends BaseAdapter {
     }
 
     public interface DeviceListListener {
-        void reduceNo();
+        void reduceNo(int position);
 
-        void addNo();
+        void addNo(int position);
     }
 
     class ViewHolder {
-        private TextView tvName, tvNoCount;
+        private TextView tvName, tvNoCount,tvPrice;
         private ImageView ivDevice, ivNoReduce, ivNoAdd;
     }
 }

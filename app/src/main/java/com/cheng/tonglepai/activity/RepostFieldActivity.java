@@ -157,7 +157,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
             }
         });
 
-        tvNumAll = (TextView) findViewById(R.id.all_num);
+        tvNumAll = (TextView) findViewById(R.id.tv_equipment_count);
 
         btnSubmit = (Button) findViewById(R.id.btn_to_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -781,7 +781,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     }
 
     @Override
-    public void reduceNo() {
+    public void reduceNo(int position) {
         if (0 == allnum) {
             Toast.makeText(RepostFieldActivity.this, "已经到了最小值", Toast.LENGTH_SHORT).show();
             return;
@@ -791,7 +791,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     }
 
     @Override
-    public void addNo() {
+    public void addNo(int position) {
         allnum = allnum + 1;
         tvNumAll.setText(allnum + "");
     }
