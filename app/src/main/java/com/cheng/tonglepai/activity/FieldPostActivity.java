@@ -536,7 +536,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     }
     private  void refreshList(){
         lvDevice.setVisibility(View.VISIBLE);
-        ly_select.setVisibility(View.GONE);
         mAdapter.setData(dataList);
         for(DeviceListData data:dataList){
             totalPrice=totalPrice+(data.getPrice_purchase()*data.getShowNO());

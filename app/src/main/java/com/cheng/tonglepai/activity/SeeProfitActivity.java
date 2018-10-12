@@ -204,18 +204,24 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             initRadionButton();
             rb1.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb1.setTextColor(Color.parseColor("#ffffff"));
+            rb1.setVisibility(View.VISIBLE);
             page = 1;
             tvMonthShow.setText("1月收益");
         } else if (month.equals("2")) {
             initRadionButton();
             rb2.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb2.setTextColor(Color.parseColor("#ffffff"));
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
             page = 1;
             tvMonthShow.setText("2月收益");
         } else if (month.equals("3")) {
             initRadionButton();
             rb3.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb3.setTextColor(Color.parseColor("#ffffff"));
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
             page = 1;
             tvMonthShow.setText("3月收益");
         } else if (month.equals("4")) {
@@ -223,54 +229,126 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             rb4.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb4.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
             tvMonthShow.setText("4月收益");
         } else if (month.equals("5")) {
             initRadionButton();
             rb5.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb5.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
+            rb5.setVisibility(View.VISIBLE);
             tvMonthShow.setText("5月收益");
         } else if (month.equals("6")) {
             initRadionButton();
             rb6.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb6.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
+            rb5.setVisibility(View.VISIBLE);
+            rb6.setVisibility(View.VISIBLE);
             tvMonthShow.setText("6月收益");
         } else if (month.equals("7")) {
             initRadionButton();
             rb7.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb7.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
+            rb5.setVisibility(View.VISIBLE);
+            rb6.setVisibility(View.VISIBLE);
+            rb7.setVisibility(View.VISIBLE);
             tvMonthShow.setText("7月收益");
         } else if (month.equals("8")) {
             initRadionButton();
             rb8.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb8.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
+            rb5.setVisibility(View.VISIBLE);
+            rb6.setVisibility(View.VISIBLE);
+            rb7.setVisibility(View.VISIBLE);
+            rb8.setVisibility(View.VISIBLE);
             tvMonthShow.setText("8月收益");
         } else if (month.equals("9")) {
             initRadionButton();
             rb9.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb9.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
+            rb5.setVisibility(View.VISIBLE);
+            rb6.setVisibility(View.VISIBLE);
+            rb7.setVisibility(View.VISIBLE);
+            rb8.setVisibility(View.VISIBLE);
+            rb9.setVisibility(View.VISIBLE);
             tvMonthShow.setText("9月收益");
         } else if (month.equals("10")) {
             initRadionButton();
             rb10.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb10.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
+            rb5.setVisibility(View.VISIBLE);
+            rb6.setVisibility(View.VISIBLE);
+            rb7.setVisibility(View.VISIBLE);
+            rb8.setVisibility(View.VISIBLE);
+            rb9.setVisibility(View.VISIBLE);
+            rb10.setVisibility(View.VISIBLE);
             tvMonthShow.setText("10月收益");
         } else if (month.equals("11")) {
             initRadionButton();
             rb11.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb11.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
+            rb5.setVisibility(View.VISIBLE);
+            rb6.setVisibility(View.VISIBLE);
+            rb7.setVisibility(View.VISIBLE);
+            rb8.setVisibility(View.VISIBLE);
+            rb9.setVisibility(View.VISIBLE);
+            rb10.setVisibility(View.VISIBLE);
+            rb11.setVisibility(View.VISIBLE);
             tvMonthShow.setText("11月收益");
         } else if (month.equals("12")) {
             initRadionButton();
             rb12.setBackgroundColor(Color.parseColor("#45a7fe"));
             rb12.setTextColor(Color.parseColor("#ffffff"));
             page = 1;
+            rb1.setVisibility(View.VISIBLE);
+            rb2.setVisibility(View.VISIBLE);
+            rb3.setVisibility(View.VISIBLE);
+            rb4.setVisibility(View.VISIBLE);
+            rb5.setVisibility(View.VISIBLE);
+            rb6.setVisibility(View.VISIBLE);
+            rb7.setVisibility(View.VISIBLE);
+            rb8.setVisibility(View.VISIBLE);
+            rb9.setVisibility(View.VISIBLE);
+            rb10.setVisibility(View.VISIBLE);
+            rb11.setVisibility(View.VISIBLE);
+            rb12.setVisibility(View.VISIBLE);
             tvMonthShow.setText("12月收益");
         }
     }
