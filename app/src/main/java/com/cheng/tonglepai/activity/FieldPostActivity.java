@@ -110,7 +110,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         setMidTitle("场地报备");
         verifyStoragePermissions(this);
         initView();
-        initData();
+        //initData();
 
 
     }
@@ -374,6 +374,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         params.put("telphone", etCompanyPhone.getText().toString().trim());
         params.put("userid", HttpConfig.newInstance(FieldPostActivity.this).getUserid());
         params.put("area_temp", tvAddressShow.getText().toString().trim());
+        params.put("betting_fee",totalPrice);
         List<Map<String, Object>> list = new ArrayList<>();
         for (int i = 0; i < dataList.size(); i++) {
             if (dataList.get(i).getShowNO() != 0) {
@@ -528,19 +529,34 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
                 break;
             case 0x1001:
                 if(data!=null) {
-                    dataList = (List<DeviceListData>) data.getSerializableExtra("list");
-                    if (dataList != null && dataList.size() > 0) refreshList();
+
+                    List<DeviceListData> dataList1 = (List<DeviceListData>) data.getSerializableExtra("list");
+                     if (dataList1 != null && dataList1.size() > 0) refreshList(dataList1);
                 }
                 break;
         }
     }
-    private  void refreshList(){
+    private  void refreshList( List<DeviceListData> dataList1){
+
+        for(DeviceListData data:dataList1){
+            //判断之前是否选择过该设备，如果选择过，只需要在原来的数量上+，如果未选择过，将该设备加入列表
+            boolean hasSelected=false;
+            for(DeviceListData one:dataList){
+                if(one.getId().equals(data.getId())){
+                    hasSelected=true;
+                    one.setShowNO(one.getShowNO()+data.getShowNO());
+                    break;
+                }
+            }
+            if(!hasSelected){
+                dataList.add(data);
+            }
+            totalPrice = totalPrice + (data.getPrice_purchase() * data.getShowNO());
+            allnum = allnum + data.getShowNO();
+        }
+
         lvDevice.setVisibility(View.VISIBLE);
         mAdapter.setData(dataList);
-        for(DeviceListData data:dataList){
-            totalPrice=totalPrice+(data.getPrice_purchase()*data.getShowNO());
-            allnum=allnum+data.getShowNO();
-        }
         tv_totlPrice.setText("总计：￥"+totalPrice);
         tv_count.setText("已选设备"+allnum+"台");
 

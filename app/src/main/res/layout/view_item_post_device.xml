@@ -6,36 +6,36 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@drawable/chang_count_mid"
         android:layout_margin="5dp"
         android:padding="5dp">
 
         <ImageView
             android:id="@+id/iv_device"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp" />
+            android:layout_marginLeft="15dp" />
 
-        <TextView
-            android:id="@+id/tv_device"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_device"
-            android:text="需摇摇车" />
+            <TextView
+                android:id="@+id/tv_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/iv_device"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_device"
+                android:text="需摇摇车" />
 
-        <TextView
-            android:id="@+id/tv_equipment_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_device"
-            android:layout_below="@+id/tv_device"
-            android:text="ssssss"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/text_red" />
+            <TextView
+                android:id="@+id/tv_equipment_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_device"
+                android:layout_below="@+id/tv_device"
+                android:text="ssssss"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/text_red" />
 
         <LinearLayout
             android:layout_width="wrap_content"

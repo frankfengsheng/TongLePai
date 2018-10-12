@@ -29,7 +29,6 @@ public class DeviceListAdapter extends BaseAdapter {
     }
 
     public void setData(List<DeviceListData> data) {
-        mData.clear();
         if (null != data && data.size() > 0) {
             this.mData = data;
 

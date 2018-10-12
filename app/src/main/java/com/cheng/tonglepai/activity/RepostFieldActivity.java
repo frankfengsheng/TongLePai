@@ -1,6 +1,7 @@
 package com.cheng.tonglepai.activity;
 
 import android.annotation.SuppressLint;
+import android.app.admin.DeviceAdminInfo;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +68,7 @@ import java.util.Map;
  * Created by cheng on 2018/7/23.
  */
 
-public class RepostFieldActivity extends TitleActivity implements DeviceListAdapter.DeviceListListener {
+public class RepostFieldActivity extends TitleActivity implements DeviceListAdapter.DeviceListListener,View.OnClickListener {
     public static final String STORE_INFO_ID = "store.info.id";
     private EditText etShopName, etShopArea, etDeviceArea, etVisitPeople, etCanIncome, etDetailAddress, etContacts, etCompanyPhone;
     private ImageView upPhotoOne, upPhotoTwo, upPhotoThree, upPhotoFour;
@@ -95,6 +97,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     private DeviceListAdapter mAdapter;
     private MyListView lvDevice;
     private int allnum = 0;
+    private double totalPrice;
     private List<UnpassFieldDetailData.DeviceListBean> deviceListBeen = new ArrayList<>();
     private String manageTypeId;
     private List<String> typeName = new ArrayList<>();
@@ -102,7 +105,8 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     private Button btnToFieldList;
     private String storeInfoId;
     private UnpassFieldDetailData mData;
-
+    private LinearLayout ly_select;
+    private TextView tv_totlPrice;//总价
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,11 +122,12 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("加载中");
         loadingDialog.setCancelable(true);
-
+        ly_select= (LinearLayout) findViewById(R.id.ly_field_select_equiment);
         lvDevice = (MyListView) findViewById(R.id.lv_device_list);
         mAdapter = new DeviceListAdapter(this);
         lvDevice.setAdapter(mAdapter);
         mAdapter.setOnIPostPackageNoListener(this);
+        ly_select.setOnClickListener(this);
 
         tvAddressShow = (TextView) findViewById(R.id.tv_address_show);
 
@@ -158,7 +163,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         });
 
         tvNumAll = (TextView) findViewById(R.id.tv_equipment_count);
-
+        tv_totlPrice = (TextView) findViewById(R.id.tv_equipment_total_price);
         btnSubmit = (Button) findViewById(R.id.btn_to_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -427,6 +432,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         params.put("telphone", etCompanyPhone.getText().toString().trim());
         params.put("userid", HttpConfig.newInstance(RepostFieldActivity.this).getUserid());
         params.put("area_temp", tvAddressShow.getText().toString().trim());
+        params.put("betting_fee",totalPrice);
         List<Map<String, Object>> list = new ArrayList<>();
         for (int i = 0; i < dataList.size(); i++) {
             if (dataList.get(i).getShowNO() != 0) {
@@ -759,7 +765,39 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                     }
                 }
                 break;
+            case 0x1001:
+                if(data!=null) {
+                   List<DeviceListData> dataList = (List<DeviceListData>) data.getSerializableExtra("list");
+                    if (dataList != null && dataList.size() > 0) refreshList(dataList);
+                }
+                break;
         }
+    }
+
+    private  void refreshList( List<DeviceListData> dataList1){
+
+        for(DeviceListData data:dataList1){
+            //判断之前是否选择过该设备，如果选择过，只需要在原来的数量上+，如果未选择过，将该设备加入列表
+            boolean hasSelected=false;
+            for(DeviceListData one:dataList){
+                if(one.getId().equals(data.getId())){
+                    hasSelected=true;
+                    one.setShowNO(one.getShowNO()+data.getShowNO());
+                    break;
+                }
+            }
+            if(!hasSelected){
+                dataList.add(data);
+            }
+            totalPrice = totalPrice + (data.getPrice_purchase() * data.getShowNO());
+            allnum = allnum + data.getShowNO();
+        }
+
+        lvDevice.setVisibility(View.VISIBLE);
+        mAdapter.setData(dataList);
+        tv_totlPrice.setText("总计：￥"+totalPrice);
+        tvNumAll.setText("已选设备"+allnum+"台");
+
     }
 
     private void initDeviceData() {
@@ -783,17 +821,21 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     @Override
     public void reduceNo(int position) {
         if (0 == allnum) {
-            Toast.makeText(RepostFieldActivity.this, "已经到了最小值", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "已经到了最小值", Toast.LENGTH_SHORT).show();
             return;
         }
         allnum = allnum - 1;
-        tvNumAll.setText(allnum + "");
+        totalPrice=totalPrice-dataList.get(position).getPrice_purchase();
+        tvNumAll.setText("已选设备"+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+(totalPrice));
     }
 
     @Override
     public void addNo(int position) {
         allnum = allnum + 1;
-        tvNumAll.setText(allnum + "");
+        totalPrice=totalPrice+dataList.get(position).getPrice_purchase();
+        tvNumAll.setText("已选设备"+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+(totalPrice));
     }
 
     private void initManageData() {
@@ -867,6 +909,17 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
             }
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.ly_field_select_equiment:
+                Intent intent=new Intent(getApplicationContext(),FieldPostSelectEquipmentActivity.class);
+                startActivityForResult(intent,0x1001);
+                break;
+        }
+    }
 
     class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {
         @Override

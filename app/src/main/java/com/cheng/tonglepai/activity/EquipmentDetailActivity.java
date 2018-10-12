@@ -31,9 +31,9 @@ public class EquipmentDetailActivity extends TitleActivity implements View.OnCli
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState, R.layout.activity_field_select_equipment_post);
+        super.onCreate(savedInstanceState, R.layout.activity_equiment_detail);
         MyApplication.getInstance().addActivity(this);
-        setMidTitle("设备选择");
+        setMidTitle("设备详情");
         initView();
 
 

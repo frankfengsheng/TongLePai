@@ -677,4 +677,9 @@ public interface ApiService {
     @POST("index.php?s=/api/field/device_bill")
     @FormUrlEncoded
     Call<DeviceBillResult> getFieldDeviceBill(@FieldMap Map<String, String> params);
+
+    /**
+     * 获取摇摇车详情
+     */
+
 }
