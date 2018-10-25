@@ -12,7 +12,9 @@ public class DeviceListData implements Serializable {
     private String device_name;
     private String id;
     private int showNO;
-    private double price_purchase;
+    private String price_purchase;
+    private String recommend;
+
 
     public int getShowNO() {
         return showNO;
@@ -54,11 +56,19 @@ public class DeviceListData implements Serializable {
         this.id = id;
     }
 
-    public double getPrice_purchase() {
+    public String getPrice_purchase() {
         return price_purchase;
     }
 
-    public void setPrice_purchase(double price_purchase) {
+    public void setPrice_purchase(String price_purchase) {
         this.price_purchase = price_purchase;
+    }
+
+    public String getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(String recommend) {
+        this.recommend = recommend;
     }
 }

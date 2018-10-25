@@ -32,6 +32,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.data.BaseBackResult;
+import com.cheng.retrofit20.data.EquimentDetailResult;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
@@ -84,7 +85,6 @@ public class FieldPostSelectEquipmentActivity extends TitleActivity implements V
         initData();
 
     }
-
 
 
     private void initData() {
@@ -146,7 +146,9 @@ public class FieldPostSelectEquipmentActivity extends TitleActivity implements V
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+         Intent intent=new Intent(getApplicationContext(), EquipmentDetailActivity.class);
+         intent.putExtra("device_model",dataList.get(position).getDevice_model());
+        startActivity(intent);
     }
 
     @Override

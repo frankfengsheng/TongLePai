@@ -17,6 +17,7 @@ import com.cheng.retrofit20.data.ChooseTypeResult;
 import com.cheng.retrofit20.data.DeviceBillResult;
 import com.cheng.retrofit20.data.DeviceListResult;
 import com.cheng.retrofit20.data.DevicePriceResult;
+import com.cheng.retrofit20.data.EquimentDetailResult;
 import com.cheng.retrofit20.data.FieldIncomeResult;
 import com.cheng.retrofit20.data.FieldListResult;
 import com.cheng.retrofit20.data.HsaPostFieldResult;
@@ -681,5 +682,7 @@ public interface ApiService {
     /**
      * 获取摇摇车详情
      */
-
+    @POST("index.php?s=/api/maker/check_device_info")
+    @FormUrlEncoded
+    Call<EquimentDetailResult> getEquimentDetail(@FieldMap Map<String, String> params);
 }

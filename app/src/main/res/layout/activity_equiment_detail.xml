@@ -6,4 +6,64 @@
 
     <include layout="@layout/view_activity_title" />
 
+    <TextView
+        android:id="@+id/tv_no_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingTop="40dp"
+        android:text="暂无数据"
+        android:visibility="gone" />
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_to_submit">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_equipment_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/tlp_marginleft"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/C5"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_equipment_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/tlp_marginleft"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/C5"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_to_back"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:background="@color/C3"
+            android:text="返   回"
+            android:textColor="@color/C1"
+            android:textSize="16sp" />
+    </RelativeLayout>
 </LinearLayout>

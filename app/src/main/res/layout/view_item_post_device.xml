@@ -13,10 +13,18 @@
 
         <ImageView
             android:id="@+id/iv_device"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp" />
+        <ImageView
+            android:id="@+id/iv_equipment_tuijian"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignTop="@id/iv_device"
+            android:layout_alignRight="@id/iv_device"
+            android:src="@drawable/equipment_tuijian"
+            android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_device"

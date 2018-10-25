@@ -18,6 +18,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.adapter.DeviceListAdapter;
+import com.cheng.tonglepai.adapter.SelectPictureAdapter;
 import com.cheng.tonglepai.bitmap.MyBitmapUtil;
 import com.cheng.tonglepai.data.BusinessTypeData;
 import com.cheng.tonglepai.data.DeviceListData;
@@ -47,9 +49,11 @@ import com.cheng.tonglepai.net.UnpassFieldDetailRequest;
 import com.cheng.tonglepai.tool.Base64BitmapUtil;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.GetJsonDataUtil;
+import com.cheng.tonglepai.tool.GetPathFromUri4kitkat;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.cheng.tonglepai.tool.MyListView;
 import com.cheng.tonglepai.tool.MyToast;
+import com.cheng.tonglepai.view.MyGridView;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -63,12 +67,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by cheng on 2018/7/23.
  */
 
-public class RepostFieldActivity extends TitleActivity implements DeviceListAdapter.DeviceListListener,View.OnClickListener {
+public class RepostFieldActivity extends TitleActivity implements DeviceListAdapter.DeviceListListener,View.OnClickListener,AdapterView.OnItemClickListener {
     public static final String STORE_INFO_ID = "store.info.id";
     private EditText etShopName, etShopArea, etDeviceArea, etVisitPeople, etCanIncome, etDetailAddress, etContacts, etCompanyPhone;
     private ImageView upPhotoOne, upPhotoTwo, upPhotoThree, upPhotoFour;
@@ -98,7 +103,8 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     private MyListView lvDevice;
     private int allnum = 0;
     private double totalPrice;
-    private List<UnpassFieldDetailData.DeviceListBean> deviceListBeen = new ArrayList<>();
+   // private List<UnpassFieldDetailData.DeviceListBean> deviceListBeen = new ArrayList<>();
+    private List<Map<String,String>> deviceListBeen=new ArrayList<>();
     private String manageTypeId;
     private List<String> typeName = new ArrayList<>();
     private TextView tvManageShow;
@@ -108,9 +114,16 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     private LinearLayout ly_select;
     private TextView tv_totlPrice;//总价
 
+   /* private MyGridView gridView_selectimg1;
+    private List<String> imgUrl_list1 = new ArrayList<String>();
+    private SelectPictureAdapter selectPictureAdapter;
+
+    private MyGridView gridView_selectimg2;
+    private List<String> imgUrl_list2 = new ArrayList<String>();
+    private SelectPictureAdapter selectPictureAdapter2;*/
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState, R.layout.activity_field_post);
+        super.onCreate(savedInstanceState, R.layout.activity_field_repost);
         MyApplication.getInstance().addActivity(this);
         initView();
         initData();
@@ -127,7 +140,18 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         mAdapter = new DeviceListAdapter(this);
         lvDevice.setAdapter(mAdapter);
         mAdapter.setOnIPostPackageNoListener(this);
+        lvDevice.setOnItemClickListener(this);
         ly_select.setOnClickListener(this);
+
+      /*  gridView_selectimg1= (MyGridView) findViewById(R.id.gd_select_img1);
+        selectPictureAdapter=new SelectPictureAdapter(this,imgUrl_list1,4);
+        gridView_selectimg1.setAdapter(selectPictureAdapter);
+        gridView_selectimg1.setOnItemClickListener(this);
+
+        gridView_selectimg2= (MyGridView) findViewById(R.id.gd_select_img2);
+        selectPictureAdapter2=new SelectPictureAdapter(this,imgUrl_list2,4);
+        gridView_selectimg2.setAdapter(selectPictureAdapter2);
+        gridView_selectimg2.setOnItemClickListener(this);*/
 
         tvAddressShow = (TextView) findViewById(R.id.tv_address_show);
 
@@ -287,12 +311,16 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                 if (!TextUtils.isEmpty(data.getStore_exterior_1())) {
                     new MyAsyncTask5().execute(data.getStore_interior_1());
                     oneCanshow = true;
+                 /*   imgUrl_list2.add(data.getStore_exterior_1());
+                    selectPictureAdapter.notifyDataSetChanged();*/
                     upPhotoTwoNext.setVisibility(View.VISIBLE);
                     MyBitmapUtil myBitmapUtil = new MyBitmapUtil(RepostFieldActivity.this, data.getStore_exterior_1());
                     myBitmapUtil.display(data.getStore_exterior_1(), upPhotoOneNext);
                 }
                 if (!TextUtils.isEmpty(data.getStore_exterior_2())) {
                     new MyAsyncTask6().execute(data.getStore_interior_1());
+                  /*  imgUrl_list2.add(data.getStore_exterior_1());
+                    selectPictureAdapter.notifyDataSetChanged();*/
                     twoCanshow = true;
                     upPhotoThreeNext.setVisibility(View.VISIBLE);
                     MyBitmapUtil myBitmapUtil = new MyBitmapUtil(RepostFieldActivity.this, data.getStore_exterior_2());
@@ -300,6 +328,8 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                 }
                 if (!TextUtils.isEmpty(data.getStore_exterior_3())) {
                     new MyAsyncTask7().execute(data.getStore_interior_1());
+                  /*  imgUrl_list2.add(data.getStore_exterior_1());
+                    selectPictureAdapter.notifyDataSetChanged();*/
                     threeCanshow = true;
                     upPhotoFourNext.setVisibility(View.VISIBLE);
                     MyBitmapUtil myBitmapUtil = new MyBitmapUtil(RepostFieldActivity.this, data.getStore_exterior_3());
@@ -307,6 +337,8 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                 }
                 if (!TextUtils.isEmpty(data.getStore_exterior_4())) {
                     new MyAsyncTask8().execute(data.getStore_interior_1());
+                   /* imgUrl_list2.add(data.getStore_exterior_1());
+                    selectPictureAdapter.notifyDataSetChanged();*/
                     fourCanshow = true;
                     MyBitmapUtil myBitmapUtil = new MyBitmapUtil(RepostFieldActivity.this, data.getStore_exterior_4());
                     myBitmapUtil.display(data.getStore_exterior_4(), upPhotoFourNext);
@@ -339,7 +371,12 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                     myBitmapUtil.display(data.getStore_interior_4(), upPhotoFour);
                 }
 
-                deviceListBeen = data.getDevice_list();
+               /* deviceListBeen = data.getDevice_list();
+                Map<String,String> map=deviceListBeen.get(0);
+                Set<String> keySet=map.keySet();
+                for(String key:keySet){
+
+                }*/
                 loadingDialog.dismiss();
             }
 
@@ -771,6 +808,25 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                     if (dataList != null && dataList.size() > 0) refreshList(dataList);
                 }
                 break;
+
+          /*  case 0x121:
+                if (resultCode == RESULT_OK) {
+
+                    String path = GetPathFromUri4kitkat.getPath(this, data.getData());
+                    imgUrl_list1.add(path);
+                    selectPictureAdapter.notifyDataSetChanged();
+
+                }
+                break;
+            case 0x122:
+                if (resultCode == RESULT_OK) {
+
+                    String path = GetPathFromUri4kitkat.getPath(this, data.getData());
+                    imgUrl_list2.add(path);
+                    selectPictureAdapter2.notifyDataSetChanged();
+
+                }
+                break;*/
         }
     }
 
@@ -789,7 +845,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
             if(!hasSelected){
                 dataList.add(data);
             }
-            totalPrice = totalPrice + (data.getPrice_purchase() * data.getShowNO());
+            totalPrice = totalPrice + (Double.parseDouble(data.getPrice_purchase()) * data.getShowNO());
             allnum = allnum + data.getShowNO();
         }
 
@@ -825,7 +881,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
             return;
         }
         allnum = allnum - 1;
-        totalPrice=totalPrice-dataList.get(position).getPrice_purchase();
+        totalPrice=totalPrice-Double.parseDouble(dataList.get(position).getPrice_purchase());
         tvNumAll.setText("已选设备"+allnum+"台");
         tv_totlPrice.setText("总计：￥"+(totalPrice));
     }
@@ -833,7 +889,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     @Override
     public void addNo(int position) {
         allnum = allnum + 1;
-        totalPrice=totalPrice+dataList.get(position).getPrice_purchase();
+        totalPrice=totalPrice+Double.parseDouble(dataList.get(position).getPrice_purchase());
         tvNumAll.setText("已选设备"+allnum+"台");
         tv_totlPrice.setText("总计：￥"+(totalPrice));
     }
@@ -919,6 +975,32 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                 startActivityForResult(intent,0x1001);
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()){
+            case R.id.lv_field_select_equiment:
+                Intent intent=new Intent(getApplicationContext(), EquipmentDetailActivity.class);
+                intent.putExtra("device_model",dataList.get(position).getDevice_model());
+                startActivity(intent);
+                break;
+           /* case R.id.gd_select_img1:
+                if(position>=imgUrl_list1.size()) {
+                    Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+                    albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
+                    startActivityForResult(albumIntent, 0x121);
+                }
+                break;
+            case R.id.gd_select_img2:
+                if(position>=imgUrl_list1.size()) {
+                    Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+                    albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
+                    startActivityForResult(albumIntent, 0x122);
+                }
+                break;*/
+        }
+
     }
 
     class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {

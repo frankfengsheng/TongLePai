@@ -180,6 +180,10 @@
         <activity
             android:name=".activity.FieldPostSelectEquipmentActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.EquipmentDetailActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 

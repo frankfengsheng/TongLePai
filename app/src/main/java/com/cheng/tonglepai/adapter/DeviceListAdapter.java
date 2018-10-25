@@ -64,6 +64,7 @@ public class DeviceListAdapter extends BaseAdapter {
             holder.ivNoReduce = (ImageView) convertView.findViewById(R.id.iv_number_reduce);
             holder.ivNoAdd = (ImageView) convertView.findViewById(R.id.iv_number_add);
             holder.tvPrice= (TextView) convertView.findViewById(R.id.tv_equipment_price);
+            holder.ivTuijian= (ImageView) convertView.findViewById(R.id.iv_equipment_tuijian);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -77,6 +78,12 @@ public class DeviceListAdapter extends BaseAdapter {
         holder.tvPrice.setText("￥ "+data.getPrice_purchase());
         final int allNo = data.getShowNO();
         holder.tvNoCount.setText(data.getShowNO() + "");
+        if(data.getRecommend().equals("1")){
+            holder.ivTuijian.setVisibility(View.VISIBLE);
+        }else {
+            holder.ivTuijian.setVisibility(View.GONE);
+        }
+
         holder.ivNoReduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +123,6 @@ public class DeviceListAdapter extends BaseAdapter {
 
     class ViewHolder {
         private TextView tvName, tvNoCount,tvPrice;
-        private ImageView ivDevice, ivNoReduce, ivNoAdd;
+        private ImageView ivDevice, ivNoReduce, ivNoAdd,ivTuijian;
     }
 }

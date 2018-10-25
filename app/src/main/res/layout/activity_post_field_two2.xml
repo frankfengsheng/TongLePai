@@ -36,13 +36,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <com.cheng.tonglepai.view.MyGridView
+       <!-- <com.cheng.tonglepai.view.MyGridView
             android:id="@+id/gd_select_img1"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginLeft="15dp"
-            android:numColumns="4"></com.cheng.tonglepai.view.MyGridView>
-        <!--<ImageView
+            android:numColumns="4"></com.cheng.tonglepai.view.MyGridView>-->
+        <ImageView
             android:id="@+id/up_photo_one"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -72,7 +72,7 @@
             android:layout_height="70dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/upload_img"
-            android:visibility="gone" />-->
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView
@@ -87,13 +87,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.cheng.tonglepai.view.MyGridView
+        <!--<com.cheng.tonglepai.view.MyGridView
             android:id="@+id/gd_select_img2"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginLeft="15dp"
-            android:numColumns="4"></com.cheng.tonglepai.view.MyGridView>
-        <!--<ImageView
+            android:numColumns="4"></com.cheng.tonglepai.view.MyGridView>-->
+        <ImageView
             android:id="@+id/up_photo_next_one"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -122,7 +122,7 @@
             android:layout_height="70dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/upload_img"
-            android:visibility="gone" />-->
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout

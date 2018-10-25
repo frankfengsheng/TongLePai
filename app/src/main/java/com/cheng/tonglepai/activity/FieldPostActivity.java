@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.adapter.DeviceListAdapter;
+import com.cheng.tonglepai.adapter.SelectPictureAdapter;
 import com.cheng.tonglepai.data.BusinessTypeData;
 import com.cheng.tonglepai.data.DeviceListData;
 import com.cheng.tonglepai.data.JsonBean;
@@ -48,6 +50,7 @@ import com.cheng.tonglepai.tool.GetPathFromUri4kitkat;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.cheng.tonglepai.tool.MyListView;
 import com.cheng.tonglepai.tool.MyToast;
+import com.cheng.tonglepai.view.MyGridView;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -64,7 +67,7 @@ import java.util.Map;
  */
 
 
-public class FieldPostActivity extends TitleActivity implements DeviceListAdapter.DeviceListListener,View.OnClickListener {
+public class FieldPostActivity extends TitleActivity implements DeviceListAdapter.DeviceListListener,View.OnClickListener,AdapterView.OnItemClickListener {
 
     public static final String STORE_IN_ID = "store.in.id";
     private EditText etShopName, etShopArea, etDeviceArea, etVisitPeople, etCanIncome, etDetailAddress;
@@ -72,8 +75,8 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     private TextView etManageType, etUserAddress;
     private Bitmap bitmapOne, bitmapTwo, bitmapThree, bitmapFour;
     private Bitmap bitmapOneNext, bitmapTwoNext, bitmapThreeNext, bitmapFourNext;
-    private ImageView upPhotoOne, upPhotoTwo, upPhotoThree, upPhotoFour;
-    private ImageView upPhotoOneNext, upPhotoTwoNext, upPhotoThreeNext, upPhotoFourNext;
+  /*  private ImageView upPhotoOne, upPhotoTwo, upPhotoThree, upPhotoFour;
+    private ImageView upPhotoOneNext, upPhotoTwoNext, upPhotoThreeNext, upPhotoFourNext;*/
     private Button btnSubmit, btnToFieldList;
     private TextView tv_totlPrice,tv_count;
     private static final int MSG_LOAD_DATA = 0x0001;
@@ -103,6 +106,13 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private static final int REQUEST_EXTERNAL_STORAGE = 100;
 
+    private MyGridView gridView_selectimg1;
+    private List<String> imgUrl_list1 = new ArrayList<String>();
+    private SelectPictureAdapter selectPictureAdapter;
+
+    private MyGridView gridView_selectimg2;
+    private List<String> imgUrl_list2 = new ArrayList<String>();
+    private SelectPictureAdapter selectPictureAdapter2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_field_post);
@@ -153,9 +163,21 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         mAdapter = new DeviceListAdapter(this);
         lvDevice.setAdapter(mAdapter);
         mAdapter.setOnIPostPackageNoListener(this);
+        lvDevice.setOnItemClickListener(this);
 
         ly_select= (LinearLayout) findViewById(R.id.ly_field_select_equiment);
         ly_select.setOnClickListener(this);
+
+        gridView_selectimg1= (MyGridView) findViewById(R.id.gd_select_img1);
+        selectPictureAdapter=new SelectPictureAdapter(this,imgUrl_list1,4);
+        gridView_selectimg1.setAdapter(selectPictureAdapter);
+        gridView_selectimg1.setOnItemClickListener(this);
+
+        gridView_selectimg2= (MyGridView) findViewById(R.id.gd_select_img2);
+        selectPictureAdapter2=new SelectPictureAdapter(this,imgUrl_list2,4);
+        gridView_selectimg2.setAdapter(selectPictureAdapter2);
+        gridView_selectimg2.setOnItemClickListener(this);
+
         btnToFieldList = (Button) findViewById(R.id.btn_to_field_list);
         btnToFieldList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +206,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         etContacts = (EditText) findViewById(R.id.et_contacts_type);//联系方式
         etCompanyPhone = (EditText) findViewById(R.id.et_company_phone);//公司电话
 
-        upPhotoOne = (ImageView) findViewById(R.id.up_photo_one);
+      /*  upPhotoOne = (ImageView) findViewById(R.id.up_photo_one);
         upPhotoTwo = (ImageView) findViewById(R.id.up_photo_two);
         upPhotoThree = (ImageView) findViewById(R.id.up_photo_three);
         upPhotoFour = (ImageView) findViewById(R.id.up_photo_four);
@@ -198,7 +220,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
                 Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
                 startActivityForResult(albumIntent, 1);
             }
         });
@@ -207,7 +229,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
                 Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
                 startActivityForResult(albumIntent, 2);
             }
         });
@@ -216,7 +238,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
                 Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
                 startActivityForResult(albumIntent, 3);
             }
         });
@@ -225,7 +247,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
                 Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
                 startActivityForResult(albumIntent, 4);
             }
         });
@@ -234,7 +256,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
                 Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
                 startActivityForResult(albumIntent, 5);
             }
         });
@@ -243,7 +265,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
                 Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
                 startActivityForResult(albumIntent, 6);
             }
         });
@@ -252,7 +274,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
                 Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
                 startActivityForResult(albumIntent, 7);
             }
         });
@@ -261,10 +283,10 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
                 Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
-                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
                 startActivityForResult(albumIntent, 8);
             }
-        });
+        });*/
 
         btnSubmit = (Button) findViewById(R.id.btn_to_submit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -343,6 +365,42 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
 
 
         Map<String, Object> params = new HashMap<String, Object>();
+        for (int i=0;i<imgUrl_list1.size();i++){
+            Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list1.get(i));
+            bitmapOne = compressScale(bitmap);
+            switch (i){
+                case 0:
+                    params.put("store_interior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 1:
+                    params.put("store_interior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 2:
+                    params.put("store_interior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 3:
+                    params.put("store_interior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+            }
+        }
+        for (int i=0;i<imgUrl_list2.size();i++){
+            Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list2.get(i));
+            bitmapOne = compressScale(bitmap);
+            switch (i){
+                case 0:
+                    params.put("store_exterior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 1:
+                    params.put("store_exterior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 2:
+                    params.put("store_exterior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 3:
+                    params.put("store_exterior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+            }
+        }
 
         if (null != bitmapOne)
             params.put("store_interior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapOne));
@@ -415,7 +473,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
 
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 1:
+           /* case 1:
                 if (resultCode == RESULT_OK) {
                     try {
                         String path = GetPathFromUri4kitkat.getPath(this, data.getData());
@@ -526,12 +584,30 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
                         e.printStackTrace();
                     }
                 }
-                break;
+                break;*/
             case 0x1001:
                 if(data!=null) {
 
                     List<DeviceListData> dataList1 = (List<DeviceListData>) data.getSerializableExtra("list");
                      if (dataList1 != null && dataList1.size() > 0) refreshList(dataList1);
+                }
+                break;
+            case 0x121:
+                if (resultCode == RESULT_OK) {
+
+                        String path = GetPathFromUri4kitkat.getPath(this, data.getData());
+                        imgUrl_list1.add(path);
+                        selectPictureAdapter.notifyDataSetChanged();
+
+                }
+                break;
+            case 0x122:
+                if (resultCode == RESULT_OK) {
+
+                    String path = GetPathFromUri4kitkat.getPath(this, data.getData());
+                    imgUrl_list2.add(path);
+                    selectPictureAdapter2.notifyDataSetChanged();
+
                 }
                 break;
         }
@@ -551,7 +627,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             if(!hasSelected){
                 dataList.add(data);
             }
-            totalPrice = totalPrice + (data.getPrice_purchase() * data.getShowNO());
+            totalPrice = totalPrice + (Double.parseDouble(data.getPrice_purchase()) * data.getShowNO());
             allnum = allnum + data.getShowNO();
         }
 
@@ -782,7 +858,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             return;
         }
         allnum = allnum - 1;
-        totalPrice=totalPrice-dataList.get(position).getPrice_purchase();
+        totalPrice=totalPrice-Double.parseDouble(dataList.get(position).getPrice_purchase());
         tv_count.setText("已选设备"+allnum+"台");
         tv_totlPrice.setText("总计：￥"+(totalPrice));
         Log.i("走不走", dataList.get(0).getShowNO() + "我我我");
@@ -791,7 +867,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     @Override
     public void addNo(int position) {
         allnum = allnum + 1;
-        totalPrice=totalPrice+dataList.get(position).getPrice_purchase();
+        totalPrice=totalPrice+Double.parseDouble(dataList.get(position).getPrice_purchase());
         tv_count.setText("已选设备"+allnum+"台");
         tv_totlPrice.setText("总计：￥"+(totalPrice));
         Log.i("走不走", dataList.get(0).getShowNO() + "我我");
@@ -867,5 +943,31 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
                 startActivityForResult(intent,0x1001);
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()){
+            case R.id.lv_field_select_equiment:
+                Intent intent=new Intent(getApplicationContext(), EquipmentDetailActivity.class);
+                intent.putExtra("device_model",dataList.get(position).getDevice_model());
+                startActivity(intent);
+                break;
+            case R.id.gd_select_img1:
+                if(position>=imgUrl_list1.size()) {
+                    Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+                    albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                    startActivityForResult(albumIntent, 0x121);
+                }
+                break;
+            case R.id.gd_select_img2:
+                if(position>=imgUrl_list2.size()) {
+                    Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+                    albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                    startActivityForResult(albumIntent, 0x122);
+                }
+                break;
+        }
+
     }
 }

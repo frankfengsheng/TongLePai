@@ -40,6 +40,8 @@ public class GetDeviceListBinding implements IUiDataBinding<List<DeviceListData>
             uiItem.setDevice_name(httpItem.getDevice_name());
             uiItem.setId(httpItem.getId());
             uiItem.setImg(httpItem.getImg());
+            uiItem.setPrice_purchase(httpItem.getPrice_purchase());
+            uiItem.setRecommend(httpItem.getRecommend());
             uiList.add(uiItem);
         }
         return uiList;

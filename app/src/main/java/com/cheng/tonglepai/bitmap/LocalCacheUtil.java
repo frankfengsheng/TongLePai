@@ -67,7 +67,7 @@ public class LocalCacheUtil {
             if (file.exists()) {
                 // 如果文件存在
                 Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-                //Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                //Bitmap bitmap = TlpBitmapFactory.decodeFile(file.getAbsolutePath());
                 return bitmap;
             }
         } catch (Exception e) {

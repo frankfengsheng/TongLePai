@@ -450,7 +450,7 @@
 
             <include layout="@layout/view_divider_line" />
 
-            <include layout="@layout/activity_post_field_two" />
+            <include layout="@layout/activity_post_field_two2" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

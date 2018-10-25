@@ -7,6 +7,7 @@
     <include layout="@layout/view_activity_title" />
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/C3">
@@ -26,6 +27,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -56,14 +58,20 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_to_field"
+            android:scaleType="fitXY"
+            android:src="@drawable/baobei_finish"
+            />
         <Button
             android:id="@+id/btn_to_field"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:background="@color/C3"
-            android:text="已经报备场地"
+            android:text="确   定"
             android:textColor="@color/C1"
             android:textSize="16sp" />
     </RelativeLayout>

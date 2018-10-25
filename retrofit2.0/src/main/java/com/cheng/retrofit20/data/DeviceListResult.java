@@ -32,7 +32,8 @@ public class DeviceListResult extends BaseHttpResult {
         private String img;
         private String device_name;
         private String id;
-
+        private String price_purchase;
+        private String recommend;
         public String getDevice_model() {
             return device_model;
         }
@@ -63,6 +64,22 @@ public class DeviceListResult extends BaseHttpResult {
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getPrice_purchase() {
+            return price_purchase;
+        }
+
+        public void setPrice_purchase(String price_purchase) {
+            this.price_purchase = price_purchase;
+        }
+
+        public String getRecommend() {
+            return recommend;
+        }
+
+        public void setRecommend(String recommend) {
+            this.recommend = recommend;
         }
     }
 }
