@@ -3,6 +3,7 @@ package com.cheng.retrofit20.data;
 import com.cheng.retrofit20.client.BaseHttpResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cheng on 2018/7/23.
@@ -68,7 +69,7 @@ public class UnpassFieldDetailResult extends BaseHttpResult {
         private String store_exterior_2;
         private String store_exterior_3;
         private String store_exterior_4;
-        private List<DeviceListBean> device_list;
+        private List<Map> device_list;
 
         public String getArea_temp() {
             return area_temp;
@@ -246,11 +247,11 @@ public class UnpassFieldDetailResult extends BaseHttpResult {
             this.store_exterior_4 = store_exterior_4;
         }
 
-        public List<DeviceListBean> getDevice_list() {
+        public List<Map> getDevice_list() {
             return device_list;
         }
 
-        public void setDevice_list(List<DeviceListBean> device_list) {
+        public void setDevice_list(List<Map> device_list) {
             this.device_list = device_list;
         }
 

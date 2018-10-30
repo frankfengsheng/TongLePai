@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.base.BaseActivity;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by cheng on 2018/6/27.
  */
@@ -20,6 +22,8 @@ public abstract class TitleActivity extends BaseActivity {
     private View mTitleView;
     private RelativeLayout mRightLayout;
     protected ImageView mLeftIv;
+    private ImageView rightImage;
+    private TextView tvRight;
 
     protected void onCreate(@Nullable Bundle savedInstanceState, int layoutId) {
         super.onCreate(savedInstanceState);
@@ -34,10 +38,25 @@ public abstract class TitleActivity extends BaseActivity {
         mRightLayout = (RelativeLayout) mTitleView.findViewById(R.id.title_right_layout);
         mLeftIv = (ImageView) mTitleView.findViewById(R.id.title_left_back_iv);
         mMiddleTv = (TextView) mTitleView.findViewById(R.id.title_middle_tv);
+        tvRight= (TextView) mTitleView.findViewById(R.id.tv_title_right);
+        rightImage= (ImageView) mTitleView.findViewById(R.id.iv_title_right);
 
     }
 
     protected void setMidTitle(String title) {
+        mMiddleTv.setVisibility(View.VISIBLE);
+        mMiddleTv.setText(title);
+    }
+
+    protected  void setTitle(String title,boolean isRightText,String rightText,boolean isRightIamge,int rightResource){
+        if(isRightText){
+            tvRight.setVisibility(View.VISIBLE);
+            tvRight.setText(rightText);
+        }
+        if(isRightIamge){
+            rightImage.setVisibility(View.VISIBLE);
+            rightImage.setImageResource(rightResource);
+        }
         mMiddleTv.setVisibility(View.VISIBLE);
         mMiddleTv.setText(title);
     }

@@ -152,25 +152,6 @@
         android:layout_height="wrap_content">
 
     </com.cheng.tonglepai.tool.MyListView>
-    <LinearLayout
-        android:id="@+id/ly_field_select_equiment"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="@dimen/tlp_marginleft"
-        android:layout_marginRight="@dimen/tlp_marginleft"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:background="@drawable/chang_count_mid">
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/equiment_add"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="@string/select_equiment"/>
-    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -178,13 +159,13 @@
         android:orientation="horizontal"
         android:visibility="visible">
 
-       <TextView
-           android:id="@+id/tv_equipment_count"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_centerVertical="true"
-           android:layout_marginLeft="@dimen/tlp_marginleft"
-           android:textColor="@color/C5"/>
+        <TextView
+            android:id="@+id/tv_equipment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/tlp_marginleft"
+            android:textColor="@color/C5"/>
 
         <TextView
             android:id="@+id/tv_equipment_total_price"
@@ -198,6 +179,27 @@
             android:textSize="18sp" />
 
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ly_field_select_equiment"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/tlp_marginleft"
+        android:layout_marginRight="@dimen/tlp_marginleft"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/chang_count_mid">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/equiment_add"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/select_equiment"/>
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"
@@ -216,6 +218,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:text="注：确认报备后，经考察后再提审核，在审查阶段，会评估您是否成为第一报备人" />
 
         <Button

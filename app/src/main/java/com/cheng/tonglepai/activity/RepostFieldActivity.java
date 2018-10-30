@@ -23,10 +23,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
@@ -98,13 +100,13 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     private boolean oneCanshowNext, twoCanshowNext, threeCanshowNext, fourCanshowNext;
     private LoadingDialog loadingDialog;
     private boolean isLoaded, isLoaded1;
-    private List<DeviceListData> dataList = new ArrayList<>();
+    private ArrayList<DeviceListData> dataList = new ArrayList<>();
     private DeviceListAdapter mAdapter;
     private MyListView lvDevice;
     private int allnum = 0;
     private double totalPrice;
    // private List<UnpassFieldDetailData.DeviceListBean> deviceListBeen = new ArrayList<>();
-    private List<Map<String,String>> deviceListBeen=new ArrayList<>();
+    private List<Map> deviceListBeen=new ArrayList<>();
     private String manageTypeId;
     private List<String> typeName = new ArrayList<>();
     private TextView tvManageShow;
@@ -113,6 +115,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     private UnpassFieldDetailData mData;
     private LinearLayout ly_select;
     private TextView tv_totlPrice;//总价
+
 
    /* private MyGridView gridView_selectimg1;
     private List<String> imgUrl_list1 = new ArrayList<String>();
@@ -176,6 +179,8 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         upPhotoTwoNext = (ImageView) findViewById(R.id.up_photo_next_two);
         upPhotoThreeNext = (ImageView) findViewById(R.id.up_photo_next_three);
         upPhotoFourNext = (ImageView) findViewById(R.id.up_photo_next_four);
+
+
 
         btnToFieldList = (Button) findViewById(R.id.btn_to_field_list);
         btnToFieldList.setOnClickListener(new View.OnClickListener() {
@@ -371,12 +376,8 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                     myBitmapUtil.display(data.getStore_interior_4(), upPhotoFour);
                 }
 
-               /* deviceListBeen = data.getDevice_list();
-                Map<String,String> map=deviceListBeen.get(0);
-                Set<String> keySet=map.keySet();
-                for(String key:keySet){
+                deviceListBeen = data.getDevice_list();
 
-                }*/
                 loadingDialog.dismiss();
             }
 
@@ -805,7 +806,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
             case 0x1001:
                 if(data!=null) {
                    List<DeviceListData> dataList = (List<DeviceListData>) data.getSerializableExtra("list");
-                    if (dataList != null && dataList.size() > 0) refreshList(dataList);
+                    if (dataList != null && dataList.size() > 0) refreshList(dataList,true);
                 }
                 break;
 
@@ -830,25 +831,18 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         }
     }
 
-    private  void refreshList( List<DeviceListData> dataList1){
-
+    private  void refreshList( List<DeviceListData> dataList1,boolean isClear){
+        totalPrice=0;
+        allnum=0;
         for(DeviceListData data:dataList1){
-            //判断之前是否选择过该设备，如果选择过，只需要在原来的数量上+，如果未选择过，将该设备加入列表
-            boolean hasSelected=false;
-            for(DeviceListData one:dataList){
-                if(one.getId().equals(data.getId())){
-                    hasSelected=true;
-                    one.setShowNO(one.getShowNO()+data.getShowNO());
-                    break;
-                }
-            }
-            if(!hasSelected){
-                dataList.add(data);
-            }
+
             totalPrice = totalPrice + (Double.parseDouble(data.getPrice_purchase()) * data.getShowNO());
             allnum = allnum + data.getShowNO();
         }
-
+        if(isClear) {
+            dataList.clear();
+            dataList.addAll(dataList1);
+        }
         lvDevice.setVisibility(View.VISIBLE);
         mAdapter.setData(dataList);
         tv_totlPrice.setText("总计：￥"+totalPrice);
@@ -861,8 +855,22 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         mRequest.setListener(new BaseHttpRequest.IRequestListener<List<DeviceListData>>() {
             @Override
             public void onSuccess(final List<DeviceListData> data) {
-                dataList = data;
-                mAdapter.setData(data);
+
+
+                for(Map map: deviceListBeen){
+                    Set<String> set=map.keySet();
+                    for(String key:set)
+                    {
+                        for(DeviceListData data1:data){
+                          if(key.equals(data1.getDevice_model())){
+                              data1.setShowNO(((Double)map.get(key)).intValue() );
+                              dataList.add(data1);
+                          }
+                        }
+                    }
+                }
+
+               refreshList(dataList,false);
             }
 
             @Override
@@ -972,6 +980,9 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         {
             case R.id.ly_field_select_equiment:
                 Intent intent=new Intent(getApplicationContext(),FieldPostSelectEquipmentActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("dataList",dataList);
+                intent.putExtras(bundle);
                 startActivityForResult(intent,0x1001);
                 break;
         }

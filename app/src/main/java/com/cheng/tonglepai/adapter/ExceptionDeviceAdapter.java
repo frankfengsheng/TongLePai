@@ -30,9 +30,15 @@ import java.util.List;
 public class ExceptionDeviceAdapter extends BaseAdapter {
     private Context context;
     private List<ExceptionDeviceData> mData = new ArrayList<>();
-
+    Btnclick btnclick;
     public ExceptionDeviceAdapter(Context context) {
         this.context = context;
+    }
+    public void setBtnclick(Btnclick btnclick){
+        this.btnclick=btnclick;
+    }
+    public List<ExceptionDeviceData> getData(){
+        return mData;
     }
 
     public void setData(List<ExceptionDeviceData> data) {
@@ -75,11 +81,15 @@ public class ExceptionDeviceAdapter extends BaseAdapter {
             holder.tvDeviceTime = (TextView) convertView.findViewById(R.id.tv_device_time);
             holder.tvShopName = (TextView) convertView.findViewById(R.id.tv_shop_name);
             holder.tvShopAddress = (TextView) convertView.findViewById(R.id.tv_device_address);
-            holder.btnState = (Button) convertView.findViewById(R.id.btn_type);
+            holder.btnState = (TextView) convertView.findViewById(R.id.btn_type);
+            holder.btn_detection= (Button) convertView.findViewById(R.id.btn_detection);
+            holder.btn_repairs= (Button) convertView.findViewById(R.id.btn_repairs);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+
         final ExceptionDeviceData data = mData.get(position);
         holder.tvDeviceName.setText(data.getDevice_name());
         holder.tvDeviceNo.setText(data.getDevice_code());
@@ -88,7 +98,18 @@ public class ExceptionDeviceAdapter extends BaseAdapter {
         holder.tvShopName.setText(data.getStore_name());
         holder.tvDeviceName.setText(data.getDevice_name());
         holder.tvShopAddress.setText(data.getDetails());
-        holder.btnState.setOnClickListener(new View.OnClickListener() {
+        if(data.getStatus()==1){
+            holder.btnState.setVisibility(View.VISIBLE);
+        }else{
+            holder.btnState.setVisibility(View.GONE);
+        }
+        holder.btn_detection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btnclick!=null)btnclick.detection(position);
+            }
+        });
+        holder.btn_repairs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (HttpConfig.newInstance(context).getUserType() == 2) {
@@ -145,6 +166,12 @@ public class ExceptionDeviceAdapter extends BaseAdapter {
 
     class ViewHolder {
         private TextView tvDeviceNo, tvDeviceName, tvDeviceTime, tvShopName, tvShopAddress;
-        private Button btnState;
+        private TextView btnState;
+        private Button btn_detection,btn_repairs;
+    }
+
+    public interface Btnclick{
+        void detection(int position);
+        void repairs(int position);
     }
 }

@@ -3,10 +3,15 @@ package com.cheng.tonglepai.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cheng.retrofit20.client.BaseHttpRequest;
@@ -22,7 +27,11 @@ import com.cheng.tonglepai.net.FieldExceptionDeviceRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.cheng.tonglepai.tool.SearchDevicePopwindow;
+import com.cheng.tonglepai.tool.ToastUtil;
+import com.cheng.tonglepai.view.OfflineIntructionDialog;
+import com.cheng.tonglepai.view.SingalDetectionDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
@@ -50,12 +59,16 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
     private int type;
     private LoadingDialog loadingDialog;
     private boolean showDialog = true;
-
+    private ImageView iv_close,iv_serach;
+    private EditText edt_serach;
+    List<ExceptionDeviceData> mList=new ArrayList<>();
+    TextView tvRight;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_partner_equipments);
+        getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MyApplication.getInstance().addActivity(this);
-        setMidTitle("设备管理");
+        setTitle("设备管理",true,"离线说明",true,0);
         initView();
         initRefreshLayout();
         initData();
@@ -65,6 +78,14 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("加载中");
         loadingDialog.setCancelable(true);
+
+        iv_close= (ImageView) findViewById(R.id.iv_search_cancle);
+        iv_serach= (ImageView) findViewById(R.id.iv_search_equipment);
+        edt_serach= (EditText) findViewById(R.id.edt_serach_equiment);
+        iv_close.setOnClickListener(this);
+        iv_serach.setOnClickListener(this);
+        tvRight= (TextView) findViewById(R.id.tv_title_right);
+        tvRight.setOnClickListener(this);
 
         type = getIntent().getIntExtra("type", 0);
         llRbType = (LinearLayout) findViewById(R.id.ll_rb_type);
@@ -84,6 +105,21 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
         rvDeviceManage = (ListView) findViewById(R.id.rv_device_manage);
         mAdapter = new ExceptionDeviceAdapter(this);
         rvDeviceManage.setAdapter(mAdapter);
+        mAdapter.setBtnclick(new ExceptionDeviceAdapter.Btnclick() {
+            @Override
+            public void detection(int position) {
+                if(mAdapter.getData().get(position).getDevice_code().equals("0")){
+                    Toast.makeText(getApplicationContext(),"设备尚未绑定，请先绑定设备",Toast.LENGTH_SHORT).show();
+                }else {
+                    new SingalDetectionDialog(DeviceMangeActivity.this, R.style.Dialog_Fullscreen, null, mAdapter.getData().get(position).getDevice_code()).show();
+               }
+            }
+
+            @Override
+            public void repairs(int position) {
+
+            }
+        });
     }
 
     private void initRefreshLayout() {
@@ -95,8 +131,6 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
     private void initData() {
         if (showDialog)
             loadingDialog.show();
-
-
         if (type == 2) {
             AllDeviceRequest mRequest = new AllDeviceRequest(this);
             mRequest.setListener(new BaseHttpRequest.IRequestListener<List<ExceptionDeviceData>>() {
@@ -184,10 +218,10 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
         switch (v.getId()) {
             case R.id.rb_all:
                 searchContent = "";
-                initBtn();
+                //initBtn();
                 isByIncome = "0";
-                rbAll.setTextColor(Color.parseColor("#ffffff"));
-                rbAll.setBackgroundColor(Color.parseColor("#8CC8FE"));
+               /* rbAll.setTextColor(Color.parseColor("#ffffff"));
+                rbAll.setBackgroundColor(Color.parseColor("#8CC8FE"));*/
                 page = 1;
                 showDialog = true;
                 isFirst = true;
@@ -197,10 +231,10 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
                 break;
             case R.id.rb_income:
                 searchContent = "";
-                initBtn();
+                //initBtn();
                 isByIncome = "1";
-                rbIncome.setTextColor(Color.parseColor("#ffffff"));
-                rbIncome.setBackgroundColor(Color.parseColor("#8CC8FE"));
+                /*rbIncome.setTextColor(Color.parseColor("#ffffff"));
+                rbIncome.setBackgroundColor(Color.parseColor("#8CC8FE"));*/
                 page = 1;
                 showDialog = true;
                 isFirst = true;
@@ -243,6 +277,20 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
                 exceptionDevice.setTextColor(Color.parseColor("#ffffff"));
                 exceptionDevice.setBackgroundColor(Color.parseColor("#45a7fe"));
                 initExceptionData();
+                break;
+            case R.id.iv_search_equipment:
+                String serch_content=edt_serach.getText().toString();
+                if(TextUtils.isEmpty(serch_content)){
+                    ToastUtil.showToast(this,"通讯编号不能为空");
+                }else {
+                    toSearch(searchContent);
+                }
+                break;
+            case R.id.iv_search_cancle:
+                edt_serach.setText("");
+                break;
+            case R.id.tv_title_right:
+                new OfflineIntructionDialog(DeviceMangeActivity.this, 0, null, "这是一个离线说明").show();
                 break;
             default:
                 break;

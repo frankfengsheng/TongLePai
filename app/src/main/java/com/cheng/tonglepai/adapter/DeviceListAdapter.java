@@ -78,10 +78,12 @@ public class DeviceListAdapter extends BaseAdapter {
         holder.tvPrice.setText("￥ "+data.getPrice_purchase());
         final int allNo = data.getShowNO();
         holder.tvNoCount.setText(data.getShowNO() + "");
-        if(data.getRecommend().equals("1")){
-            holder.ivTuijian.setVisibility(View.VISIBLE);
-        }else {
-            holder.ivTuijian.setVisibility(View.GONE);
+        if(!TextUtils.isEmpty(data.getRecommend())) {
+            if (data.getRecommend().equals("1")) {
+                holder.ivTuijian.setVisibility(View.VISIBLE);
+            } else {
+                holder.ivTuijian.setVisibility(View.GONE);
+            }
         }
 
         holder.ivNoReduce.setOnClickListener(new View.OnClickListener() {

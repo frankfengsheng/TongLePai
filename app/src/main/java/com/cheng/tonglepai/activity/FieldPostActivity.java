@@ -97,19 +97,16 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     private LoadingDialog loadingDialog;
     private MyListView lvDevice;
     private LinearLayout ly_select;
-
     private DeviceListAdapter mAdapter;
     private int allnum = 0;
     private double totalPrice=0;
-    private List<DeviceListData> dataList = new ArrayList<>();
+    private ArrayList<DeviceListData> dataList = new ArrayList<>();
     private static final String[] PERMISSION_EXTERNAL_STORAGE = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private static final int REQUEST_EXTERNAL_STORAGE = 100;
-
     private MyGridView gridView_selectimg1;
     private List<String> imgUrl_list1 = new ArrayList<String>();
     private SelectPictureAdapter selectPictureAdapter;
-
     private MyGridView gridView_selectimg2;
     private List<String> imgUrl_list2 = new ArrayList<String>();
     private SelectPictureAdapter selectPictureAdapter2;
@@ -136,9 +133,9 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
 
     private void initData() {
         DeviceListRequest mRequest = new DeviceListRequest(this);
-        mRequest.setListener(new BaseHttpRequest.IRequestListener<List<DeviceListData>>() {
+        mRequest.setListener(new BaseHttpRequest.IRequestListener<ArrayList<DeviceListData>>() {
             @Override
-            public void onSuccess(final List<DeviceListData> data) {
+            public void onSuccess(final ArrayList<DeviceListData> data) {
                 dataList = data;
                 mAdapter.setData(data);
 
@@ -367,7 +364,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         Map<String, Object> params = new HashMap<String, Object>();
         for (int i=0;i<imgUrl_list1.size();i++){
             Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list1.get(i));
-            bitmapOne = compressScale(bitmap);
             switch (i){
                 case 0:
                     params.put("store_interior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
@@ -385,7 +381,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         }
         for (int i=0;i<imgUrl_list2.size();i++){
             Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list2.get(i));
-            bitmapOne = compressScale(bitmap);
             switch (i){
                 case 0:
                     params.put("store_exterior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
@@ -401,7 +396,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
                     break;
             }
         }
-
+/*
         if (null != bitmapOne)
             params.put("store_interior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapOne));
         if (null != bitmapTwo)
@@ -417,7 +412,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         if (null != bitmapThreeNext)
             params.put("store_exterior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapThreeNext));
         if (null != bitmapFourNext)
-            params.put("store_exterior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapFourNext));
+            params.put("store_exterior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapFourNext));*/
         params.put("city", cityId);
         params.put("customer_flow", etVisitPeople.getText().toString().trim());
         params.put("details", etDetailAddress.getText().toString().trim());
@@ -588,7 +583,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             case 0x1001:
                 if(data!=null) {
 
-                    List<DeviceListData> dataList1 = (List<DeviceListData>) data.getSerializableExtra("list");
+                     List<DeviceListData> dataList1 = (List<DeviceListData>) data.getSerializableExtra("list");
                      if (dataList1 != null && dataList1.size() > 0) refreshList(dataList1);
                 }
                 break;
@@ -613,10 +608,11 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         }
     }
     private  void refreshList( List<DeviceListData> dataList1){
-
+        totalPrice=0;
+        allnum=0;
         for(DeviceListData data:dataList1){
             //判断之前是否选择过该设备，如果选择过，只需要在原来的数量上+，如果未选择过，将该设备加入列表
-            boolean hasSelected=false;
+         /*   boolean hasSelected=false;
             for(DeviceListData one:dataList){
                 if(one.getId().equals(data.getId())){
                     hasSelected=true;
@@ -626,11 +622,12 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             }
             if(!hasSelected){
                 dataList.add(data);
-            }
+            }*/
             totalPrice = totalPrice + (Double.parseDouble(data.getPrice_purchase()) * data.getShowNO());
             allnum = allnum + data.getShowNO();
         }
-
+        dataList.clear();
+        dataList.addAll(dataList1);
         lvDevice.setVisibility(View.VISIBLE);
         mAdapter.setData(dataList);
         tv_totlPrice.setText("总计：￥"+totalPrice);
@@ -655,7 +652,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
 //                Toast.makeText(FieldPostActivity.this, tx, Toast.LENGTH_SHORT).show();
             }
         })
-
                 .setTitleText("城市选择")
                 .setDividerColor(Color.BLACK)
                 .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
@@ -665,8 +661,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
         pvOptions.show();
     }
-
-
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -707,9 +701,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
          *
          * */
         String JsonData = new GetJsonDataUtil().getJson(this, "province.json");//获取assets目录下的json文件数据
-
         ArrayList<JsonBean> jsonBean = parseData(JsonData);//用Gson 转成实体
-
         /**
          * 添加省份数据
          *
@@ -717,7 +709,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
          * PickerView会通过getPickerViewText方法获取字符串显示出来。
          */
         options1Items = jsonBean;
-
         for (int i = 0; i < jsonBean.size(); i++) {//遍历省份
             ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
             ArrayList<String> CityIdList = new ArrayList<>();//该省的城市id列表（第二级）
@@ -940,6 +931,9 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         switch (v.getId()){
             case R.id.ly_field_select_equiment:
                 Intent intent=new Intent(getApplicationContext(),FieldPostSelectEquipmentActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("dataList",dataList);
+                intent.putExtras(bundle);
                 startActivityForResult(intent,0x1001);
                 break;
         }

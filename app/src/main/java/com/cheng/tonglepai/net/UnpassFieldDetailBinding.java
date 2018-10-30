@@ -8,6 +8,7 @@ import com.cheng.tonglepai.data.UnpassFieldDetailData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cheng on 2018/6/28.
@@ -59,14 +60,7 @@ public class UnpassFieldDetailBinding implements IUiDataBinding<UnpassFieldDetai
         data.setStore_interior_3(httpItem.getStore_interior_3());
         data.setStore_interior_4(httpItem.getStore_interior_4());
 
-        List<UnpassFieldDetailData.DeviceListBean> deviceListBean = new ArrayList<>();
-        for (int i = 0; i < httpItem.getDevice_list().size(); i++) {
-            UnpassFieldDetailData.DeviceListBean dataBean = new UnpassFieldDetailData.DeviceListBean();
-
-            deviceListBean.add(dataBean);
-        }
-
-        data.setDevice_list(deviceListBean);
+        data.setDevice_list(httpItem.getDevice_list());
 
         return data;
     }

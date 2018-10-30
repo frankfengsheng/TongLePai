@@ -43,6 +43,7 @@ public class ExceptionDeviceBinding implements IUiDataBinding<List<ExceptionDevi
             uiItem.setCreated(httpItem.getTimes());
             uiItem.setDevice_code(httpItem.getDevice_code());
             uiItem.setStore_name(httpItem.getStore_name());
+            uiItem.setStatus(httpItem.getStatus());
             uiList.add(uiItem);
         }
         return uiList;

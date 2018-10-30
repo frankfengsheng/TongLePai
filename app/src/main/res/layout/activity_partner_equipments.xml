@@ -11,12 +11,48 @@
     <LinearLayout
         android:id="@+id/ll_choose_device"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-
+        android:layout_height="45dp"
+        android:background="@color/blue"
+        android:visibility="visible"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="@dimen/tlp_marginleft"
+            android:layout_marginRight="@dimen/tlp_marginleft"
+            android:background="@drawable/white_corner_shape">
+            <ImageView
+                android:id="@+id/iv_search_cancle"
+                android:layout_width="35dp"
+                android:layout_height="50dp"
+                android:padding="7dp"
+                android:src="@drawable/close"
+                android:layout_centerVertical="true"/>
+            <EditText
+                android:id="@+id/edt_serach_equiment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/iv_search_cancle"
+                android:layout_toLeftOf="@+id/iv_search_equipment"
+                android:hint="请输入通讯编号"
+                android:textColor="@color/C5"
+                android:background="@null"/>
+            <ImageView
+                android:id="@+id/iv_search_equipment"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:padding="7dp"
+                android:src="@drawable/search"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <RadioButton
                 android:id="@+id/has_putin_device"
@@ -32,9 +68,8 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/C3" />
+                style="@style/vervial_line"
+                android:background="@color/text_white"/>
 
             <RadioButton
                 android:id="@+id/excption_device"
@@ -46,7 +81,8 @@
                 android:gravity="center"
                 android:text="异常设备"
                 android:textColor="@color/C3"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginLeft="1dp"/>
 
 
         </RadioGroup>
@@ -60,30 +96,30 @@
     <LinearLayout
         android:id="@+id/ll_rb_type"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="35dp">
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/blue">
 
             <RadioButton
                 android:id="@+id/rb_all"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#8CC8FE"
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:text="综合"
-                android:textColor="#ffffff"
+                android:text="综合排序"
+                android:textColor="@color/text_white"
                 android:textSize="16sp" />
 
             <TextView
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/C3" />
+                style="@style/vervial_line"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
 
             <RadioButton
                 android:id="@+id/rb_income"
@@ -94,7 +130,7 @@
                 android:checked="true"
                 android:gravity="center"
                 android:text="收益排序"
-                android:textColor="#686868"
+                android:textColor="@color/text_white"
                 android:textSize="16sp" />
 
             <TextView
@@ -103,6 +139,7 @@
                 android:background="@color/C3" />
 
             <RadioButton
+                android:visibility="gone"
                 android:id="@+id/rb_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -111,7 +148,7 @@
                 android:checked="true"
                 android:gravity="center"
                 android:text="筛选"
-                android:textColor="#686868"
+                android:textColor="@color/text_white"
                 android:textSize="16sp" />
         </RadioGroup>
 

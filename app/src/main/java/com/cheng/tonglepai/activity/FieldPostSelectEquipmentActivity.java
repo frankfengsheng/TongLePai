@@ -75,7 +75,7 @@ public class FieldPostSelectEquipmentActivity extends TitleActivity implements V
     private LoadingDialog loadingDialog;
     private ListView listView;
     private Button btn_sure;
-
+    private ArrayList<DeviceListData> dataList1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_field_select_equipment_post);
@@ -94,7 +94,20 @@ public class FieldPostSelectEquipmentActivity extends TitleActivity implements V
             public void onSuccess(final ArrayList<DeviceListData> data) {
                 if(loadingDialog!=null)loadingDialog.dismiss();
                 dataList = data;
-                mAdapter.setData(data);
+                if(dataList!=null&&dataList1!=null) {
+                    for (DeviceListData data1 : dataList1) {
+                        //把上个页面传过来的参数赋值给当前页面
+                        for (int i = 0; i < dataList.size(); i++) {
+                            if (data1.getId().equals(dataList.get(i).getId())) {
+                                dataList.get(i).setShowNO(data1.getShowNO());
+                                break;
+                            }
+                        }
+                    }
+                    mAdapter.setData(dataList);
+                }else {
+                    mAdapter.setData(dataList);
+                }
 
             }
 
@@ -109,11 +122,11 @@ public class FieldPostSelectEquipmentActivity extends TitleActivity implements V
     }
 
     private void initView() {
+        dataList1= (ArrayList<DeviceListData>) getIntent().getSerializableExtra("dataList");
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("请等待");
         loadingDialog.setCancelable(true);
         loadingDialog.show();
-
         listView= (ListView) findViewById(R.id.lv_field_select_equiment);
         btn_sure= (Button) findViewById(R.id.btn_to_submit);
         btn_sure.setOnClickListener(this);

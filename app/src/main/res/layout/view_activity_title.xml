@@ -8,8 +8,11 @@
     <RelativeLayout
         android:id="@+id/title_inner_layout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/C6">
+        android:layout_height="45dp"
+        android:background="@color/C6"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@id/title_left_back_iv"
@@ -32,7 +35,7 @@
             android:singleLine="true"
             android:textColor="@color/C1"
             android:text=""
-            android:textSize="21sp"
+            android:textSize="20sp"
             android:visibility="visible" />
 
 
@@ -49,14 +52,23 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
-                android:visibility="gone">
-
+                android:visibility="visible">
+                <ImageView
+                    android:id="@+id/iv_title_right"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="10dp"
+                    android:visibility="gone"
+                    android:layout_toLeftOf="@+id/tv_title_right"/>
                 <TextView
+                    android:id="@+id/tv_title_right"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/C1"
                     android:gravity="center_vertical"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"/>
 
             </RelativeLayout>
         </LinearLayout>

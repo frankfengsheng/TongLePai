@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:id="@+id/ly_close">
+    <LinearLayout
+        android:id="@+id/ly_singal_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/text_black"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/iv_offline_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close"/>
+        <TextView
+           style="@style/vervial_line"
+            android:layout_height="30dp"/>
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="350dp"
+            android:background="@drawable/white_corner_shape">
+
+            <TextView
+                android:id="@+id/tv_offline_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:text="离线说明"
+                android:textColor="@color/text_black"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_offline_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="17sp"
+                android:layout_below="@+id/tv_offline_title"
+                android:text="离线说明"
+                android:textColor="@color/text_black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_above="@+id/btn_offline_know"/>
+            <Button
+                android:id="@+id/btn_offline_know"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="15dp"
+                android:text="我知道了"
+                android:textColor="@color/text_white"
+                android:background="@drawable/btn_blue_cornor"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

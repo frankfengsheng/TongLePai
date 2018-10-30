@@ -30,7 +30,7 @@ public class UnpassFieldDetailData {
     private String store_exterior_2;
     private String store_exterior_3;
     private String store_exterior_4;
-    public List<DeviceListBean> device_list;
+    public List<Map> device_list;
 
     public String getArea_temp() {
         return area_temp;
@@ -208,20 +208,13 @@ public class UnpassFieldDetailData {
         this.store_exterior_4 = store_exterior_4;
     }
 
-    public List<DeviceListBean> getDevice_list() {
+    public List<Map> getDevice_list() {
         return device_list;
     }
 
-    public void setDevice_list(List<DeviceListBean> device_list) {
+    public void setDevice_list(List<Map> device_list) {
         this.device_list = device_list;
     }
 
-    public static class DeviceListBean {
-        /**
-         * amy_001 : 2
-         * yyc_001 : 3
-         * zwwj_001 : 3
-         */
 
-    }
 }

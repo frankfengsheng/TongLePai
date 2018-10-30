@@ -10,7 +10,7 @@ public class ExceptionDeviceData {
     private String device_code;
     private String created;
     private String details;
-    private String status;
+    private int status;
     private String store_name;
 
     public String getStore_name() {
@@ -61,11 +61,11 @@ public class ExceptionDeviceData {
         this.details = details;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

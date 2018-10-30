@@ -1,6 +1,7 @@
 package com.cheng.retrofit20;
 
 
+import com.cheng.retrofit20.bean.SingalDetectionBean;
 import com.cheng.retrofit20.client.BaseHttpResult;
 import com.cheng.retrofit20.data.AlipayResult;
 import com.cheng.retrofit20.data.AllDeviceResult;
@@ -685,4 +686,11 @@ public interface ApiService {
     @POST("index.php?s=/api/maker/check_device_info")
     @FormUrlEncoded
     Call<EquimentDetailResult> getEquimentDetail(@FieldMap Map<String, String> params);
+
+    /**
+     * 检测信号
+     */
+    @POST("index.php?s=/api/user/signal_detection")
+    @FormUrlEncoded
+    Call<SingalDetectionBean> DetectionSignal(@FieldMap Map<String, String> params);
 }

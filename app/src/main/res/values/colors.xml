@@ -12,7 +12,13 @@
     <color name="C5">#222222</color>
     <color name="C6">#182F41</color>
     <color name="text_red">#FF0000</color>
-
+    <color name="blue">#45A7FE</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="line_color">#E1E1E1</color>
+    <color name="text_gray">#A6A6A6</color>
+    <color name="text_black">#3C3C3C</color>
+    <color name="text_blue">#61C4FD</color>
+    <color name="btn_blue">#45A7FE</color>
 
 
 </resources>

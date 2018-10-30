@@ -36,6 +36,7 @@ public class AllDeviceResult extends BaseHttpResult {
         private String times;
         private String device_code;
         private String device_name;
+        private int status;
 
         public String getId() {
             return id;
@@ -83,6 +84,14 @@ public class AllDeviceResult extends BaseHttpResult {
 
         public void setDevice_name(String device_name) {
             this.device_name = device_name;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
         }
     }
 }
