@@ -5,21 +5,21 @@
     android:orientation="vertical"
     android:gravity="center"
     android:id="@+id/ly_close">
-    <LinearLayout
+  <!--  <LinearLayout
         android:id="@+id/ly_singal_dialog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/text_black"
-        android:gravity="center">
-        <ImageView
+        android:gravity="center">-->
+       <!-- <ImageView
             android:id="@+id/iv_offline_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/close"/>
         <TextView
            style="@style/vervial_line"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp"/>-->
         <RelativeLayout
             android:layout_width="300dp"
             android:layout_height="350dp"
@@ -58,7 +58,7 @@
                 android:textColor="@color/text_white"
                 android:background="@drawable/btn_blue_cornor"/>
         </RelativeLayout>
-    </LinearLayout>
+   <!-- </LinearLayout>-->
 
 
 </LinearLayout>

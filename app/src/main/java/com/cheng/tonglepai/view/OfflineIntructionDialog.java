@@ -41,7 +41,7 @@ public class OfflineIntructionDialog extends AlertDialog {
     private Context context;
     private String content;
     private TextView tv_content;
-    private ImageView iv_close;
+   // private ImageView iv_close;
     private Button btn_know;
 
     public OfflineIntructionDialog(Context context) {
@@ -62,7 +62,7 @@ public class OfflineIntructionDialog extends AlertDialog {
         super.onCreate(savedInstanceState);
         this.setContentView(mRootView);
         tv_content= (TextView) mRootView.findViewById(R.id.tv_offline_content);
-        iv_close= (ImageView) mRootView.findViewById(R.id.iv_offline_close);
+      // iv_close= (ImageView) mRootView.findViewById(R.id.iv_offline_close);
         btn_know= (Button) mRootView.findViewById(R.id.btn_offline_know);
         tv_content.setText(content);
         btn_know.setOnClickListener(new View.OnClickListener() {
@@ -71,12 +71,7 @@ public class OfflineIntructionDialog extends AlertDialog {
                 dismiss();
             }
         });
-        iv_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+       
     }
 
     /**
