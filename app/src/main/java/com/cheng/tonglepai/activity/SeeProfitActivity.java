@@ -54,7 +54,8 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
     private RadioButton rb1, rb2, rb3, rb4, rb5, rb6, rb7, rb8, rb9, rb10, rb11, rb12;
     private String month = "1";
     private TextView tvMonthShow;
-
+    private String openid;
+    private String wx_nicknam;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_see_profit);
@@ -79,13 +80,16 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyData>() {
                 @Override
                 public void onSuccess(CanApplyData data) {
+
                     if (Double.parseDouble(data.getPrice()) == 0) {
                         canApplyMoney = "0";
                     } else
-                        canApplyMoney = Double.parseDouble(data.getPrice()) + "";
+                    canApplyMoney = Double.parseDouble(data.getPrice()) + "";
                     tvCanApplyMoney.setText(canApplyMoney + "元");
                     bankAccount = data.getBank_account();
                     bankName = data.getBank();
+                    openid=data.getOpenid();
+                    wx_nicknam=data.getWx_nickname();
                 }
 
                 @Override
@@ -108,6 +112,8 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                     tvCanApplyMoney.setText(canApplyMoney + "元");
                     bankAccount = data.getBank_account();
                     bankName = data.getBank();
+                    openid=data.getOpenid();
+                    wx_nicknam=data.getWx_nickname();
                 }
 
                 @Override
@@ -124,12 +130,14 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                     if (Double.parseDouble(data.getPrice()) == 0) {
                         canApplyMoney = "0";
                     } else
-                        canApplyMoney = Double.parseDouble(data.getPrice()) + "";
+                    canApplyMoney = Double.parseDouble(data.getPrice()) + "";
                     tvCanApplyMoney.setText(canApplyMoney + "元");
                     bankAccount = data.getBank_account();
                     bankName = data.getBank();
                     pricePay = data.getPrice_pay();
                     zPrice = data.getZ_price();
+                    openid=data.getOpenid();
+                    wx_nicknam=data.getWx_nickname();
                 }
 
                 @Override
@@ -196,6 +204,8 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
                 intent.putExtra(ApplyMoneyActivityNew.USER_TYPE, userType);
                 intent.putExtra(ApplyMoneyActivityNew.INCOME_ALL, zPrice);
                 intent.putExtra(ApplyMoneyActivityNew.NEED_PAY, pricePay);
+                intent.putExtra(ApplyMoneyActivityNew.OPEN_ID,openid);
+                intent.putExtra(ApplyMoneyActivityNew.WX_NICKNAME,wx_nicknam);
                 startActivity(intent);
             }
         });

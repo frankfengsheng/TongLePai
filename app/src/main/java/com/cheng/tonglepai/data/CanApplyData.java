@@ -10,6 +10,8 @@ public class CanApplyData {
     private String price;
     private String price_pay;//需缴金额
     private String z_price;//收益余额
+    private String openid;//微信openid
+    private String wx_nickname;//微信昵称
 
     public String getPrice_pay() {
         return price_pay;
@@ -49,5 +51,21 @@ public class CanApplyData {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getWx_nickname() {
+        return wx_nickname;
+    }
+
+    public void setWx_nickname(String wx_nickname) {
+        this.wx_nickname = wx_nickname;
     }
 }

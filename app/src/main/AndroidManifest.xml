@@ -187,6 +187,8 @@
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"></activity>
+        <activity android:name=".activity.SelectAccountActivity"
+            android:launchMode="singleInstance"/>
     </application>
 
 </manifest>

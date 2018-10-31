@@ -4,6 +4,7 @@ package com.cheng.retrofit20;
 import com.cheng.retrofit20.bean.SingalDetectionBean;
 import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
 import com.cheng.retrofit20.bean.WXUserInfoBean;
+import com.cheng.retrofit20.bean.WechatBindingBean;
 import com.cheng.retrofit20.client.BaseHttpResult;
 import com.cheng.retrofit20.data.AlipayResult;
 import com.cheng.retrofit20.data.AllDeviceResult;
@@ -708,4 +709,11 @@ public interface ApiService {
      */
     @GET
     Call<WXUserInfoBean> WXGetUserInfo(@Url String url);
+
+    /**
+     * 绑定微信
+     */
+    @POST("index.php?s=/api/user/bind_wechat")
+    @FormUrlEncoded
+    Call<WechatBindingBean> bindingWechat(@FieldMap Map<String, String> params);
 }

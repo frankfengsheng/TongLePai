@@ -75,7 +75,7 @@ public class LoginActivity extends TitleActivity {
         super.onCreate(savedInstanceState, R.layout.activity_login);
         MyApplication.getInstance().addActivity(this);
         //注册APP到微信
-        regToWx();
+        //regToWx();
         setMidTitle("登录");
         checkVersion();
         initView();

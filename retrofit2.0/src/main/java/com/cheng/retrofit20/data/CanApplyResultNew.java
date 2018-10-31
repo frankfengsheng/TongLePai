@@ -36,6 +36,8 @@ public class CanApplyResultNew extends BaseHttpResult {
         private String z_price;
         private String price;
         private String bank_account;
+        private String openid;
+        private String wx_nickname;
 
         public String getPrice_pay() {
             return price_pay;
@@ -75,6 +77,22 @@ public class CanApplyResultNew extends BaseHttpResult {
 
         public void setBank_account(String bank_account) {
             this.bank_account = bank_account;
+        }
+
+        public String getOpenid() {
+            return openid;
+        }
+
+        public void setOpenid(String openid) {
+            this.openid = openid;
+        }
+
+        public String getWx_nickname() {
+            return wx_nickname;
+        }
+
+        public void setWx_nickname(String wx_nickname) {
+            this.wx_nickname = wx_nickname;
         }
     }
 }

@@ -9,7 +9,9 @@ import com.cheng.retrofit20.ApiService;
 import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
 import com.cheng.retrofit20.bean.WXUserInfoBean;
 import com.cheng.retrofit20.client.RetrofitClient;
+import com.cheng.tonglepai.activity.ApplyMoneyActivityNew;
 import com.cheng.tonglepai.activity.LoginActivity;
+import com.cheng.tonglepai.activity.SelectAccountActivity;
 import com.cheng.tonglepai.tool.ScalePagerTransformer;
 import com.cheng.tonglepai.tool.ToastUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
@@ -138,7 +140,11 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 if(bean!=null){
                     String openId=bean.getOpenid();
                     String nickName=bean.getNickname();
-                    String aa=bean.getCity();
+                    Intent intent=new Intent(WXEntryActivity.this, SelectAccountActivity.class);
+                    intent.putExtra(ApplyMoneyActivityNew.OPEN_ID,openId);
+                    intent.putExtra(ApplyMoneyActivityNew.WX_NICKNAME,nickName);
+                    startActivity(intent);
+                    finish();
                 }
             }
             @Override
@@ -147,4 +153,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             }
         });
     }
+
+
 }

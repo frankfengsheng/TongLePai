@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
     public static final String USER_TYPE = "user.type";
     public static final String INCOME_ALL = "z.price";
     public static final String NEED_PAY = "price.pay";
+    public static final String OPEN_ID="openid";
+    public static final String WX_NICKNAME="wx_nickname";
     private int userType = 0;
     private TextView bankName, bankAccount, tvCanApplyMoney, tvRealMoney, tvNeedPay, tvLastMoney, tvToPost;
     private Button btnToApply;
@@ -51,6 +54,9 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
     private MyChooseToastDialog progressDialog;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     private RelativeLayout rl_withdraw;
+    private String openid;
+    private String wx_nickname;
+    private ImageView iv_bank;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_apply_money_new);
@@ -70,6 +76,8 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
         tvLastMoney = (TextView) findViewById(R.id.tv_last_money);
         bankName = (TextView) findViewById(R.id.bank_name);
         bankAccount = (TextView) findViewById(R.id.bank_account);
+        iv_bank= (ImageView) findViewById(R.id.iv_bank);
+
         tvCanApplyMoney = (TextView) findViewById(R.id.tv_can_apply_money);
         tvRealMoney = (TextView) findViewById(R.id.tv_real_money);
         btnToApply = (Button) findViewById(R.id.btn_to_apply);
@@ -78,7 +86,25 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
 
         bankNameShow = getIntent().getStringExtra(BANK_NAME);
         bankShow = getIntent().getStringExtra(BANK_ACCOUNT);
-        if (TextUtils.isEmpty(bankShow) || "0".equals(bankShow)) {
+        openid=getIntent().getStringExtra(OPEN_ID);
+        wx_nickname=getIntent().getStringExtra(WX_NICKNAME);
+
+        if(!TextUtils.isEmpty(openid)&&openid.length()>5){
+            bankName.setText(wx_nickname);
+            bankAccount.setVisibility(View.GONE);
+            iv_bank.setImageResource(R.mipmap.weixin_account);
+            btnToApply.setEnabled(true);
+        }else if(!TextUtils.isEmpty(bankShow)&&bankShow.length()>5){
+            bankName.setText(bankNameShow);
+            bankAccount.setText(bankShow);
+            btnToApply.setEnabled(true);
+        }else {
+            bankName.setText("您尚未绑定提现账户。请绑定微信提现，或联系客服绑定银行卡提现");
+            bankAccount.setText("4000-366-118");
+//            llHeadApply.setVisibility(View.INVISIBLE);
+            btnToApply.setEnabled(false);
+        }
+        /*if (TextUtils.isEmpty(bankShow) || "0".equals(bankShow)) {
             bankName.setText("您尚未绑定提现账户。请绑定微信提现，或联系客服绑定银行卡提现");
             bankAccount.setText("4000-366-118");
 //            llHeadApply.setVisibility(View.INVISIBLE);
@@ -88,7 +114,7 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             bankAccount.setText(bankShow);
 //            llHeadApply.setVisibility(View.VISIBLE);
             btnToApply.setEnabled(true);
-        }
+        }*/
         bankAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,12 +157,14 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
                 }
                 tvCanApplyMoney.setText(String.valueOf(Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) - Double.parseDouble(getIntent().getStringExtra(NEED_PAY))));
             } else {
-                if (Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) < 10) {
-                    btnToApply.setEnabled(false);
-                } else {
-                    btnToApply.setEnabled(true);
+                if(!TextUtils.isEmpty(getIntent().getStringExtra(CAN_APPLY_MONEY))) {
+                    if (Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) < 10) {
+                        btnToApply.setEnabled(false);
+                    } else {
+                        btnToApply.setEnabled(true);
+                    }
+                    tvCanApplyMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
                 }
-                tvCanApplyMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
             }
        /* }*/
         if (userType == 3) {
@@ -318,6 +346,12 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_withdraw:
+                Intent intent=new Intent(this,SelectAccountActivity.class);
+                intent.putExtra(BANK_NAME,bankNameShow);
+                intent.putExtra(BANK_ACCOUNT,bankShow);
+                intent.putExtra(OPEN_ID,openid);
+                intent.putExtra(WX_NICKNAME,wx_nickname);
+                startActivity(intent);
                 break;
         }
     }
