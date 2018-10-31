@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,11 +34,10 @@ import com.cheng.tonglepai.tool.MyToast;
  * Created by cheng on 2018/9/9.
  */
 
-public class ApplyMoneyActivityNew extends TitleActivity {
+public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClickListener{
     public static final String CAN_APPLY_MONEY = "apply.money";
     public static final String BANK_ACCOUNT = "bank.account";
     public static final String BANK_NAME = "bank.name";
-
     public static final String USER_TYPE = "user.type";
     public static final String INCOME_ALL = "z.price";
     public static final String NEED_PAY = "price.pay";
@@ -50,7 +50,7 @@ public class ApplyMoneyActivityNew extends TitleActivity {
     private LinearLayout llLastMoney, llNeedMoney, llHeadApply;
     private MyChooseToastDialog progressDialog;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
-
+    private RelativeLayout rl_withdraw;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_apply_money_new);
@@ -73,11 +73,13 @@ public class ApplyMoneyActivityNew extends TitleActivity {
         tvCanApplyMoney = (TextView) findViewById(R.id.tv_can_apply_money);
         tvRealMoney = (TextView) findViewById(R.id.tv_real_money);
         btnToApply = (Button) findViewById(R.id.btn_to_apply);
+        rl_withdraw= (RelativeLayout) findViewById(R.id.rl_withdraw);
+        rl_withdraw.setOnClickListener(this);
 
         bankNameShow = getIntent().getStringExtra(BANK_NAME);
         bankShow = getIntent().getStringExtra(BANK_ACCOUNT);
         if (TextUtils.isEmpty(bankShow) || "0".equals(bankShow)) {
-            bankName.setText("暂未绑定银行卡，请联系工作人员");
+            bankName.setText("您尚未绑定提现账户。请绑定微信提现，或联系客服绑定银行卡提现");
             bankAccount.setText("4000-366-118");
 //            llHeadApply.setVisibility(View.INVISIBLE);
             btnToApply.setEnabled(false);
@@ -87,7 +89,6 @@ public class ApplyMoneyActivityNew extends TitleActivity {
 //            llHeadApply.setVisibility(View.VISIBLE);
             btnToApply.setEnabled(true);
         }
-
         bankAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,9 +138,7 @@ public class ApplyMoneyActivityNew extends TitleActivity {
                 }
                 tvCanApplyMoney.setText(getIntent().getStringExtra(CAN_APPLY_MONEY));
             }
-
        /* }*/
-
         if (userType == 3) {
             llLastMoney.setVisibility(View.VISIBLE);
             llNeedMoney.setVisibility(View.VISIBLE);
@@ -157,7 +156,6 @@ public class ApplyMoneyActivityNew extends TitleActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s.toString())) {
@@ -314,5 +312,13 @@ public class ApplyMoneyActivityNew extends TitleActivity {
         Uri data = Uri.parse("tel:" + "400-0366118");
         intent.setData(data);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rl_withdraw:
+                break;
+        }
     }
 }

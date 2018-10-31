@@ -35,7 +35,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
        <!-- <com.cheng.tonglepai.view.MyGridView
             android:id="@+id/gd_select_img1"
             android:layout_width="match_parent"
@@ -48,8 +48,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/upload_img"
-            android:visibility="gone"/>
+            android:background="@drawable/upload_img" />
 
 
         <ImageView
@@ -89,7 +88,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <!--<com.cheng.tonglepai.view.MyGridView
             android:id="@+id/gd_select_img2"
             android:layout_width="match_parent"

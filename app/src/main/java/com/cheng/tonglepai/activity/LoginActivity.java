@@ -33,6 +33,9 @@ import com.cheng.tonglepai.net.VesionControlRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.cheng.tonglepai.tool.VerifyTimerUtil;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -64,11 +67,15 @@ public class LoginActivity extends TitleActivity {
     private String version;
     private String url;
     public static LoginActivity loginActivity;
-
+    //APP_ID微信
+    public static final String APP_ID="wx7e91f7c83c646725";
+    private IWXAPI iwxapi;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_login);
         MyApplication.getInstance().addActivity(this);
+        //注册APP到微信
+        regToWx();
         setMidTitle("登录");
         checkVersion();
         initView();
@@ -281,6 +288,13 @@ public class LoginActivity extends TitleActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                   /* // send oauth request
+                    SendAuth.Req req = new SendAuth.Req();
+                    req.scope = "snsapi_userinfo";
+                    req.state = "wechat_sdk_微信登录";
+                    iwxapi.sendReq(req);*/
+
                 LoginRequest mRequest = new LoginRequest(LoginActivity.this);
                 mRequest.setListener(new BaseHttpRequest.IRequestListener<SmsLoginData>() {
                     @Override
@@ -299,7 +313,6 @@ public class LoginActivity extends TitleActivity {
                     }
                 });
                 mRequest.requestLogin(etPhoneNo.getText().toString().trim(), etVerifyCode.getText().toString().trim());
-
             }
         });
     }
@@ -327,5 +340,10 @@ public class LoginActivity extends TitleActivity {
         }
     }
 
-
+    public void regToWx(){
+        //通过Factory工厂获取IWAPi实例
+        iwxapi= WXAPIFactory.createWXAPI(this,APP_ID,true);
+        //将应用API注册到微信
+        if(iwxapi!=null) iwxapi.registerApp(APP_ID);
+    }
 }

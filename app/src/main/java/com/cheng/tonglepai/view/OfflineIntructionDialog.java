@@ -65,13 +65,17 @@ public class OfflineIntructionDialog extends AlertDialog {
       // iv_close= (ImageView) mRootView.findViewById(R.id.iv_offline_close);
         btn_know= (Button) mRootView.findViewById(R.id.btn_offline_know);
         tv_content.setText(content);
+        tv_content.setText("1、如遇到用户支付完成，设备不启动，出现网络差或者设备离线提示页面，可根据以下操作查找原因，如有帮助，联系童乐派客服4000-366-118\n" +
+                "2、查找用户支付的费用是否还在童乐派账号里面，可以通过童乐派公众号个人中心查看乐乐币情况\n" +
+                "3、点击检测信号按钮，重新检测设备信号，直到设备在线可以正常启动设备\n" +
+                "4、关掉电源，重新启动设备，模块在接通电源2分后，重新检测设备是否在线\n");
         btn_know.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
-       
+
     }
 
     /**

@@ -9,6 +9,7 @@
         layout="@layout/view_activity_title" />
 
     <RelativeLayout
+        android:id="@+id/rl_withdraw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/C3">
@@ -26,6 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/iv_bank"
+            android:layout_toLeftOf="@+id/tv_tixian_right"
             android:orientation="vertical">
 
             <TextView
@@ -43,7 +45,17 @@
                 android:text=""
                 android:textColor="@color/C1" />
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/tv_tixian_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textColor="@color/text_white"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text=">"/>
     </RelativeLayout>
 
     <LinearLayout

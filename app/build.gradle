@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        tonglepai {
+            keyAlias 'tonglepai'
+            keyPassword '123456'
+            storeFile file('E:/app/TongLePai.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion '27.0.3'
     defaultConfig {
@@ -15,6 +23,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.tonglepai
         }
     }
     lintOptions {
@@ -32,17 +43,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.wgd.gdcp.gdcplibrary:ImageCompress:1.0.8'
     compile files('libs/alipaySdk-20180601.jar')
     compile files('libs/fastjson-1.1.41.jar')
+    compile project(path: ':pickerview')
+    compile project(path: ':retrofit2.0')
+    compile 'com.wgd.gdcp.gdcplibrary:ImageCompress:1.0.8'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.8'
-    compile 'com.android.support:appcompat-v7:23.+'
+    compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'cn.bingoogolapple:bga-qrcodecore:1.1.1@aar'
     compile 'cn.bingoogolapple:bga-zxing:1.1.1@aar'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile 'com.android.support:design:23.4.0'
     testCompile 'junit:junit:4.12'
-    compile project(path: ':pickerview')
-    compile project(path: ':retrofit2.0')
-
 }

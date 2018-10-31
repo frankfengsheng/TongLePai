@@ -22,7 +22,7 @@
             android:layout_height="30dp"/>-->
         <RelativeLayout
             android:layout_width="300dp"
-            android:layout_height="350dp"
+            android:layout_height="450dp"
             android:background="@drawable/white_corner_shape">
 
             <TextView

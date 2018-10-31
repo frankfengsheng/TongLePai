@@ -2,6 +2,8 @@ package com.cheng.retrofit20;
 
 
 import com.cheng.retrofit20.bean.SingalDetectionBean;
+import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
+import com.cheng.retrofit20.bean.WXUserInfoBean;
 import com.cheng.retrofit20.client.BaseHttpResult;
 import com.cheng.retrofit20.data.AlipayResult;
 import com.cheng.retrofit20.data.AllDeviceResult;
@@ -49,7 +51,9 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 
 /**
@@ -693,4 +697,15 @@ public interface ApiService {
     @POST("index.php?s=/api/user/signal_detection")
     @FormUrlEncoded
     Call<SingalDetectionBean> DetectionSignal(@FieldMap Map<String, String> params);
+
+    /**
+     * 微信登录
+     */
+    @GET
+    Call<WXLoginGetAccesBean> WXLogin(@Url String url);
+    /**
+     * 微信获取用户信息
+     */
+    @GET
+    Call<WXUserInfoBean> WXGetUserInfo(@Url String url);
 }

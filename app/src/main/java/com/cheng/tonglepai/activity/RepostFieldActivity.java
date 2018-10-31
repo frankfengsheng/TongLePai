@@ -314,7 +314,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                 provinceId = data.getProvince();
 
                 if (!TextUtils.isEmpty(data.getStore_exterior_1())) {
-                    new MyAsyncTask5().execute(data.getStore_interior_1());
+                    new MyAsyncTask5().execute(data.getStore_exterior_1());
                     oneCanshow = true;
                  /*   imgUrl_list2.add(data.getStore_exterior_1());
                     selectPictureAdapter.notifyDataSetChanged();*/
@@ -323,7 +323,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                     myBitmapUtil.display(data.getStore_exterior_1(), upPhotoOneNext);
                 }
                 if (!TextUtils.isEmpty(data.getStore_exterior_2())) {
-                    new MyAsyncTask6().execute(data.getStore_interior_1());
+                    new MyAsyncTask6().execute(data.getStore_exterior_2());
                   /*  imgUrl_list2.add(data.getStore_exterior_1());
                     selectPictureAdapter.notifyDataSetChanged();*/
                     twoCanshow = true;
@@ -332,7 +332,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                     myBitmapUtil.display(data.getStore_exterior_2(), upPhotoTwoNext);
                 }
                 if (!TextUtils.isEmpty(data.getStore_exterior_3())) {
-                    new MyAsyncTask7().execute(data.getStore_interior_1());
+                    new MyAsyncTask7().execute(data.getStore_exterior_3());
                   /*  imgUrl_list2.add(data.getStore_exterior_1());
                     selectPictureAdapter.notifyDataSetChanged();*/
                     threeCanshow = true;
@@ -341,7 +341,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                     myBitmapUtil.display(data.getStore_exterior_3(), upPhotoThreeNext);
                 }
                 if (!TextUtils.isEmpty(data.getStore_exterior_4())) {
-                    new MyAsyncTask8().execute(data.getStore_interior_1());
+                    new MyAsyncTask8().execute(data.getStore_exterior_4());
                    /* imgUrl_list2.add(data.getStore_exterior_1());
                     selectPictureAdapter.notifyDataSetChanged();*/
                     fourCanshow = true;
