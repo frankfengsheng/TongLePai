@@ -540,7 +540,7 @@ public interface ApiService {
     /**
      * 场地人可提现金额
      */
-    @POST("index.php?s=/api/Field/amount_new")
+    @POST("index.php?s=/api/field/amount_new")
     @FormUrlEncoded
     Call<CanApplyResult> getFieldCanApply(@FieldMap Map<String, String> params);
 
@@ -615,12 +615,6 @@ public interface ApiService {
     @FormUrlEncoded
     Call<RefereeListResult> getCityIncome(@FieldMap Map<String, String> params);
 
-    /**
-     * 场地方可提现金额
-     */
-    @POST("index.php?s=/api/field/amount_newone")
-    @FormUrlEncoded
-    Call<CanApplyResultNew> getFieldIncomeNew(@FieldMap Map<String, String> params);
 
     /**
      * 场地方余额缴费

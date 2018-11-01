@@ -38,6 +38,7 @@ public class BindingModel {
         ApiService loginInfoPost=retrofit.create(ApiService.class);
         Map map=new HashMap();
         map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
         map.put("openid",openid);
         map.put("wx_nickname",nickName);
         Call<WechatBindingBean> call=loginInfoPost.bindingWechat(map);

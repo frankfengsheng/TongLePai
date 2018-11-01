@@ -29,8 +29,8 @@ public class CanApplyNewBinding implements IUiDataBinding<CanApplyData,CanApplyR
         data.setBank(mResult.getData().getBank());
         data.setBank_account(mResult.getData().getBank_account());
         data.setPrice(mResult.getData().getPrice());
-        data.setZ_price(mResult.getData().getZ_price());
-        data.setPrice_pay(mResult.getData().getPrice_pay());
+        data.setZ_price("");
+        data.setPrice_pay("");
         data.setOpenid(mResult.getData().getOpenid());
         data.setWx_nickname(mResult.getData().getWx_nickname());
         return data;

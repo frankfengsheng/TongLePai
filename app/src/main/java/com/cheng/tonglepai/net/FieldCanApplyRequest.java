@@ -9,7 +9,7 @@ import com.cheng.retrofit20.client.HttpCommand;
 import com.cheng.retrofit20.client.RequestParams;
 import com.cheng.retrofit20.data.CanApplyResultNew;
 import com.cheng.retrofit20.data.HttpConfig;
-import com.cheng.retrofit20.http.FieldCanApplyNewCmd;
+import com.cheng.retrofit20.http.FieldCanApplyCmd;
 import com.cheng.tonglepai.activity.LoginActivity;
 import com.cheng.tonglepai.data.CanApplyData;
 
@@ -35,13 +35,13 @@ public class FieldCanApplyRequest extends BaseHttpRequest<CanApplyData> {
 
     private RequestParams getParams() {
         RequestParams parameters = new RequestParams();
-        parameters.putParams(FieldCanApplyNewCmd.K_USER_ID, HttpConfig.newInstance(mContext).getUserid());
-        parameters.putParams(FieldCanApplyNewCmd.K_TOKEN, HttpConfig.newInstance(mContext).getAccessToken());
+        parameters.putParams(FieldCanApplyCmd.K_USER_ID, HttpConfig.newInstance(mContext).getUserid());
+        parameters.putParams(FieldCanApplyCmd.K_TOKEN, HttpConfig.newInstance(mContext).getAccessToken());
         return parameters;
     }
 
     private HttpCommand newHttpCommand() {
-        HttpCommand httpCmd = new FieldCanApplyNewCmd(mContext, getParams());
+        HttpCommand httpCmd = new FieldCanApplyCmd(mContext, getParams());
         httpCmd.setCallback(new BaseCallback<CanApplyResultNew>() {
             @Override
             public void onSuccess(Response<CanApplyResultNew> response) {

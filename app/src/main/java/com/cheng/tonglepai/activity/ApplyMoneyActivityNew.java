@@ -150,12 +150,14 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             tvCanApplyMoney.setText("0.00");
         else {*/
             if (userType == 3) {
-                if ((Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) - Double.parseDouble(getIntent().getStringExtra(NEED_PAY))) < 10) {
-                    btnToApply.setEnabled(false);
-                } else {
-                    btnToApply.setEnabled(true);
+                if(!TextUtils.isEmpty(getIntent().getStringExtra(CAN_APPLY_MONEY))&&!TextUtils.isEmpty(getIntent().getStringExtra(NEED_PAY))) {
+                    if ((Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) - Double.parseDouble(getIntent().getStringExtra(NEED_PAY))) < 10) {
+                        btnToApply.setEnabled(false);
+                    } else {
+                        btnToApply.setEnabled(true);
+                    }
+                    tvCanApplyMoney.setText(String.valueOf(Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) - Double.parseDouble(getIntent().getStringExtra(NEED_PAY))));
                 }
-                tvCanApplyMoney.setText(String.valueOf(Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) - Double.parseDouble(getIntent().getStringExtra(NEED_PAY))));
             } else {
                 if(!TextUtils.isEmpty(getIntent().getStringExtra(CAN_APPLY_MONEY))) {
                     if (Double.parseDouble(getIntent().getStringExtra(CAN_APPLY_MONEY)) < 10) {
