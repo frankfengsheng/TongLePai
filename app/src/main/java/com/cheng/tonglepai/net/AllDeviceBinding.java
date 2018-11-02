@@ -43,6 +43,7 @@ public class AllDeviceBinding implements IUiDataBinding<List<ExceptionDeviceData
             uiItem.setCreated(httpItem.getTimes());
             uiItem.setDevice_code(httpItem.getDevice_code());
             uiItem.setStore_name(httpItem.getStore_name());
+            uiItem.setStatus(httpItem.getStatus());
             uiList.add(uiItem);
         }
         return uiList;

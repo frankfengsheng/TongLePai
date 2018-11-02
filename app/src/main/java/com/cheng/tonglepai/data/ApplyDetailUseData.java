@@ -9,7 +9,7 @@ public class ApplyDetailUseData {
     private String updated;
     private String month;
     private String status;
-
+    private String withdraw_type;
     public String getStatus() {
         return status;
     }
@@ -40,5 +40,13 @@ public class ApplyDetailUseData {
 
     public void setUpdated(String updated) {
         this.updated = updated;
+    }
+
+    public String getWithdraw_type() {
+        return withdraw_type;
+    }
+
+    public void setWithdraw_type(String withdraw_type) {
+        this.withdraw_type = withdraw_type;
     }
 }

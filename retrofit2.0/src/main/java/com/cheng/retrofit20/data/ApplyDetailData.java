@@ -34,6 +34,7 @@ public class ApplyDetailData extends BaseHttpResult {
         private String week;
         private String month;
         private String status;
+        private String withdraw_type;
 
         public String getStatus() {
             return status;
@@ -73,6 +74,14 @@ public class ApplyDetailData extends BaseHttpResult {
 
         public void setMonth(String month) {
             this.month = month;
+        }
+
+        public String getWithdraw_type() {
+            return withdraw_type;
+        }
+
+        public void setWithdraw_type(String withdraw_type) {
+            this.withdraw_type = withdraw_type;
         }
     }
 }

@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -64,18 +66,22 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     private String bankName,bankAccout,nickName,openId;
     private RelativeLayout rl_bank;
     private IWXAPI iwxapi;
+    private String wechat_return_OpenId,wechat_return_nickName;
+
+    private int ACCOUNT_TYPE=0;
+    private ImageView ivBack;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_select_account);
         MyApplication.getInstance().addActivity(this);
         regToWx();
-        setMidTitle("提款明细");
+        setMidTitle("选择账户");
         initView();
         initData();
     }
 
     private void initView() {
-
+        ACCOUNT_TYPE=getIntent().getIntExtra("ACCOUNT_TYPE",0);
         bankName = getIntent().getStringExtra(ApplyMoneyActivityNew.BANK_NAME);
         bankAccout = getIntent().getStringExtra(ApplyMoneyActivityNew.BANK_ACCOUNT);
         openId=getIntent().getStringExtra(ApplyMoneyActivityNew.OPEN_ID);
@@ -88,33 +94,48 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
         tv_bankName= (TextView) findViewById(R.id.bank_name);
         tv_banAccount= (TextView) findViewById(R.id.bank_account);
         tv_binding= (TextView) findViewById(R.id.tv_wechat_binding);
+        ivBack= (ImageView) findViewById(R.id.title_left_back_iv);
+        ivBack.setOnClickListener(this);
+
         tv_binding.setOnClickListener(this);
-        if(!TextUtils.isEmpty(bankAccout)&&bankAccout.length()>5){
-            tv_bankName.setText(bankName);
-            tv_banAccount.setText(bankAccout);
-        }else {
-            rl_bank.setVisibility(View.GONE);
-        }
-        if(!TextUtils.isEmpty(openId)&&openId.length()>5){
-            tv_nickname.setText(nickName);
-            tv_binding.setVisibility(View.GONE);
-        }else {
-            tv_binding.setVisibility(View.VISIBLE);
-            rb_wechat.setVisibility(View.GONE);
-        }
 
         rb_bank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                rb_wechat.setChecked(false);
+                if (isChecked) {
+                    rb_wechat.setChecked(false);
+                    ACCOUNT_TYPE=1;
+                }
             }
         });
         rb_wechat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                rb_bank.setChecked(false);
+                if (isChecked) {
+                    rb_bank.setChecked(false);
+                    ACCOUNT_TYPE=0;
+                }
             }
         });
+
+        if(!TextUtils.isEmpty(bankAccout)&&bankAccout.length()>5){
+            tv_bankName.setText(bankName);
+            tv_banAccount.setText(bankAccout);
+            if(ACCOUNT_TYPE==1)rb_bank.setChecked(true);
+        }else {
+            rl_bank.setVisibility(View.GONE);
+        }
+        if(!TextUtils.isEmpty(openId)&&openId.length()>5){
+            tv_nickname.setText(nickName);
+            tv_binding.setText("换绑其他微信");
+            rb_wechat.setVisibility(View.VISIBLE);
+            if(ACCOUNT_TYPE==0)rb_wechat.setChecked(true);
+        }else {
+           tv_binding.setText("绑定微信");
+            rb_wechat.setVisibility(View.INVISIBLE);
+        }
+
+
     }
 
     private void initData() {
@@ -125,10 +146,24 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_wechat_binding:
-                SendAuth.Req req = new SendAuth.Req();
-                req.scope = "snsapi_userinfo";
-                req.state = "wechat_sdk_微信登录";
-                iwxapi.sendReq(req);
+                if(!TextUtils.isEmpty(openId)&&openId.length()>5){
+                            SendAuth.Req req = new SendAuth.Req();
+                            req.scope = "snsapi_userinfo";
+                            req.state = "wechat_sdk_微信登录";
+                            iwxapi.sendReq(req);
+
+                }else {
+                    SendAuth.Req req = new SendAuth.Req();
+                    req.scope = "snsapi_userinfo";
+                    req.state = "wechat_sdk_微信登录";
+                    iwxapi.sendReq(req);
+                }
+                break;
+            case R.id.title_left_back_iv:
+                Intent intent=new Intent();
+                intent.putExtra("ACCOUNT_TYPE",ACCOUNT_TYPE);
+                setResult(0x110,intent);
+                finish();
                 break;
         }
     }
@@ -150,9 +185,29 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        openId=intent.getStringExtra(ApplyMoneyActivityNew.OPEN_ID);
-        nickName=intent.getStringExtra(ApplyMoneyActivityNew.WX_NICKNAME);
-        showDialog(nickName);
+        wechat_return_OpenId=intent.getStringExtra(ApplyMoneyActivityNew.OPEN_ID);
+        wechat_return_nickName=intent.getStringExtra(ApplyMoneyActivityNew.WX_NICKNAME);
+        if(!TextUtils.isEmpty(openId)&&openId.length()>5){
+
+            DialogUtil.showChangDialog("是否确定换绑？", this, "确定", new DialogUtil.OnDialogSureClick() {
+                @Override
+                public void sureClick() {
+                    new BindingModel(SelectAccountActivity.this).ChangeBindingWechat(wechat_return_OpenId, wechat_return_nickName, new BindingModel.BindSuccessCallBack() {
+                        @Override
+                        public void bindSucess(WechatBindingBean bindingBean) {
+                            if(bindingBean.getStatus()==71){
+                                ToastUtil.showToast(SelectAccountActivity.this,"微信绑定成功");
+                            }else if(bindingBean.getStatus()==70) {
+                                ToastUtil.showToast(SelectAccountActivity.this,"微信绑定失败，该账号已经绑定其他微信");
+                            }
+                        }
+                    });
+                }
+            });
+
+        }else {
+            showDialog(wechat_return_nickName);
+        }
     }
 
     private void showDialog(final String nickName){
@@ -171,7 +226,7 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
         tvBinding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BindingModel(SelectAccountActivity.this).bindingWechat(openId, nickName, new BindingModel.BindSuccessCallBack() {
+                new BindingModel(SelectAccountActivity.this).bindingWechat(wechat_return_OpenId, wechat_return_nickName, new BindingModel.BindSuccessCallBack() {
                     @Override
                     public void bindSucess(WechatBindingBean bindingBean) {
                         if(bindingBean.getStatus()==71){
@@ -196,5 +251,15 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     }
 
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent=new Intent();
+            intent.putExtra("ACCOUNT_TYPE",ACCOUNT_TYPE);
+            setResult(0x110,intent);
+            finish();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

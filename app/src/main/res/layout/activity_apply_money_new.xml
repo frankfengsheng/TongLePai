@@ -16,10 +16,10 @@
 
         <ImageView
             android:id="@+id/iv_bank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:background="@drawable/bank" />
+            android:background="@mipmap/weixin_account" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="17sp"
+                android:textSize="16sp"
                 android:textColor="@color/C1" />
 
             <TextView
@@ -47,17 +47,18 @@
                 android:textSize="15sp"
                 android:textColor="@color/C1" />
         </LinearLayout>
-        <TextView
+        <ImageView
             android:id="@+id/tv_tixian_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_margin="10dp"
             android:textColor="@color/text_white"
             android:textStyle="bold"
             android:textSize="30sp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:text=">"/>
+            android:src="@mipmap/right_arr"/>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -215,10 +216,11 @@
                 android:background="#A3A3A3" />
 
             <TextView
+                android:id="@+id/tv_zhujie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="注：收取0.6%的银行转账服务费，最低1元。"
+                android:text="注：微信提现收取0.6%的银行转账服务费，最低手续费1元。银行卡提现收取0.6%的银行转账服务费，最低手续费5元."
                 android:textColor="#AAAAAA" />
 
             <LinearLayout
@@ -229,7 +231,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="营收金额 "
+                    android:text="应收金额 "
                     android:textSize="16sp" />
 
                 <TextView

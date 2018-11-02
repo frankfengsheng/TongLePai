@@ -29,12 +29,17 @@
             android:layout_weight="1"
             android:singleLine="true"
             android:text=""
+            android:textColor="@color/text_black"
             android:textSize="16sp" />
 
 
     </LinearLayout>
 
-
+<TextView
+   style="@style/horizontal_line"
+    android:layout_height="1px"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,6 +52,8 @@
             android:layout_weight="1"
             android:text=""
             android:textSize="15sp"
+            android:textColor="@color/text_black"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="60dp"
             android:layout_toLeftOf="@+id/tv_device_time"/>
         <TextView
@@ -97,7 +104,8 @@
             android:textColor="@color/text_red" />
     </RelativeLayout>
        <TextView
-           style="@style/horizontal_line"/>
+           style="@style/horizontal_line"
+           />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"

@@ -40,6 +40,7 @@ public class InvestorApplyDetailBinding implements IUiDataBinding<List<ApplyDeta
             uiItem.setUpdated(httpItem.getUpdated());
             uiItem.setMonth(httpItem.getMonth());
             uiItem.setStatus(httpItem.getStatus());
+            uiItem.setWithdraw_type(httpItem.getWithdraw_type());
             uiList.add(uiItem);
         }
         return uiList;

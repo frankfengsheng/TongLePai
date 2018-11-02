@@ -12,13 +12,21 @@
             android:id="@+id/ll_item_apply"
             android:layout_width="match_parent"
             android:gravity="center_vertical"
-            android:layout_height="30dp">
-
+            android:layout_height="60dp">
+            <ImageView
+                android:id="@+id/iv_account"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/wx"/>
             <TextView
                 android:id="@+id/tv_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/iv_account"
+                android:layout_alignTop="@+id/iv_account"
                 android:text="提现金额:"/>
             <TextView
                 android:id="@+id/tv_month_show"
@@ -26,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/tv_month"
+                android:layout_alignTop="@+id/iv_account"
                 android:text=""
                 android:textColor="@color/C4" />
 
@@ -35,32 +44,24 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
                 android:text="申请中"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_below="@+id/ll_item_apply"
-            android:layout_width="match_parent"
-            android:paddingTop="10dp"
-            android:paddingBottom="5dp"
-            android:layout_height="wrap_content">
-
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
+                android:layout_toRightOf="@+id/iv_account"
                 android:text=""
-                android:visibility="gone"
-                android:textColor="@color/C4" />
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tv_month"/>
+
         </RelativeLayout>
+
+
+
+
+
+
     </RelativeLayout>
 </LinearLayout>

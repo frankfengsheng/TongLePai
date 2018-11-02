@@ -21,15 +21,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cheng.retrofit20.bean.WechatBindingBean;
+import com.cheng.retrofit20.bean.WechatWithDrawBean;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.client.BaseHttpResult;
+import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
+import com.cheng.tonglepai.model.BindingModel;
+import com.cheng.tonglepai.model.MyIncomeModle;
 import com.cheng.tonglepai.net.ApplyMoneyRequest;
 import com.cheng.tonglepai.net.FieldApplyMoneyRequest;
 import com.cheng.tonglepai.net.InvestorApplyMoneyRequest;
+import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.MyChooseToastDialog;
 import com.cheng.tonglepai.tool.MyToast;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
 /**
  * Created by cheng on 2018/9/9.
@@ -57,6 +64,8 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
     private String openid;
     private String wx_nickname;
     private ImageView iv_bank;
+
+    private int ACCOUNT_TYPE=0;//提现账户类型 0微信 1.银行卡
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_apply_money_new);
@@ -83,6 +92,8 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
         btnToApply = (Button) findViewById(R.id.btn_to_apply);
         rl_withdraw= (RelativeLayout) findViewById(R.id.rl_withdraw);
         rl_withdraw.setOnClickListener(this);
+        shouxu_money = (TextView) findViewById(R.id.shouxu_money);
+        etApplyMoney = (EditText) findViewById(R.id.et_apply_money);
 
         bankNameShow = getIntent().getStringExtra(BANK_NAME);
         bankShow = getIntent().getStringExtra(BANK_ACCOUNT);
@@ -91,30 +102,23 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
 
         if(!TextUtils.isEmpty(openid)&&openid.length()>5){
             bankName.setText(wx_nickname);
-            bankAccount.setVisibility(View.GONE);
             iv_bank.setImageResource(R.mipmap.weixin_account);
             btnToApply.setEnabled(true);
+            ACCOUNT_TYPE=0;
         }else if(!TextUtils.isEmpty(bankShow)&&bankShow.length()>5){
             bankName.setText(bankNameShow);
             bankAccount.setText(bankShow);
             btnToApply.setEnabled(true);
+            ACCOUNT_TYPE=1;
+            rl_withdraw.setBackgroundResource(R.color.C3);
+            etApplyMoney.setHint("银行卡提现最低限额100元");
         }else {
-            bankName.setText("您尚未绑定提现账户。请绑定微信提现，或联系客服绑定银行卡提现");
-            bankAccount.setText("4000-366-118");
+            bankAccount.setVisibility(View.GONE);
+            bankName.setText("您尚未绑定提现账户。请绑定微信提现");
+            bankAccount.setText("");
 //            llHeadApply.setVisibility(View.INVISIBLE);
             btnToApply.setEnabled(false);
         }
-        /*if (TextUtils.isEmpty(bankShow) || "0".equals(bankShow)) {
-            bankName.setText("您尚未绑定提现账户。请绑定微信提现，或联系客服绑定银行卡提现");
-            bankAccount.setText("4000-366-118");
-//            llHeadApply.setVisibility(View.INVISIBLE);
-            btnToApply.setEnabled(false);
-        } else {
-            bankName.setText(bankNameShow);
-            bankAccount.setText(bankShow);
-//            llHeadApply.setVisibility(View.VISIBLE);
-            btnToApply.setEnabled(true);
-        }*/
         bankAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,8 +183,7 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             llNeedMoney.setVisibility(View.GONE);
         }
 
-        shouxu_money = (TextView) findViewById(R.id.shouxu_money);
-        etApplyMoney = (EditText) findViewById(R.id.et_apply_money);
+
         etApplyMoney.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -189,16 +192,32 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s.toString())) {
-                    if (Double.parseDouble(s.toString()) * 0.006 < 1) {
-                        shouxu_money.setText("1");
-                        tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - 1));
-                    } else {
-                        if (String.valueOf(Double.parseDouble(s.toString()) * 0.006).length() > 4) {
-                            shouxu_money.setText(String.valueOf(Double.parseDouble(s.toString()) * 0.006 + 0.01).substring(0, 4));
-                            tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - Double.parseDouble(String.valueOf(Double.parseDouble(s.toString()) * 0.006 + 0.01).substring(0, 4))));
+                    //微信提现跟银行卡提现手续费不同
+                    if (ACCOUNT_TYPE == 0) {
+                        if (Double.parseDouble(s.toString()) * 0.006 < 1) {
+                            shouxu_money.setText("1");
+                            tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - 1));
                         } else {
-                            shouxu_money.setText(String.valueOf(Double.parseDouble(s.toString()) * 0.006));
-                            tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - Double.parseDouble(s.toString()) * 0.006));
+                            if (String.valueOf(Double.parseDouble(s.toString()) * 0.006).length() > 4) {
+                                shouxu_money.setText(String.valueOf(Double.parseDouble(s.toString()) * 0.006 + 0.01).substring(0, 4));
+                                tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - Double.parseDouble(String.valueOf(Double.parseDouble(s.toString()) * 0.006 + 0.01).substring(0, 4))));
+                            } else {
+                                shouxu_money.setText(String.valueOf(Double.parseDouble(s.toString()) * 0.006));
+                                tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - Double.parseDouble(s.toString()) * 0.006));
+                            }
+                        }
+                    }else {
+                        if (Double.parseDouble(s.toString()) * 0.006 < 5) {
+                            shouxu_money.setText("5");
+                            tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - 5));
+                        } else {
+                            if (String.valueOf(Double.parseDouble(s.toString()) * 0.006).length() > 4) {
+                                shouxu_money.setText(String.valueOf(Double.parseDouble(s.toString()) * 0.006 + 0.01).substring(0, 4));
+                                tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - Double.parseDouble(String.valueOf(Double.parseDouble(s.toString()) * 0.006 + 0.01).substring(0, 4))));
+                            } else {
+                                shouxu_money.setText(String.valueOf(Double.parseDouble(s.toString()) * 0.006));
+                                tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - Double.parseDouble(s.toString()) * 0.006));
+                            }
                         }
                     }
                 }
@@ -220,7 +239,7 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
         btnToApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toApply();
+               toApply();
             }
         });
 
@@ -254,8 +273,12 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             Toast.makeText(ApplyMoneyActivityNew.this, "请输入申请提现金额", Toast.LENGTH_LONG).show();
             return;
         }
-        if (Integer.parseInt(applyMoney) < 10) {
-            Toast.makeText(ApplyMoneyActivityNew.this, "单笔提现不小于10元", Toast.LENGTH_LONG).show();
+        if (ACCOUNT_TYPE==0&&Integer.parseInt(applyMoney) < 10) {
+            Toast.makeText(ApplyMoneyActivityNew.this, "微信单笔提现不得小于10元", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (ACCOUNT_TYPE==1&&Integer.parseInt(applyMoney) < 100) {
+            Toast.makeText(ApplyMoneyActivityNew.this, "银行卡单笔提现不得小于100元", Toast.LENGTH_LONG).show();
             return;
         }
         if(userType == 3){
@@ -264,6 +287,84 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
                 return;
             }
         }
+        //如果账户类型是银行就提现到银行卡，如果是微信就提现到微信
+        if(ACCOUNT_TYPE==1) {
+            DialogUtil.showChangDialog("确定提现到银行卡?",ApplyMoneyActivityNew.this,"立即提现", new DialogUtil.OnDialogSureClick() {
+                @Override
+                public void sureClick() {
+                    ApplyToBank();
+                }
+            });
+
+        }else if(ACCOUNT_TYPE==0){
+            DialogUtil.showChangDialog("确定提现到微信账号"+wx_nickname+"?",ApplyMoneyActivityNew.this,"立即提现", new DialogUtil.OnDialogSureClick() {
+                @Override
+                public void sureClick() {
+                    ApplyToWechat();
+                }
+            });
+        }
+    }
+
+    private void CallPhone() {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + "400-0366118");
+        intent.setData(data);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rl_withdraw:
+                Intent intent=new Intent(this,SelectAccountActivity.class);
+                intent.putExtra(BANK_NAME,bankNameShow);
+                intent.putExtra(BANK_ACCOUNT,bankShow);
+                intent.putExtra(OPEN_ID,openid);
+                intent.putExtra(WX_NICKNAME,wx_nickname);
+                intent.putExtra("ACCOUNT_TYPE",ACCOUNT_TYPE);
+                startActivityForResult(intent,0x002);
+                break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==0x110){
+            ACCOUNT_TYPE=data.getIntExtra("ACCOUNT_TYPE",0);
+            refreshUI();
+        }
+    }
+
+    private void refreshUI(){
+        if(ACCOUNT_TYPE==0&&!TextUtils.isEmpty(openid)&&openid.length()>5){
+            bankName.setText(wx_nickname);
+            iv_bank.setImageResource(R.mipmap.weixin_account);
+            btnToApply.setEnabled(true);
+            etApplyMoney.setHint("微信提现最低限额100元");
+            bankAccount.setVisibility(View.VISIBLE);
+        }else if(ACCOUNT_TYPE==1&&!TextUtils.isEmpty(bankShow)&&bankShow.length()>5) {
+            bankName.setText(bankNameShow);
+            bankAccount.setText(bankShow);
+            bankAccount.setVisibility(View.VISIBLE);
+            btnToApply.setEnabled(true);
+            ACCOUNT_TYPE=1;
+            etApplyMoney.setHint("银行卡提现最低限额100元");
+            rl_withdraw.setBackgroundResource(R.color.C3);
+            bankAccount.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 提现到银行卡
+     */
+    private void ApplyToBank(){
         if (userType == 2) {
             ApplyMoneyRequest mRequest = new ApplyMoneyRequest(ApplyMoneyActivityNew.this);
             mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseHttpResult>() {
@@ -337,24 +438,35 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
         }
     }
 
-    private void CallPhone() {
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        Uri data = Uri.parse("tel:" + "400-0366118");
-        intent.setData(data);
-        startActivity(intent);
-    }
+    /**
+     * 提现到微信
+     */
+    private void ApplyToWechat(){
+        new BindingModel(this).WechatWithDraw(etApplyMoney.getText().toString().trim(), tvRealMoney.getText().toString().trim(), new BindingModel.WechatWithDraw() {
+            @Override
+            public void withDraw(WechatWithDrawBean bindingBean) {
+                if(bindingBean!=null&&bindingBean.getStatus()==1){
+                    //马上提现
+                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
+                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
+                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
+                    startActivity(intent);
+                }
+            }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.rl_withdraw:
-                Intent intent=new Intent(this,SelectAccountActivity.class);
-                intent.putExtra(BANK_NAME,bankNameShow);
-                intent.putExtra(BANK_ACCOUNT,bankShow);
-                intent.putExtra(OPEN_ID,openid);
-                intent.putExtra(WX_NICKNAME,wx_nickname);
+            @Override
+            public void onFaile() {
+                //马上提现
+                Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                intent.putExtra(ApplySuccessActivity.IS_SUCCESS, false);
+                intent.putExtra(ApplySuccessActivity.TYPE, userType);
                 startActivity(intent);
-                break;
-        }
+            }
+        });
     }
 }

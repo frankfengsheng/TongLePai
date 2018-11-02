@@ -98,7 +98,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     private MyListView lvDevice;
     private LinearLayout ly_select;
     private DeviceListAdapter mAdapter;
-    private int allnum = 0;
+    private double allnum = 0;
     private double totalPrice=0;
     private ArrayList<DeviceListData> dataList = new ArrayList<>();
     private static final String[] PERMISSION_EXTERNAL_STORAGE = new String[]{
@@ -190,7 +190,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         tv_totlPrice = (TextView) findViewById(R.id.tv_equipment_total_price);
         tv_count= (TextView) findViewById(R.id.tv_equipment_count);
         tv_totlPrice.setText("总计：￥"+String.valueOf(allnum));
-        tv_count.setText("已选设备"+allnum+"台");
+        tv_count.setText("已选设备："+allnum+"台");
 
         etManageType = (TextView) findViewById(R.id.et_manage_type);//经营属性
         etShopName = (EditText) findViewById(R.id.et_shop_name);//门店名称
@@ -357,10 +357,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             MyToast.showDialog(FieldPostActivity.this, "请输入联系方式");
             return;
         }
-
         loadingDialog.show();
-
-
         Map<String, Object> params = new HashMap<String, Object>();
         for (int i=0;i<imgUrl_list1.size();i++){
             Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list1.get(i));
@@ -372,7 +369,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
                     params.put("store_interior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
                     break;
                 case 2:
-                    params.put("store_interior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    params.put("store_interior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
                     break;
                 case 3:
                     params.put("store_interior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));

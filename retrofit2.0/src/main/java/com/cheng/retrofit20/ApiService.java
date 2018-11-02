@@ -5,6 +5,7 @@ import com.cheng.retrofit20.bean.SingalDetectionBean;
 import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
 import com.cheng.retrofit20.bean.WXUserInfoBean;
 import com.cheng.retrofit20.bean.WechatBindingBean;
+import com.cheng.retrofit20.bean.WechatWithDrawBean;
 import com.cheng.retrofit20.client.BaseHttpResult;
 import com.cheng.retrofit20.data.AlipayResult;
 import com.cheng.retrofit20.data.AllDeviceResult;
@@ -710,4 +711,17 @@ public interface ApiService {
     @POST("index.php?s=/api/user/bind_wechat")
     @FormUrlEncoded
     Call<WechatBindingBean> bindingWechat(@FieldMap Map<String, String> params);
+    /**
+     * 换绑微信
+     */
+    @POST("index.php?s=/api/user/change_wechat")
+    @FormUrlEncoded
+    Call<WechatBindingBean> ChangeBindingWechat(@FieldMap Map<String, String> params);
+
+    /**
+     * =微信提现
+     */
+    @POST("index.php?s=/api/user/wechat_applicationcash")
+    @FormUrlEncoded
+    Call<WechatWithDrawBean> WechatWithDraw(@FieldMap Map<String, String> params);
 }

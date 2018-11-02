@@ -92,7 +92,7 @@ public class ExceptionDeviceAdapter extends BaseAdapter {
 
         final ExceptionDeviceData data = mData.get(position);
         holder.tvDeviceName.setText(data.getDevice_name());
-        holder.tvDeviceNo.setText(data.getDevice_code());
+        holder.tvDeviceNo.setText("通讯编号："+data.getDevice_code());
         if (!TextUtils.isEmpty(data.getCreated()))
             holder.tvDeviceTime.setText(TimeUtil.alltimes(data.getCreated()));
         holder.tvShopName.setText(data.getStore_name());

@@ -42,7 +42,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  */
 
 public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayout.BGARefreshLayoutDelegate, View.OnClickListener, SearchDevicePopwindow.SearchDevicePopListener {
-    private RadioButton rbAll, rbIncome, rbSearch;
+    private LinearLayout rbAll, rbIncome;
     private BGARefreshLayout mRefreshLayout;
     private RadioButton hasPutinDevice, exceptionDevice;
     private LinearLayout llRbType;
@@ -89,16 +89,15 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
 
         type = getIntent().getIntExtra("type", 0);
         llRbType = (LinearLayout) findViewById(R.id.ll_rb_type);
-        rbAll = (RadioButton) findViewById(R.id.rb_all);
-        rbIncome = (RadioButton) findViewById(R.id.rb_income);
-        rbSearch = (RadioButton) findViewById(R.id.rb_search);
+        rbAll = (LinearLayout) findViewById(R.id.rb_all);
+        rbIncome = (LinearLayout) findViewById(R.id.rb_income);
+
         hasPutinDevice = (RadioButton) findViewById(R.id.has_putin_device);
         exceptionDevice = (RadioButton) findViewById(R.id.excption_device);
         popwindow = new SearchDevicePopwindow(this, getWindow(), false);
         popwindow.setChooseProductPopListener(this);
         rbAll.setOnClickListener(this);
         rbIncome.setOnClickListener(this);
-        rbSearch.setOnClickListener(this);
         hasPutinDevice.setOnClickListener(this);
         exceptionDevice.setOnClickListener(this);
 
@@ -242,12 +241,7 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
                 isLoad = false;
                 initData();
                 break;
-            case R.id.rb_search:
-                initBtn();
-                popwindow.showAsDropDown(llRbType);
-                rbSearch.setTextColor(Color.parseColor("#ffffff"));
-                rbSearch.setBackgroundColor(Color.parseColor("#8CC8FE"));
-                break;
+
             case R.id.has_putin_device:
                 searchContent = "";
                 page = 1;
@@ -380,17 +374,7 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
         }
     }
 
-    private void initBtn() {
-        rbAll.setChecked(false);
-        rbIncome.setChecked(false);
-        rbSearch.setChecked(false);
-        rbAll.setTextColor(Color.parseColor("#686868"));
-        rbIncome.setTextColor(Color.parseColor("#686868"));
-        rbSearch.setTextColor(Color.parseColor("#686868"));
-        rbAll.setBackgroundColor(Color.parseColor("#ffffff"));
-        rbIncome.setBackgroundColor(Color.parseColor("#ffffff"));
-        rbSearch.setBackgroundColor(Color.parseColor("#ffffff"));
-    }
+
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {

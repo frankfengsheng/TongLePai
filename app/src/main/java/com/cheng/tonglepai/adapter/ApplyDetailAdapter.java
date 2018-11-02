@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -67,6 +68,7 @@ public class ApplyDetailAdapter extends BaseAdapter {
             holder.tvDate = (TextView) convertView.findViewById(R.id.tv_date);
 //            holder.tvMonth = (TextView) convertView.findViewById(R.id.tv_month_show);
             holder.tvStatus = (TextView) convertView.findViewById(R.id.apply_status);
+            holder.imageView= (ImageView) convertView.findViewById(R.id.iv_account);
 //            holder.rlShowDetail = (RelativeLayout) convertView.findViewById(R.id.ll_item_apply);
             convertView.setTag(holder);
         } else {
@@ -94,7 +96,11 @@ public class ApplyDetailAdapter extends BaseAdapter {
         } else if (mData.get(position).getStatus().equals("2")) {
             holder.tvStatus.setText("失败");
         }
-
+        if(mData.get(position).getWithdraw_type().equals("0")){
+            holder.imageView.setImageResource(R.mipmap.yh);
+        }else {
+            holder.imageView.setImageResource(R.mipmap.wx);
+        }
         return convertView;
     }
 
@@ -107,5 +113,6 @@ public class ApplyDetailAdapter extends BaseAdapter {
     class ViewHolder {
         private TextView tvPrice, tvDate, tvMonth, tvStatus;
         private RelativeLayout rlShowDetail;
+        private ImageView imageView;
     }
 }
