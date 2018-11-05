@@ -3,6 +3,7 @@ package com.cheng.tonglepai.net;
 import android.content.Context;
 import android.content.Intent;
 
+import com.cheng.retrofit20.bean.BankWithDrawBean;
 import com.cheng.retrofit20.callbacks.BaseCallback;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.client.BaseHttpResult;
@@ -45,9 +46,9 @@ public class ApplyMoneyRequest extends BaseHttpRequest<BaseHttpResult> {
 
     private HttpCommand newHttpCommand(String money, String bank, String bankAccount, String realMoney) {
         HttpCommand httpCmd = new PartnerApplyMoneyCmd(mContext, getParams(money,bank,bankAccount,realMoney));
-        httpCmd.setCallback(new BaseCallback<BaseHttpResult>() {
+        httpCmd.setCallback(new BaseCallback<BankWithDrawBean>() {
             @Override
-            public void onSuccess(Response<BaseHttpResult> response) {
+            public void onSuccess(Response<BankWithDrawBean> response) {
                 if (null != mListener) {
                     if (null != mListener)
                         mListener.onSuccess(response.body());

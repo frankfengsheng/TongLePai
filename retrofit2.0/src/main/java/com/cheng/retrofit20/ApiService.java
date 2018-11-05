@@ -1,6 +1,7 @@
 package com.cheng.retrofit20;
 
 
+import com.cheng.retrofit20.bean.BankWithDrawBean;
 import com.cheng.retrofit20.bean.SingalDetectionBean;
 import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
 import com.cheng.retrofit20.bean.WXUserInfoBean;
@@ -724,4 +725,25 @@ public interface ApiService {
     @POST("index.php?s=/api/user/wechat_applicationcash")
     @FormUrlEncoded
     Call<WechatWithDrawBean> WechatWithDraw(@FieldMap Map<String, String> params);
+
+    /**
+     * 投资人提现
+     */
+    @POST("index.php?s=/api/Investor/tixian_new")
+    @FormUrlEncoded
+    Call<WechatWithDrawBean> TouziRenWithDraw(@FieldMap Map<String, String> params);
+
+    /**
+     * 场地人提现
+     */
+    @POST("index.php?s=/api/Field/tixian_new")
+    @FormUrlEncoded
+    Call<WechatWithDrawBean> ChangdirenWithDraw(@FieldMap Map<String, String> params);
+
+    /**
+     * 合伙人提现
+     */
+    @POST("index.php?s=/api/Maker/tixian_new")
+    @FormUrlEncoded
+    Call<WechatWithDrawBean> HehuorenWithDraw(@FieldMap Map<String, String> params);
 }

@@ -245,7 +245,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="0元" />
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_red"
+                    android:text="0.00" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

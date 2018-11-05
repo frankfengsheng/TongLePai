@@ -14,19 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.cheng.retrofit20.bean.WechatWithDrawBean;
-import com.cheng.retrofit20.client.BaseHttpRequest;
-import com.cheng.retrofit20.client.BaseHttpResult;
 import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.model.BindingModel;
 import com.cheng.tonglepai.model.MyIncomeModle;
-import com.cheng.tonglepai.net.ApplyMoneyRequest;
-import com.cheng.tonglepai.net.FieldApplyMoneyRequest;
-import com.cheng.tonglepai.net.InvestorApplyMoneyRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
+import com.cheng.tonglepai.tool.DoubleUtils;
 import com.cheng.tonglepai.tool.MyChooseToastDialog;
+import com.cheng.tonglepai.tool.ToastUtil;
 
 import java.text.DecimalFormat;
 
@@ -57,7 +55,6 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
     private String openid;
     private String wx_nickname;
     private ImageView iv_bank;
-
     private int ACCOUNT_TYPE=0;//提现账户类型 0微信 1.银行卡
     private String canApplyMoney,needPay;
     @Override
@@ -108,27 +105,27 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
                     if (ACCOUNT_TYPE == 0) {
                         if (Double.parseDouble(s.toString()) * 0.006 < 1) {
                             shouxu_money.setText("1.00");
-                            tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - 1));
+                            tvRealMoney.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) - 1));
                         } else {
                             if (String.valueOf(Double.parseDouble(s.toString()) * 0.006).length() > 4) {
-                                shouxu_money.setText(String.valueOf(new DecimalFormat("#.00").format(Double.parseDouble(s.toString()) * 0.006)));
-                                tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - Double.parseDouble(String.valueOf(new DecimalFormat("#.00").format(Double.parseDouble(s.toString()) * 0.006 )))));
+                                shouxu_money.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) * 0.006));
+                                tvRealMoney.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) - Double.parseDouble(String.valueOf(Double.parseDouble(s.toString()) * 0.006 ))));
                             } else {
-                                shouxu_money.setText(String.valueOf(new DecimalFormat("#.00").format(Double.parseDouble(s.toString()) * 0.006)));
-                                tvRealMoney.setText(String.valueOf(new DecimalFormat("#.00").format(Double.parseDouble(s.toString()) - Double.parseDouble(s.toString()) * 0.006)));
+                                shouxu_money.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) * 0.006));
+                                tvRealMoney.setText(DoubleUtils.DoulePares((Double.parseDouble(s.toString()) - Double.parseDouble(s.toString()) * 0.006)));
                             }
                         }
                     }else {
                         if (Double.parseDouble(s.toString()) * 0.006 < 5) {
                             shouxu_money.setText("5.00");
-                            tvRealMoney.setText(String.valueOf(Double.parseDouble(s.toString()) - 5));
+                            tvRealMoney.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) - 5));
                         } else {
                             if (String.valueOf(Double.parseDouble(s.toString()) * 0.006).length() > 4) {
-                                shouxu_money.setText(String.valueOf(new DecimalFormat("#.00").format(Double.parseDouble(s.toString()) * 0.006 )));
-                                tvRealMoney.setText(String.valueOf(new DecimalFormat("#.00").format(Double.parseDouble(s.toString()) - Double.parseDouble(String.valueOf(Double.parseDouble(s.toString()) * 0.006)))));
+                                shouxu_money.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) * 0.006 ));
+                                tvRealMoney.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) - Double.parseDouble(String.valueOf(Double.parseDouble(s.toString()) * 0.006))));
                             } else {
-                                shouxu_money.setText(String.valueOf(new DecimalFormat("#.00").format(Double.parseDouble(s.toString()) * 0.006)));
-                                tvRealMoney.setText(String.valueOf(new DecimalFormat("#.00").format(Double.parseDouble(s.toString()) - Double.parseDouble(s.toString()) * 0.006)));
+                                shouxu_money.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) * 0.006));
+                                tvRealMoney.setText(DoubleUtils.DoulePares(Double.parseDouble(s.toString()) - Double.parseDouble(s.toString()) * 0.006));
                             }
                         }
                     }
@@ -168,12 +165,15 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             bankName.setText(wx_nickname);
             iv_bank.setImageResource(R.mipmap.weixin_account);
             btnToApply.setEnabled(true);
+            btnToApply.setBackgroundResource(R.drawable.apply_select);
+            bankAccount.setVisibility(View.VISIBLE);
             bankAccount.setText("提现到微信零钱");
             ACCOUNT_TYPE=0;
-        }else if(!TextUtils.isEmpty(bankShow)&&bankShow.length()>5&&ACCOUNT_TYPE==1){
+        }else if(!TextUtils.isEmpty(bankShow)&&bankShow.length()>5){
             bankName.setText(bankNameShow);
             bankAccount.setText(bankShow);
             btnToApply.setEnabled(true);
+            btnToApply.setBackgroundResource(R.drawable.apply_select);
             iv_bank.setImageResource(R.drawable.bank);
             ACCOUNT_TYPE=1;
             rl_withdraw.setBackgroundResource(R.color.C3);
@@ -230,7 +230,6 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             }
         }
 
-
        /* }*/
         if (userType == 3) {
             llLastMoney.setVisibility(View.VISIBLE);
@@ -272,12 +271,12 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             Toast.makeText(ApplyMoneyActivityNew.this, "银行卡单笔提现不得小于100元", Toast.LENGTH_LONG).show();
             return;
         }
-        if(userType == 3&&(Double.parseDouble(applyMoney)+Double.parseDouble(shouxu_money.getText().toString()))>(Double.parseDouble(canApplyMoney) - Double.parseDouble(needPay))){
+        if(userType == 3&&(Double.parseDouble(applyMoney))>(Double.parseDouble(canApplyMoney) - Double.parseDouble(needPay))){
             Toast.makeText(ApplyMoneyActivityNew.this, "提现金额超出可提现金额", Toast.LENGTH_LONG).show();
             return;
 
         }
-        if(Double.parseDouble(applyMoney)>(Double.parseDouble(canApplyMoney)-Double.parseDouble(shouxu_money.getText().toString()))){
+        if(Double.parseDouble(applyMoney)>(Double.parseDouble(canApplyMoney))){
             Toast.makeText(ApplyMoneyActivityNew.this, "提现金额超出可提现金额", Toast.LENGTH_LONG).show();
             return;
         }
@@ -371,75 +370,127 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
      */
     private void ApplyToBank(){
         if (userType == 2) {
-            ApplyMoneyRequest mRequest = new ApplyMoneyRequest(ApplyMoneyActivityNew.this);
+            new BindingModel(this).HehuoBankWithDraw(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim(), new BindingModel.WechatWithDraw() {
+                @Override
+                public void withDraw(WechatWithDrawBean bindingBean) {
+                    if(bindingBean!=null&&bindingBean.getStatus()==1){
+                        Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                        intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
+                        intent.putExtra(ApplySuccessActivity.TYPE, userType);
+                        startActivity(intent);
+                    }else {
+                        ToastUtil.showToast(ApplyMoneyActivityNew.this,bindingBean.getMsg());
+                    }
+                }
+
+                @Override
+                public void onFaile() {
+                    ToastUtil.showToast(ApplyMoneyActivityNew.this,"提现失败请重试");
+                }
+            });
+
+            /*ApplyMoneyRequest mRequest = new ApplyMoneyRequest(ApplyMoneyActivityNew.this);
             mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseHttpResult>() {
                 @Override
                 public void onSuccess(BaseHttpResult data) {
-                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
-                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
-                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
-                    startActivity(intent);
+
+                        Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                        intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
+                        intent.putExtra(ApplySuccessActivity.TYPE, userType);
+                        startActivity(intent);
+
                 }
 
                 @Override
                 public void onFailed(String msg, int code) {
-                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
-                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, false);
-                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
-                    startActivity(intent);
+
                     Toast.makeText(ApplyMoneyActivityNew.this, msg, Toast.LENGTH_LONG).show();
                 }
             });
 
-            mRequest.requestApplyMoney(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim());
+            mRequest.requestApplyMoney(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim());*/
         } else if (userType == 1) {
-            InvestorApplyMoneyRequest mRequest = new InvestorApplyMoneyRequest(ApplyMoneyActivityNew.this);
+            new BindingModel(this).TouziBankWithDraw(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim(), new BindingModel.WechatWithDraw() {
+                @Override
+                public void withDraw(WechatWithDrawBean bindingBean) {
+                    if(bindingBean!=null&&bindingBean.getStatus()==1){
+                        Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                        intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
+                        intent.putExtra(ApplySuccessActivity.TYPE, userType);
+                        startActivity(intent);
+                    }else {
+                        ToastUtil.showToast(ApplyMoneyActivityNew.this,bindingBean.getMsg());
+                    }
+                }
+
+                @Override
+                public void onFaile() {
+                    ToastUtil.showToast(ApplyMoneyActivityNew.this,"提现失败请重试");
+                }
+            });
+
+           /* InvestorApplyMoneyRequest mRequest = new InvestorApplyMoneyRequest(ApplyMoneyActivityNew.this);
             mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseHttpResult>() {
                 @Override
                 public void onSuccess(BaseHttpResult data) {
-                    //马上提现
-                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
-                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
-                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
-                    startActivity(intent);
+
+                        Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                        intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
+                        intent.putExtra(ApplySuccessActivity.TYPE, userType);
+                        startActivity(intent);
+
 
                 }
 
                 @Override
                 public void onFailed(String msg, int code) {
                     Toast.makeText(ApplyMoneyActivityNew.this, msg, Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
-                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, false);
-                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
-                    startActivity(intent);
+
                 }
             });
 
-            mRequest.requestInvestorApplyMoney(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim());
+            mRequest.requestInvestorApplyMoney(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim());*/
         } else if (userType == 3) {
-            FieldApplyMoneyRequest mRequest = new FieldApplyMoneyRequest(ApplyMoneyActivityNew.this);
+            new BindingModel(this).ChangdiBankWithDraw(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim(), new BindingModel.WechatWithDraw() {
+                @Override
+                public void withDraw(WechatWithDrawBean bindingBean) {
+                    if(bindingBean!=null&&bindingBean.getStatus()==1){
+                        Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                        intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
+                        intent.putExtra(ApplySuccessActivity.TYPE, userType);
+                        startActivity(intent);
+                    }else {
+                        ToastUtil.showToast(ApplyMoneyActivityNew.this,bindingBean.getMsg());
+                    }
+                }
+
+                @Override
+                public void onFaile() {
+                    ToastUtil.showToast(ApplyMoneyActivityNew.this,"提现失败请重试");
+                }
+            });
+
+           /* FieldApplyMoneyRequest mRequest = new FieldApplyMoneyRequest(ApplyMoneyActivityNew.this);
             mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseHttpResult>() {
                 @Override
                 public void onSuccess(BaseHttpResult data) {
-                    //马上提现
-                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
-                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
-                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
-                    startActivity(intent);
+
+                        Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
+                        intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
+                        intent.putExtra(ApplySuccessActivity.TYPE, userType);
+                        startActivity(intent);
+
 
                 }
 
                 @Override
                 public void onFailed(String msg, int code) {
                     Toast.makeText(ApplyMoneyActivityNew.this, msg, Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
-                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, false);
-                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
-                    startActivity(intent);
+
                 }
             });
 
-            mRequest.requestFieldApplyMoney(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim());
+            mRequest.requestFieldApplyMoney(etApplyMoney.getText().toString().trim(), bankNameShow, bankShow, tvRealMoney.getText().toString().trim());*/
         }
     }
 
@@ -457,20 +508,13 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
                     intent.putExtra(ApplySuccessActivity.TYPE, userType);
                     startActivity(intent);
                 }else {
-                    Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
-                    intent.putExtra(ApplySuccessActivity.IS_SUCCESS, true);
-                    intent.putExtra(ApplySuccessActivity.TYPE, userType);
-                    startActivity(intent);
+                    ToastUtil.showToast(ApplyMoneyActivityNew.this,bindingBean.getMsg());
                 }
             }
 
             @Override
             public void onFaile() {
-                //马上提现
-                Intent intent = new Intent(ApplyMoneyActivityNew.this, ApplySuccessActivity.class);
-                intent.putExtra(ApplySuccessActivity.IS_SUCCESS, false);
-                intent.putExtra(ApplySuccessActivity.TYPE, userType);
-                startActivity(intent);
+                ToastUtil.showToast(ApplyMoneyActivityNew.this,"提现失败请重试");
             }
         });
     }

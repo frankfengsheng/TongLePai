@@ -8,6 +8,7 @@ import com.cheng.retrofit20.bean.WechatBindingBean;
 import com.cheng.retrofit20.bean.WechatWithDrawBean;
 import com.cheng.retrofit20.client.RetrofitClient;
 import com.cheng.retrofit20.data.HttpConfig;
+import com.cheng.retrofit20.http.InvestorApplyMoneyCmd;
 import com.cheng.retrofit20.http.UserInfoCmd;
 
 import java.util.HashMap;
@@ -115,6 +116,94 @@ public class BindingModel {
 
     }
 
+    /**
+     * 合伙人银行卡提现
+     */
+    public void HehuoBankWithDraw(String money, String bank, String bankAccount, String realMoney, final WechatWithDraw callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
+        map.put(InvestorApplyMoneyCmd.K_MONEY, money);
+        map.put(InvestorApplyMoneyCmd.K_BANK, bank);
+        map.put(InvestorApplyMoneyCmd.K_BANK_ACCOUNT, bankAccount);
+        map.put(InvestorApplyMoneyCmd.K_PRICE_REAL, realMoney);
+
+        Call<WechatWithDrawBean> call=loginInfoPost.HehuorenWithDraw(map);
+        call.enqueue(new Callback<WechatWithDrawBean>() {
+            @Override
+            public void onResponse(Call<WechatWithDrawBean> call,final Response<WechatWithDrawBean> response) {
+                WechatWithDrawBean  bindingBean=response.body();
+                callBack.withDraw(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<WechatWithDrawBean> call, Throwable t) {
+
+            }
+        });
+
+    }
+    /**
+     * 场地方银行卡提现
+     */
+    public void ChangdiBankWithDraw(String money, String bank, String bankAccount, String realMoney, final WechatWithDraw callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
+        map.put(InvestorApplyMoneyCmd.K_MONEY, money);
+        map.put(InvestorApplyMoneyCmd.K_BANK, bank);
+        map.put(InvestorApplyMoneyCmd.K_BANK_ACCOUNT, bankAccount);
+        map.put(InvestorApplyMoneyCmd.K_PRICE_REAL, realMoney);
+        Call<WechatWithDrawBean> call=loginInfoPost.ChangdirenWithDraw(map);
+        call.enqueue(new Callback<WechatWithDrawBean>() {
+            @Override
+            public void onResponse(Call<WechatWithDrawBean> call,final Response<WechatWithDrawBean> response) {
+                WechatWithDrawBean  bindingBean=response.body();
+                callBack.withDraw(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<WechatWithDrawBean> call, Throwable t) {
+
+            }
+        });
+
+    }
+    /**
+     * 投资方银行卡提现
+     */
+    public void TouziBankWithDraw(String money, String bank, String bankAccount, String realMoney, final WechatWithDraw callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
+        map.put(InvestorApplyMoneyCmd.K_MONEY, money);
+        map.put(InvestorApplyMoneyCmd.K_BANK, bank);
+        map.put(InvestorApplyMoneyCmd.K_BANK_ACCOUNT, bankAccount);
+        map.put(InvestorApplyMoneyCmd.K_PRICE_REAL, realMoney);
+        Call<WechatWithDrawBean> call=loginInfoPost.TouziRenWithDraw(map);
+        call.enqueue(new Callback<WechatWithDrawBean>() {
+            @Override
+            public void onResponse(Call<WechatWithDrawBean> call,final Response<WechatWithDrawBean> response) {
+                WechatWithDrawBean  bindingBean=response.body();
+                callBack.withDraw(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<WechatWithDrawBean> call, Throwable t) {
+
+            }
+        });
+
+    }
     /**
      * 微信绑定结果回调
      */

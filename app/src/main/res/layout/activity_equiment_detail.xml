@@ -33,7 +33,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp" />
+                    android:layout_height="300dp" />
                 <TextView
                     android:id="@+id/tv_equipment_title"
                     android:layout_width="wrap_content"

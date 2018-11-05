@@ -29,7 +29,7 @@ public class MyIncomeModle {
 
 
     /**
-     * 获取我的收益
+     * 提现到银行
      * @param
      * @return
      */
