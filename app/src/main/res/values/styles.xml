@@ -63,6 +63,15 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
+ <style name="dialog_parent" parent="@android:style/Theme.Dialog"> <!--  设置背景透明-->
+<item name="android:windowBackground">@android:color/transparent</item> <!--设置是否有边框-->
+<item name="android:windowFrame">@null</item> <!--设置是否有标题栏-->
+<item name="android:windowNoTitle">true</item> <!-- 设置是否有遮盖-->
+<item name="android:windowContentOverlay">@null</item> <!-- 设置是否浮在activity之上-->
+<item name="android:windowIsFloating">true</item> <!--添加我们的drawable文件-->
+<item name="android:background">@drawable/white_corner_shape</item> </style>
+
+
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

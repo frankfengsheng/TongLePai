@@ -130,7 +130,7 @@ public class EquipmentDetailActivity extends TitleActivity implements View.OnCli
             public void onResponse(Call<EquimentDetailResult> call, Response<EquimentDetailResult> response) {
                 if(loadingDialog!=null)loadingDialog.dismiss();
                  equimentDetailResult=response.body();
-                if(equimentDetailResult.getStatus()==1){
+                if(equimentDetailResult!=null&&equimentDetailResult.getStatus()==1){
                     refreshUI();
                 }
             }

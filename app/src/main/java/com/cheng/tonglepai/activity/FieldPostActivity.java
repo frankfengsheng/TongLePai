@@ -57,6 +57,8 @@ import org.json.JSONArray;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,8 +100,8 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     private MyListView lvDevice;
     private LinearLayout ly_select;
     private DeviceListAdapter mAdapter;
-    private double allnum = 0;
-    private double totalPrice=0;
+    private int allnum = 0;
+    private double totalPrice=0.00;
     private ArrayList<DeviceListData> dataList = new ArrayList<>();
     private static final String[] PERMISSION_EXTERNAL_STORAGE = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -189,7 +191,8 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
 
         tv_totlPrice = (TextView) findViewById(R.id.tv_equipment_total_price);
         tv_count= (TextView) findViewById(R.id.tv_equipment_count);
-        tv_totlPrice.setText("总计：￥"+String.valueOf(allnum));
+
+        tv_totlPrice.setText("总计：￥"+totalPrice);
         tv_count.setText("已选设备："+allnum+"台");
 
         etManageType = (TextView) findViewById(R.id.et_manage_type);//经营属性
@@ -627,8 +630,9 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         dataList.addAll(dataList1);
         lvDevice.setVisibility(View.VISIBLE);
         mAdapter.setData(dataList);
-        tv_totlPrice.setText("总计：￥"+totalPrice);
-        tv_count.setText("已选设备"+allnum+"台");
+
+        tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
+        tv_count.setText("已选设备:"+allnum+"台");
 
     }
 
@@ -847,17 +851,17 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         }
         allnum = allnum - 1;
         totalPrice=totalPrice-Double.parseDouble(dataList.get(position).getPrice_purchase());
-        tv_count.setText("已选设备"+allnum+"台");
-        tv_totlPrice.setText("总计：￥"+(totalPrice));
-        Log.i("走不走", dataList.get(0).getShowNO() + "我我我");
+        tv_count.setText("已选设备："+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
+
     }
 
     @Override
     public void addNo(int position) {
         allnum = allnum + 1;
         totalPrice=totalPrice+Double.parseDouble(dataList.get(position).getPrice_purchase());
-        tv_count.setText("已选设备"+allnum+"台");
-        tv_totlPrice.setText("总计：￥"+(totalPrice));
+        tv_count.setText("已选设备："+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
         Log.i("走不走", dataList.get(0).getShowNO() + "我我");
     }
 
@@ -939,7 +943,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()){
-            case R.id.lv_field_select_equiment:
+            case R.id.lv_device_list:
                 Intent intent=new Intent(getApplicationContext(), EquipmentDetailActivity.class);
                 intent.putExtra("device_model",dataList.get(position).getDevice_model());
                 startActivity(intent);

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -82,6 +83,7 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
         iv_close= (ImageView) findViewById(R.id.iv_search_cancle);
         iv_serach= (ImageView) findViewById(R.id.iv_search_equipment);
         edt_serach= (EditText) findViewById(R.id.edt_serach_equiment);
+        edt_serach.setOnKeyListener(onKeyListener);
         iv_close.setOnClickListener(this);
         iv_serach.setOnClickListener(this);
         tvRight= (TextView) findViewById(R.id.tv_title_right);
@@ -107,11 +109,13 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
         mAdapter.setBtnclick(new ExceptionDeviceAdapter.Btnclick() {
             @Override
             public void detection(int position) {
+
                 if(mAdapter.getData().get(position).getDevice_code().equals("0")){
                     Toast.makeText(getApplicationContext(),"设备尚未绑定，请先绑定设备",Toast.LENGTH_SHORT).show();
                 }else {
                     new SingalDetectionDialog(DeviceMangeActivity.this, R.style.Dialog_Fullscreen, null, mAdapter.getData().get(position).getDevice_code()).show();
                }
+
             }
 
             @Override
@@ -120,6 +124,20 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
             }
         });
     }
+    View.OnKeyListener onKeyListener=new View.OnKeyListener() {
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                String serch_content=edt_serach.getText().toString();
+                if(TextUtils.isEmpty(serch_content)){
+                    ToastUtil.showToast(DeviceMangeActivity.this,"通讯编号不能为空");
+                }else {
+                    toSearch(serch_content);
+                }
+            }
+            return false;
+        }
+    };
 
     private void initRefreshLayout() {
         mRefreshLayout = (BGARefreshLayout) findViewById(R.id.bga_device_manage);
@@ -277,7 +295,7 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
                 if(TextUtils.isEmpty(serch_content)){
                     ToastUtil.showToast(this,"通讯编号不能为空");
                 }else {
-                    toSearch(searchContent);
+                    toSearch(serch_content);
                 }
                 break;
             case R.id.iv_search_cancle:

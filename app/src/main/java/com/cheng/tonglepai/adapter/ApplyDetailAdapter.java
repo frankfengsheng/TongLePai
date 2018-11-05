@@ -69,6 +69,7 @@ public class ApplyDetailAdapter extends BaseAdapter {
 //            holder.tvMonth = (TextView) convertView.findViewById(R.id.tv_month_show);
             holder.tvStatus = (TextView) convertView.findViewById(R.id.apply_status);
             holder.imageView= (ImageView) convertView.findViewById(R.id.iv_account);
+            holder.tv_accountName= (TextView) convertView.findViewById(R.id.tv_account_name);
 //            holder.rlShowDetail = (RelativeLayout) convertView.findViewById(R.id.ll_item_apply);
             convertView.setTag(holder);
         } else {
@@ -90,16 +91,24 @@ public class ApplyDetailAdapter extends BaseAdapter {
         holder.tvPrice.setText("-" + mData.get(position).getPrice());
         holder.tvDate.setText(TimeUtil.allTime(mData.get(position).getUpdated()));
         if (mData.get(position).getStatus().equals("0")) {
-            holder.tvStatus.setText("申请中");
+            holder.tvStatus.setText("待处理");
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.text_orange));
+            holder.tvStatus.setBackgroundResource(R.drawable.orange_corner_stroke);
         } else if (mData.get(position).getStatus().equals("1")) {
-            holder.tvStatus.setText("已结算");
+            holder.tvStatus.setText("成功");
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.text_blue));
+            holder.tvStatus.setBackgroundResource(R.drawable.blue_corner_stroke);
         } else if (mData.get(position).getStatus().equals("2")) {
-            holder.tvStatus.setText("失败");
+            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.text_gray));
+            holder.tvStatus.setBackgroundResource(R.drawable.white_corner_stroke);
+            holder.tvStatus.setText("废弃");
         }
         if(mData.get(position).getWithdraw_type().equals("0")){
             holder.imageView.setImageResource(R.mipmap.yh);
+            holder.tv_accountName.setText("银行卡");
         }else {
             holder.imageView.setImageResource(R.mipmap.wx);
+            holder.tv_accountName.setText("微信");
         }
         return convertView;
     }
@@ -114,5 +123,6 @@ public class ApplyDetailAdapter extends BaseAdapter {
         private TextView tvPrice, tvDate, tvMonth, tvStatus;
         private RelativeLayout rlShowDetail;
         private ImageView imageView;
+        private TextView tv_accountName;
     }
 }

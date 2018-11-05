@@ -63,8 +63,10 @@ import org.json.JSONArray;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -312,7 +314,6 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                 cityId = data.getCity();
                 areaId = data.getDistinct();
                 provinceId = data.getProvince();
-
                 if (!TextUtils.isEmpty(data.getStore_exterior_1())) {
                     new MyAsyncTask5().execute(data.getStore_exterior_1());
                     oneCanshow = true;
@@ -845,8 +846,8 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         }
         lvDevice.setVisibility(View.VISIBLE);
         mAdapter.setData(dataList);
-        tv_totlPrice.setText("总计：￥"+totalPrice);
-        tvNumAll.setText("已选设备"+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
+        tvNumAll.setText("已选设备："+allnum+"台");
 
     }
 
@@ -890,16 +891,16 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         }
         allnum = allnum - 1;
         totalPrice=totalPrice-Double.parseDouble(dataList.get(position).getPrice_purchase());
-        tvNumAll.setText("已选设备"+allnum+"台");
-        tv_totlPrice.setText("总计：￥"+(totalPrice));
+        tvNumAll.setText("已选设备："+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
     }
 
     @Override
     public void addNo(int position) {
         allnum = allnum + 1;
         totalPrice=totalPrice+Double.parseDouble(dataList.get(position).getPrice_purchase());
-        tvNumAll.setText("已选设备"+allnum+"台");
-        tv_totlPrice.setText("总计：￥"+(totalPrice));
+        tvNumAll.setText("已选设备："+allnum+"台");
+        tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
     }
 
     private void initManageData() {
@@ -991,7 +992,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()){
-            case R.id.lv_field_select_equiment:
+            case R.id.lv_device_list:
                 Intent intent=new Intent(getApplicationContext(), EquipmentDetailActivity.class);
                 intent.putExtra("device_model",dataList.get(position).getDevice_model());
                 startActivity(intent);

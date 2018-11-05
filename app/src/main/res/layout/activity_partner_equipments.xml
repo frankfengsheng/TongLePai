@@ -38,6 +38,8 @@
                 android:layout_toLeftOf="@+id/iv_search_equipment"
                 android:hint="请输入通讯编号"
                 android:textColor="@color/C5"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
                 android:background="@null"/>
             <ImageView
                 android:id="@+id/iv_search_equipment"

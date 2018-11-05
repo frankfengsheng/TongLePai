@@ -16,8 +16,8 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="15dp"
             android:src="@drawable/shangjia_blue" />
 
@@ -54,7 +54,7 @@
             android:textSize="15sp"
             android:textColor="@color/text_black"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="15dp"
             android:layout_toLeftOf="@+id/tv_device_time"/>
         <TextView
             android:id="@+id/tv_device_time"

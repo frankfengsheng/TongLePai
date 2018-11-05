@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -75,7 +76,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             new MyIncomeModle(this).InvestorCanapplayCallback(new MyIncomeModle.CanApplyCallback() {
                 @Override
                 public void bindSucess(CanApplyResult bindingBean) {
-                    canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                if(!TextUtils.isEmpty(bindingBean.getData().getPrice()))canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
                     tvCanApplyMoney.setText(canApplyMoney + "元");
                     bankAccount = bindingBean.getData().getBank_account();
                     bankName = bindingBean.getData().getBank();
@@ -87,7 +88,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             new MyIncomeModle(this).MarkcanapplayCallback(new MyIncomeModle.CanApplyCallback() {
                 @Override
                 public void bindSucess(CanApplyResult bindingBean) {
-                    canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                    if(!TextUtils.isEmpty(bindingBean.getData().getPrice()))  canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
                     tvCanApplyMoney.setText(canApplyMoney + "元");
                     bankAccount = bindingBean.getData().getBank_account();
                     bankName = bindingBean.getData().getBank();
@@ -100,7 +101,7 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             new MyIncomeModle(this).canapplayCallback(new MyIncomeModle.CanApplyCallback() {
                 @Override
                 public void bindSucess(CanApplyResult bindingBean) {
-                    canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                    if(!TextUtils.isEmpty(bindingBean.getData().getPrice())) canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
                     tvCanApplyMoney.setText(canApplyMoney + "元");
                     bankAccount = bindingBean.getData().getBank_account();
                     bankName = bindingBean.getData().getBank();

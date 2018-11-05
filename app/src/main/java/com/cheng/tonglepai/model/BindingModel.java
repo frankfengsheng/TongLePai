@@ -52,7 +52,6 @@ public class BindingModel {
             }
             @Override
             public void onFailure(Call<WechatBindingBean> call, Throwable t) {
-
             }
         });
 
@@ -121,6 +120,7 @@ public class BindingModel {
      */
     public interface  BindSuccessCallBack{
         void bindSucess(WechatBindingBean bindingBean);
+        void binFailed();
     }
     /**
      * 微信提现结果回调

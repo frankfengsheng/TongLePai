@@ -54,7 +54,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ApplyMoneyActivityNew"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".activity.ReportRecordActivity"
             android:screenOrientation="portrait" />

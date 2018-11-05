@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/white_corner_shape">
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="150dp"
-        android:background="@drawable/white_corner_stroke">
+       >
 
         <TextView
             android:id="@+id/tv_wechat_binding_content"
@@ -15,7 +16,8 @@
             android:text="您是否确定将微信绑定"
             android:textColor="@color/text_black"
             android:textSize="17sp"
-            android:layout_margin="20dp"/>
+            android:layout_margin="20dp"
+            android:layout_marginTop="40dp"/>
         <TextView
             android:id="@+id/tv_cancle_binding"
             android:layout_width="wrap_content"

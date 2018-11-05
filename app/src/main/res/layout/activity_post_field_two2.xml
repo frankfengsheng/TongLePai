@@ -221,6 +221,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             android:text="注：确认报备后，经考察后再提审核，在审查阶段，会评估您是否成为第一报备人" />
 
         <Button

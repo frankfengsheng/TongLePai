@@ -19,6 +19,7 @@ import com.cheng.tonglepai.data.ExceptionDeviceData;
 import com.cheng.tonglepai.net.FieldRepairRequest;
 import com.cheng.tonglepai.net.NeedRepairRequest;
 import com.cheng.tonglepai.tool.TimeUtil;
+import com.cheng.tonglepai.tool.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +107,11 @@ public class ExceptionDeviceAdapter extends BaseAdapter {
         holder.btn_detection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(btnclick!=null)btnclick.detection(position);
+                if(data.getStatus()==0) {
+                    if (btnclick != null) btnclick.detection(position);
+                }else {
+                    ToastUtil.showToast(context,"设备故障中，暂不支持信号检测");
+                }
             }
         });
         holder.btn_repairs.setOnClickListener(new View.OnClickListener() {

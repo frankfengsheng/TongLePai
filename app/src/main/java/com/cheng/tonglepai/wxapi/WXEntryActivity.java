@@ -141,8 +141,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     String openId=bean.getOpenid();
                     String nickName=bean.getNickname();
                     Intent intent=new Intent(WXEntryActivity.this, SelectAccountActivity.class);
-                    intent.putExtra(ApplyMoneyActivityNew.OPEN_ID,openId);
-                    intent.putExtra(ApplyMoneyActivityNew.WX_NICKNAME,nickName);
+                    intent.putExtra("wx_openid",openId);
+                    intent.putExtra("wx_nickname",nickName);
                     startActivity(intent);
                     finish();
                 }

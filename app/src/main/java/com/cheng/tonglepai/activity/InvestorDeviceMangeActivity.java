@@ -29,7 +29,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  */
 
 public class InvestorDeviceMangeActivity extends TitleActivity implements BGARefreshLayout.BGARefreshLayoutDelegate, View.OnClickListener, SearchDevicePopwindow.SearchDevicePopListener {
-    private RadioButton rbAll, rbIncome, rbSearch;
+    private LinearLayout rbAll, rbIncome;
     private BGARefreshLayout mRefreshLayout;
     private RadioButton hasPutinDevice, exceptionDevice;
     private LinearLayout llRbType;
@@ -65,16 +65,15 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
         llChooseType = (LinearLayout) findViewById(R.id.ll_choose_device);
         llChooseType.setVisibility(View.GONE);
         llRbType = (LinearLayout) findViewById(R.id.ll_rb_type);
-        rbAll = (RadioButton) findViewById(R.id.rb_all);
-        rbIncome = (RadioButton) findViewById(R.id.rb_income);
-        rbSearch = (RadioButton) findViewById(R.id.rb_search);
+        rbAll = (LinearLayout) findViewById(R.id.rb_all);
+        rbIncome = (LinearLayout) findViewById(R.id.rb_income);
         hasPutinDevice = (RadioButton) findViewById(R.id.has_putin_device);
         exceptionDevice = (RadioButton) findViewById(R.id.excption_device);
         popwindow = new SearchDevicePopwindow(this, getWindow(), true);
         popwindow.setChooseProductPopListener(this);
         rbAll.setOnClickListener(this);
         rbIncome.setOnClickListener(this);
-        rbSearch.setOnClickListener(this);
+
         hasPutinDevice.setOnClickListener(this);
         exceptionDevice.setOnClickListener(this);
 
@@ -138,10 +137,10 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
         switch (v.getId()) {
             case R.id.rb_all:
                 searchContent = "";
-                initBtn();
+               // initBtn();
                 isByIncome = "0";
-                rbAll.setTextColor(Color.parseColor("#ffffff"));
-                rbAll.setBackgroundColor(Color.parseColor("#8CC8FE"));
+                /*rbAll.setTextColor(Color.parseColor("#ffffff"));
+                rbAll.setBackgroundColor(Color.parseColor("#8CC8FE"));*/
                 page = 1;
                 isFirst = true;
                 needLoad = false;
@@ -150,10 +149,10 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
                 break;
             case R.id.rb_income:
                 searchContent = "";
-                initBtn();
+                //initBtn();
                 isByIncome = "1";
-                rbIncome.setTextColor(Color.parseColor("#ffffff"));
-                rbIncome.setBackgroundColor(Color.parseColor("#8CC8FE"));
+              /*  rbIncome.setTextColor(Color.parseColor("#ffffff"));
+                rbIncome.setBackgroundColor(Color.parseColor("#8CC8FE"));*/
                 page = 1;
                 isFirst = true;
                 needLoad = false;
@@ -161,17 +160,17 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
                 initData();
                 break;
             case R.id.rb_search:
-                initBtn();
+                //initBtn();
                 popwindow.showAsDropDown(llRbType);
-                rbSearch.setTextColor(Color.parseColor("#ffffff"));
-                rbSearch.setBackgroundColor(Color.parseColor("#8CC8FE"));
+               /* rbSearch.setTextColor(Color.parseColor("#ffffff"));
+                rbSearch.setBackgroundColor(Color.parseColor("#8CC8FE"));*/
                 break;
             default:
                 break;
         }
     }
 
-    private void initBtn() {
+   /* private void initBtn() {
         rbAll.setChecked(false);
         rbIncome.setChecked(false);
         rbSearch.setChecked(false);
@@ -181,7 +180,7 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
         rbAll.setBackgroundColor(Color.parseColor("#ffffff"));
         rbIncome.setBackgroundColor(Color.parseColor("#ffffff"));
         rbSearch.setBackgroundColor(Color.parseColor("#ffffff"));
-    }
+    }*/
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {

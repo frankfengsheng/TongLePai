@@ -76,7 +76,8 @@ public class DialogUtil {
 
     public static void showChangDialog(final String content, Context context,String sureValue ,final OnDialogSureClick click){
 
-        final Dialog dialog=new Dialog(context);
+        final Dialog dialog=new Dialog(context,R.style.dialog_parent);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);//设置dialog没有标题
         View view= LayoutInflater.from(context).inflate(R.layout.dialog_binding_wechat,null);
         TextView tvCancle= (TextView) view.findViewById(R.id.tv_cancle_binding);
         TextView tvBinding= (TextView) view.findViewById(R.id.tv_binding);

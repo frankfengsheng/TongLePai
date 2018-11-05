@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.bitmap.MyBitmapUtil;
 import com.cheng.tonglepai.data.DeviceListData;
@@ -70,10 +71,15 @@ public class DeviceListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final DeviceListData data = mData.get(position);
+
         if (!TextUtils.isEmpty(data.getImg())) {
-            MyBitmapUtil myBitmapUtil = new MyBitmapUtil(context, data.getImg());
-            myBitmapUtil.display(data.getImg(), holder.ivDevice);
+            Glide.with(context).load(data.getImg()).into(holder.ivDevice);
+          /*  MyBitmapUtil myBitmapUtil = new MyBitmapUtil(context, data.getImg());
+            myBitmapUtil.display(data.getImg(), holder.ivDevice);*/
+        }else {
+            holder.ivDevice.setImageDrawable(null);
         }
+
         holder.tvName.setText(data.getDevice_name());
         holder.tvPrice.setText("￥ "+data.getPrice_purchase());
         final int allNo = data.getShowNO();

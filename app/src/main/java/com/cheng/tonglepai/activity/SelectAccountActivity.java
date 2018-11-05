@@ -65,6 +65,7 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     TextView tv_nickname;
     private String bankName,bankAccout,nickName,openId;
     private RelativeLayout rl_bank;
+    private RelativeLayout rl_wechat;
     private IWXAPI iwxapi;
     private String wechat_return_OpenId,wechat_return_nickName;
 
@@ -89,6 +90,7 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
 
         tv_nickname= (TextView) findViewById(R.id.tv_nickname);
         rl_bank= (RelativeLayout) findViewById(R.id.rl_bank);
+        rl_wechat= (RelativeLayout) findViewById(R.id.rl_wechat);
         rb_bank= (RadioButton) findViewById(R.id.rb_bank);
         rb_wechat= (RadioButton) findViewById(R.id.rb_wechat);
         tv_bankName= (TextView) findViewById(R.id.bank_name);
@@ -98,6 +100,8 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
         ivBack.setOnClickListener(this);
 
         tv_binding.setOnClickListener(this);
+        rl_wechat.setOnClickListener(this);
+        rl_bank.setOnClickListener(this);
 
         rb_bank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -160,10 +164,15 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
                 }
                 break;
             case R.id.title_left_back_iv:
-                Intent intent=new Intent();
-                intent.putExtra("ACCOUNT_TYPE",ACCOUNT_TYPE);
-                setResult(0x110,intent);
-                finish();
+               goBack();
+                break;
+            case R.id.rl_wechat:
+                rb_wechat.setChecked(true);
+                goBack();
+                break;
+            case R.id.rl_bank:
+                rb_bank.setChecked(true);
+                goBack();
                 break;
         }
     }
@@ -185,26 +194,31 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        wechat_return_OpenId=intent.getStringExtra(ApplyMoneyActivityNew.OPEN_ID);
-        wechat_return_nickName=intent.getStringExtra(ApplyMoneyActivityNew.WX_NICKNAME);
-        if(!TextUtils.isEmpty(openId)&&openId.length()>5){
-
-            DialogUtil.showChangDialog("是否确定换绑？", this, "确定", new DialogUtil.OnDialogSureClick() {
-                @Override
-                public void sureClick() {
-                    new BindingModel(SelectAccountActivity.this).ChangeBindingWechat(wechat_return_OpenId, wechat_return_nickName, new BindingModel.BindSuccessCallBack() {
-                        @Override
-                        public void bindSucess(WechatBindingBean bindingBean) {
-                            if(bindingBean.getStatus()==71){
-                                ToastUtil.showToast(SelectAccountActivity.this,"微信绑定成功");
-                            }else if(bindingBean.getStatus()==70) {
-                                ToastUtil.showToast(SelectAccountActivity.this,"微信绑定失败，该账号已经绑定其他微信");
+        wechat_return_OpenId=intent.getStringExtra("wx_openid");
+        wechat_return_nickName=intent.getStringExtra("wx_nickname");
+        if(!TextUtils.isEmpty(wechat_return_OpenId)&&wechat_return_OpenId.length()>5&&!TextUtils.isEmpty(openId)&&openId.length()>5){
+                DialogUtil.showChangDialog("是否确定换绑？", this, "确定", new DialogUtil.OnDialogSureClick() {
+                    @Override
+                    public void sureClick() {
+                        new BindingModel(SelectAccountActivity.this).ChangeBindingWechat(wechat_return_OpenId, wechat_return_nickName, new BindingModel.BindSuccessCallBack() {
+                            @Override
+                            public void bindSucess(WechatBindingBean bindingBean) {
+                                if (bindingBean.getStatus() == 71) {
+                                    tv_nickname.setText(wechat_return_nickName);
+                                    ToastUtil.showToast(SelectAccountActivity.this, "微信绑定成功");
+                                    goBack();
+                                } else {
+                                    ToastUtil.showToast(SelectAccountActivity.this, bindingBean.getMsg());
+                                }
                             }
-                        }
-                    });
-                }
-            });
 
+                            @Override
+                            public void binFailed() {
+                                ToastUtil.showToast(SelectAccountActivity.this, "微信绑定失败，该账号已经绑定其他微信");
+                            }
+                        });
+                    }
+                });
         }else {
             showDialog(wechat_return_nickName);
         }
@@ -216,7 +230,7 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
         TextView tvCancle= (TextView) view.findViewById(R.id.tv_cancle_binding);
         TextView tvBinding= (TextView) view.findViewById(R.id.tv_binding);
         TextView tvContent= (TextView) view.findViewById(R.id.tv_wechat_binding_content);
-        tvContent.setText("您是否确定将微信号"+nickName+"绑定到当前童乐派帐号作为提现账户？");
+        tvContent.setText("您是否确定将微信号“"+nickName+"”绑定到当前童乐派帐号作为提现账户？");
         tvCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,11 +245,19 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
                     public void bindSucess(WechatBindingBean bindingBean) {
                         if(bindingBean.getStatus()==71){
                             ToastUtil.showToast(SelectAccountActivity.this,"微信绑定成功");
+                            tv_nickname.setText(wechat_return_nickName);
+                             goBack();
                         }else if(bindingBean.getStatus()==70) {
                             ToastUtil.showToast(SelectAccountActivity.this,"微信绑定失败，该账号已经绑定其他微信");
                         }
                     }
+
+                    @Override
+                    public void binFailed() {
+                        ToastUtil.showToast(SelectAccountActivity.this,"微信绑定失败");
+                    }
                 });
+                dialog.cancel();
             }
         });
         dialog.setContentView(view);
@@ -254,12 +276,16 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent=new Intent();
-            intent.putExtra("ACCOUNT_TYPE",ACCOUNT_TYPE);
-            setResult(0x110,intent);
-            finish();
+            goBack();
             return false;
         }
         return super.onKeyDown(keyCode, event);
     }
+    private void goBack(){
+        Intent intent=new Intent(this,ApplyMoneyActivityNew.class);
+        intent.putExtra("ACCOUNT_TYPE",ACCOUNT_TYPE);
+        startActivity(intent);
+        finish();
+    }
+
 }

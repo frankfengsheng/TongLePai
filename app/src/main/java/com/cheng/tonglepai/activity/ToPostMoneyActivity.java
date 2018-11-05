@@ -22,9 +22,11 @@ import com.alipay.sdk.app.PayTask;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.client.BaseHttpResult;
 import com.cheng.retrofit20.data.AlipayResult;
+import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.data.CanApplyData;
+import com.cheng.tonglepai.model.MyIncomeModle;
 import com.cheng.tonglepai.net.FieldAlipayRequest;
 import com.cheng.tonglepai.net.FieldCanApplyRequest;
 import com.cheng.tonglepai.net.PricePayRequest;
@@ -128,24 +130,17 @@ public class ToPostMoneyActivity extends TitleActivity {
     }
 
     private void initData() {
-        FieldCanApplyRequest mRequest = new FieldCanApplyRequest(this);
-        mRequest.setListener(new BaseHttpRequest.IRequestListener<CanApplyData>() {
+        new MyIncomeModle(this).canapplayCallback(new MyIncomeModle.CanApplyCallback() {
             @Override
-            public void onSuccess(CanApplyData data) {
-               if(loadingDialog!=null) loadingDialog.dismiss();
-                pricePay = data.getPrice_pay();
-                zPrice = data.getPrice();
+            public void bindSucess(CanApplyResult bindingBean) {
+
+                zPrice=bindingBean.getData().getPrice();
+                pricePay=bindingBean.getData().getPrice_pay();
                 tvNeedPay.setText("￥" + pricePay);
                 tvLastMoney.setText("￥" + zPrice);
             }
-
-            @Override
-            public void onFailed(String msg, int code) {
-                if(loadingDialog!=null) loadingDialog.dismiss();
-                Toast.makeText(ToPostMoneyActivity.this, msg, Toast.LENGTH_LONG).show();
-            }
         });
-        mRequest.requestFieldCanApply();
+
     }
 
     private void initView() {

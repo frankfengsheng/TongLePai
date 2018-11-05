@@ -69,6 +69,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_wechat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -96,7 +97,7 @@
         <TextView
             android:id="@+id/tv_wechat_binding"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginRight="15dp"
             android:textColor="@color/text_white"
@@ -113,7 +114,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:button="@drawable/customcomment_bg"
-            android:visibility="visible"
-            android:background="@android:color/transparent" />
+            android:visibility="visible" />
     </RelativeLayout>
 </LinearLayout>
