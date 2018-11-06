@@ -1,5 +1,6 @@
 package com.cheng.tonglepai.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -7,12 +8,14 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -123,7 +126,9 @@ public class LoginActivity extends TitleActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        loadNewVersionProgress();//下载最新的版本程序
+
+                        checkPermission();
+
                     }
                 }).
 
@@ -162,8 +167,8 @@ public class LoginActivity extends TitleActivity {
                     installApk(file);
                     pd.dismiss(); //结束掉进度条对话框
                 } catch (Exception e) {
-                    //下载apk失败
-                    Toast.makeText(getApplicationContext(), "下载新版本失败", Toast.LENGTH_LONG).show();
+                  /*  //下载apk失败
+                    Toast.makeText(getApplicationContext(), "下载新版本失败", Toast.LENGTH_LONG).show();*/
                     e.printStackTrace();
                 }
             }
@@ -345,5 +350,21 @@ public class LoginActivity extends TitleActivity {
         iwxapi= WXAPIFactory.createWXAPI(this,APP_ID,true);
         //将应用API注册到微信
         if(iwxapi!=null) iwxapi.registerApp(APP_ID);
+    }
+
+    private void checkPermission() {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            int write = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            int read = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+            if (write != PackageManager.PERMISSION_GRANTED || read != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 300);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(requestCode==300&&grantResults[0] == PackageManager.PERMISSION_GRANTED)  loadNewVersionProgress();//下载最新的版本程序;
     }
 }

@@ -99,7 +99,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:text="故障中"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:layout_alignTop="@+id/tv_device_id"
             android:textColor="@color/text_red" />
     </RelativeLayout>
@@ -118,7 +118,7 @@
                 android:textColor="@color/blue"
                 android:background="@null"
                 android:text="信号检测"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
             <TextView
                style="@style/vervial_line"
                 android:layout_marginTop="5dp"
@@ -132,7 +132,7 @@
                 android:background="@null"
                 android:text="报修"
                 android:layout_marginLeft="1dp"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
