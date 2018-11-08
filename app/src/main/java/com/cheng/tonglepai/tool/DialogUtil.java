@@ -3,6 +3,7 @@ package com.cheng.tonglepai.tool;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
  */
 
 public class DialogUtil {
+
     public static LoadingDialog createLoaddingDialog(Context context) {
         LoadingDialog dialog = new LoadingDialog(context, R.style.Custom_Progress);
         dialog.setTitle("");
@@ -74,6 +76,13 @@ public class DialogUtil {
         void sureClick();
     }
 
+    /**
+     * 微信绑定，微信换绑弹窗
+     * @param content
+     * @param context
+     * @param sureValue
+     * @param click
+     */
     public static void showChangDialog(final String content, Context context,String sureValue ,final OnDialogSureClick click){
 
         final Dialog dialog=new Dialog(context,R.style.dialog_parent);
@@ -108,4 +117,76 @@ public class DialogUtil {
 
     }
 
+    /**
+     * 提示更新弹框
+     * @param content
+     * @param context
+     * @param click
+     */
+    public static void showUpDateDialog(final String content, Context context ,final OnDialogSureClick click){
+
+        final Dialog dialog=new Dialog(context,R.style.dialog_parent);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);//设置dialog没有标题
+        View view= LayoutInflater.from(context).inflate(R.layout.dialog_update,null);
+        TextView tv_content= (TextView) view.findViewById(R.id.tv_update_content);
+        tv_content.setMovementMethod(ScrollingMovementMethod.getInstance());
+        tv_content.setText(content);
+        Button btn_sure= (Button) view.findViewById(R.id.btn_update_sure);
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                click.sureClick();
+                dialog.cancel();
+            }
+        });
+        dialog.setContentView(view);
+        WindowManager.LayoutParams lp     = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //注意要在Dialog show之后，再将宽高属性设置进去，才有效果
+        dialog.show();
+        window.setAttributes(lp);
+    }
+
+    /**
+     * 缴币提醒弹框
+     * @param content
+     * @param context
+     * @param click
+     */
+    public static void showPayMoneyDialog(final String content, Context context ,final OnDialogSureClick click){
+
+        final Dialog dialog=new Dialog(context,R.style.Dialog_Fullscreen);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);//设置dialog没有标题
+        View view= LayoutInflater.from(context).inflate(R.layout.dialog_pay_money,null);
+        TextView tv_content= (TextView) view.findViewById(R.id.tv_update_content);
+        tv_content.setText(content);
+        Button btn_sure= (Button) view.findViewById(R.id.btn_update_sure);
+        Button btn_konw= (Button) view.findViewById(R.id.btn_update_know);
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                click.sureClick();
+                dialog.cancel();
+            }
+        });
+        btn_konw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.setContentView(view);
+        WindowManager.LayoutParams lp     = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.FILL_PARENT;
+        lp.height = WindowManager.LayoutParams.FILL_PARENT;
+        lp.gravity=Gravity.CENTER;
+        //注意要在Dialog show之后，再将宽高属性设置进去，才有效果
+        dialog.show();
+        window.setAttributes(lp);
+    }
 }

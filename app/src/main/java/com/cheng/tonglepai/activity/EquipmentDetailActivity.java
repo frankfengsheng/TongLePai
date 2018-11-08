@@ -1,30 +1,22 @@
 package com.cheng.tonglepai.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cheng.retrofit20.ApiService;
-import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.client.RetrofitClient;
 import com.cheng.retrofit20.data.EquimentDetailResult;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.retrofit20.http.DeviceListCmd;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
-import com.cheng.tonglepai.adapter.DeviceListAdapter;
 import com.cheng.tonglepai.bitmap.MyBitmapUtil;
-import com.cheng.tonglepai.data.DeviceListData;
-import com.cheng.tonglepai.net.DeviceListRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.youth.banner.Banner;
@@ -32,22 +24,19 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+
 /**
  * Created by cheng on 2018/7/4.
  */
-
-
 public class EquipmentDetailActivity extends TitleActivity implements View.OnClickListener,OnBannerListener{
 
     private Banner banner;
@@ -67,7 +56,6 @@ public class EquipmentDetailActivity extends TitleActivity implements View.OnCli
         initView();
 
     }
-
     private void initView() {
         tv_nocontent= (TextView) findViewById(R.id.tv_no_content);
         btn_back= (Button) findViewById(R.id.btn_to_back);
@@ -110,8 +98,6 @@ public class EquipmentDetailActivity extends TitleActivity implements View.OnCli
                 break;
         }
     }
-
-
     /**
      * 获取设备端详情
      * @param

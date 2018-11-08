@@ -2,7 +2,9 @@ package com.cheng.retrofit20;
 
 
 import com.cheng.retrofit20.bean.BankWithDrawBean;
+import com.cheng.retrofit20.bean.IsNeedPayBean;
 import com.cheng.retrofit20.bean.SingalDetectionBean;
+import com.cheng.retrofit20.bean.VerasionControlBean;
 import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
 import com.cheng.retrofit20.bean.WXUserInfoBean;
 import com.cheng.retrofit20.bean.WechatBindingBean;
@@ -70,7 +72,7 @@ public interface ApiService {
      */
     @POST("index.php?s=/api/User/tlp_edition")
     @FormUrlEncoded
-    Call<VersionControlResult> getVersionControl(@FieldMap Map<String, String> params);
+    Call<VerasionControlBean> getVersionControl(@FieldMap Map<String, String> params);
 
     /**
      * 首页收益情况
@@ -746,4 +748,11 @@ public interface ApiService {
     @POST("index.php?s=/api/Maker/tixian_new")
     @FormUrlEncoded
     Call<WechatWithDrawBean> HehuorenWithDraw(@FieldMap Map<String, String> params);
+
+    /**
+     * 判断是否需要缴币
+     */
+    @POST(" index.php?s=/api/user/remind_coin")
+    @FormUrlEncoded
+    Call<IsNeedPayBean> IsNeedPayMoney(@FieldMap Map<String, String> params);
 }

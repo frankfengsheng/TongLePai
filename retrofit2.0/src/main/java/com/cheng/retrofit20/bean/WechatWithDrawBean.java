@@ -2,6 +2,7 @@ package com.cheng.retrofit20.bean;
 
 /**
  * Created by Administrator on 2018/11/1 0001.
+ * 微信提现
  */
 
 public class WechatWithDrawBean {

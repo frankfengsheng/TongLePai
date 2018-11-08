@@ -2,6 +2,7 @@ package com.cheng.retrofit20.bean;
 
 /**
  * Created by Administrator on 2018/10/31 0031.
+ * 微信绑定成功回调
  */
 
 public class WechatBindingBean {

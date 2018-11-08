@@ -1,1 +1,1 @@
-include ':app', ':retrofit2.0', ':pickerview', ':wheelview'
+include ':app', ':retrofit2.0', ':pickerview', ':wheelview', ':testbanner'

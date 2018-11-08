@@ -1,9 +1,7 @@
 package com.cheng.tonglepai.activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -15,7 +13,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -24,19 +21,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cheng.retrofit20.bean.VerasionControlBean;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.tonglepai.MainActivity;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.data.SmsLoginData;
-import com.cheng.tonglepai.data.VersionControlData;
+import com.cheng.tonglepai.model.VersionControlModel;
 import com.cheng.tonglepai.net.LoginRequest;
-import com.cheng.tonglepai.net.VesionControlRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.cheng.tonglepai.tool.VerifyTimerUtil;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -90,30 +86,36 @@ public class LoginActivity extends TitleActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        VesionControlRequest mRequest = new VesionControlRequest(this);
-        mRequest.setListener(new BaseHttpRequest.IRequestListener<VersionControlData>() {
+        new VersionControlModel(this).versionControlModle(Double.parseDouble(version) + "", new VersionControlModel.VersionControlCallback() {
             @Override
-            public void onSuccess(VersionControlData data) {
-                if (data.getAndroidis_update().equals("1")) {
-                    if (Double.parseDouble(data.getAndroid_number()) > Double.parseDouble(version)) {
-                        url = data.getAndroid_address();
-                        showDialogUpdate();
+            public void callBackSuccess(VerasionControlBean bindingBean) {
+                if(bindingBean!=null&&bindingBean.getData()!=null){
+                    if (bindingBean.getData().getAndroidis_update().equals("1")) {
+                        if (Double.parseDouble(bindingBean.getData().getAndroid_number()) > Double.parseDouble(version)) {
+                            url = bindingBean.getData().getAndroid_address();
+                            showDialogUpdate(bindingBean.getContent().replaceAll("<br/>","\n"));
+                        }
                     }
                 }
             }
 
             @Override
-            public void onFailed(String msg, int code) {
+            public void onFaile() {
 
             }
         });
-        mRequest.requestVesionControl(Double.parseDouble(version) + "");
+
 
     }
 
-    private void showDialogUpdate() {
-        // 这里的属性可以一直设置，因为每次设置后返回的是一个builder对象
+    private void showDialogUpdate(String content) {
+        DialogUtil.showUpDateDialog(content,this, new DialogUtil.OnDialogSureClick() {
+            @Override
+            public void sureClick() {
+                checkPermission();
+            }
+        });
+       /* // 这里的属性可以一直设置，因为每次设置后返回的是一个builder对象
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // 设置提示框的标题
         builder.setTitle("版本升级").
@@ -138,7 +140,7 @@ public class LoginActivity extends TitleActivity {
         // 生产对话框
         AlertDialog alertDialog = builder.create();
         // 显示对话框
-        alertDialog.show();
+        alertDialog.show();*/
     }
 
     /*
@@ -360,6 +362,8 @@ public class LoginActivity extends TitleActivity {
             if (write != PackageManager.PERMISSION_GRANTED || read != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 300);
             }
+        }else {
+            loadNewVersionProgress();
         }
     }
 

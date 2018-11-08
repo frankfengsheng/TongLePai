@@ -15,15 +15,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cheng.retrofit20.bean.IsNeedPayBean;
 import com.cheng.retrofit20.client.BaseHttpRequest;
+import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.bitmap.MyBitmapUtil;
 import com.cheng.tonglepai.data.InvestorUserInfoData;
 import com.cheng.tonglepai.data.UserInfoData;
+import com.cheng.tonglepai.model.MyIncomeModle;
 import com.cheng.tonglepai.net.FieldUserInfoRequest;
 import com.cheng.tonglepai.net.InvestorUserInfoRequest;
 import com.cheng.tonglepai.net.UserInfoRequest;
+import com.cheng.tonglepai.tool.DialogUtil;
 
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -297,7 +301,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
                     if (TextUtils.isEmpty(data.getNickname()))
                         tvUserNmae.setText("未设置");
                     else
-                        tvUserNmae.setText(data.getNickname());
+                    tvUserNmae.setText(data.getNickname());
                     tvUserPhone.setText(data.getTel());
                     tvOne.setText(data.getCt());
                     tvTwo.setText(data.getCount());
@@ -315,20 +319,17 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
                     } else if (data.getLevel().equals("3")) {
                         tvUpdateLevel.setText("城市");
                     }
-
                     if (!TextUtils.isEmpty(data.getImg())) {
                         useImg = data.getImg();
                         MyBitmapUtil myBitmapUtil = new MyBitmapUtil(UserCenterActivity.this, data.getImg());
                         myBitmapUtil.display(data.getImg(), ivUserImage);
                     }
                 }
-
                 @Override
                 public void onFailed(String msg, int code) {
                     Toast.makeText(UserCenterActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             });
-
             mRequest.requestTest();
 
         } else if (userType == 3) {
@@ -351,15 +352,12 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
                         myBitmapUtil.display(data.getImg(), ivUserImage);
                     }
                 }
-
                 @Override
                 public void onFailed(String msg, int code) {
                     Toast.makeText(UserCenterActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             });
-
             mRequest.requestFieldTest();
-
         }
     }
 
@@ -481,10 +479,30 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         startActivity(it);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
+        //当前用户是场地方的时候判断是否需要去缴币
+        if(userType==3){
+            new MyIncomeModle(getApplicationContext()).IsPayMoney(new MyIncomeModle.IsNeedPayMoneyCallback() {
+                @Override
+                    public void Sucess(IsNeedPayBean bindingBean) {
+                        if(bindingBean!=null&&bindingBean.getRemind()==1){
+                            DialogUtil.showPayMoneyDialog("您有"+bindingBean.getPrice_pay()+"元投币收益需要缴纳至平台，请尽快处理!", UserCenterActivity.this, new DialogUtil.OnDialogSureClick() {
+                                @Override
+                                public void sureClick() {
+                                    Intent intent = new Intent(UserCenterActivity.this, ToPostMoneyActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                    }
+                @Override
+                public void Faile() {
+
+                }
+            });
+        }
         initData();
     }
 
@@ -499,4 +517,5 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         return false;
     }
+
 }

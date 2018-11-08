@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/retrofit2.0/retrofit2.0.iml" filepath="$PROJECT_DIR$/retrofit2.0/retrofit2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testbanner/testbanner.iml" filepath="$PROJECT_DIR$/testbanner/testbanner.iml" />
       <module fileurl="file://$PROJECT_DIR$/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/wheelview/wheelview.iml" />
     </modules>
   </component>
