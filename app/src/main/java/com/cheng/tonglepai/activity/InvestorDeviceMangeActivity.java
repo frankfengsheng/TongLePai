@@ -1,9 +1,11 @@
 package com.cheng.tonglepai.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -80,6 +82,7 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
         rvDeviceManage = (ListView) findViewById(R.id.rv_device_manage);
         mAdapter = new InvestorDeviceAdapter(this);
         rvDeviceManage.setAdapter(mAdapter);
+
     }
 
     private void initRefreshLayout() {

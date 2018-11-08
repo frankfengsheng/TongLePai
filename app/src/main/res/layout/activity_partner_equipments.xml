@@ -202,7 +202,8 @@
         <ListView
             android:id="@+id/rv_device_manage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:divider="@null">
 
         </ListView>
     </cn.bingoogolapple.refreshlayout.BGARefreshLayout>

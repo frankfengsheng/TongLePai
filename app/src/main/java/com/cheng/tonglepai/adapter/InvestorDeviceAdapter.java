@@ -63,24 +63,24 @@ public class InvestorDeviceAdapter extends BaseAdapter {
         if (null == convertView) {
             convertView = View.inflate(context, R.layout.view_item_device_invetor, null);
             holder = new ViewHolder();
-            holder.tvDeviceNum = (TextView) convertView.findViewById(R.id.tv_device_num);
-            holder.tvDeviceTime = (TextView) convertView.findViewById(R.id.tv_device_time);
-            holder.tvShopName = (TextView) convertView.findViewById(R.id.tv_shop_name);
-            holder.tvShopAddress = (TextView) convertView.findViewById(R.id.tv_device_address);
-            holder.tvIncomeYesterday = (TextView) convertView.findViewById(R.id.tv_yesterday_income);
-            holder.tvMonthIncome = (TextView) convertView.findViewById(R.id.tv_month_income);
-            holder.llDeviceList = (LinearLayout) convertView.findViewById(R.id.ll_investor_device);
+            holder.tv_shopName = (TextView) convertView.findViewById(R.id.tv_shop_name);
+            holder.tv_DeviceCount = (TextView) convertView.findViewById(R.id.tv_device_count);
+            holder.tv_startTime = (TextView) convertView.findViewById(R.id.tv_start_time);
+            holder.tv_yesterDayIncome = (TextView) convertView.findViewById(R.id.tv_yesterday_income);
+            holder.tv_MonthIncome = (TextView) convertView.findViewById(R.id.tv_month_income);
+            holder.tv_weizhi = (TextView) convertView.findViewById(R.id.tv_weizhi);
+            holder.llDeviceList= (LinearLayout) convertView.findViewById(R.id.ly_device_item);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final InvestorDeviceListData data = mData.get(position);
-        holder.tvDeviceTime.setText("起投时间 " + TimeUtil.times(data.getTime().replace("年",".").replace("月","")));
-        holder.tvShopName.setText(data.getName());
-        holder.tvShopAddress.setText(data.getDetails());
-        holder.tvDeviceNum.setText(data.getDevice_list()+"台");
-        holder.tvIncomeYesterday.setText(data.getYesterday());
-        holder.tvMonthIncome.setText(data.getThismonth());
+        holder.tv_startTime.setText("运行时间: " + data.getTime());
+        holder.tv_shopName.setText(data.getName());
+        holder.tv_DeviceCount.setText("设备："+data.getDevice_list());
+        holder.tv_yesterDayIncome.setText("昨日收益："+data.getYesterday());
+        holder.tv_MonthIncome.setText("本月累计："+data.getYesterday());
+        holder.tv_weizhi.setText(data.getDetails());
 
         holder.llDeviceList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ public class InvestorDeviceAdapter extends BaseAdapter {
 
 
     class ViewHolder {
-        private TextView tvDeviceNum, tvDeviceTime, tvShopName, tvShopAddress, tvIncomeYesterday, tvMonthIncome;
+        private TextView tv_shopName,tv_DeviceCount,tv_yesterDayIncome,tv_MonthIncome,tv_startTime,tv_weizhi;
         private LinearLayout llDeviceList;
     }
 }
