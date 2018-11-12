@@ -2,6 +2,8 @@ package com.cheng.tonglepai.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.activity.FieldIncomeActivity;
+import com.cheng.tonglepai.activity.SiteDeviceListActivity;
 import com.cheng.tonglepai.data.InvestorDeviceListData;
 import com.cheng.tonglepai.tool.TimeUtil;
 
@@ -75,19 +78,24 @@ public class InvestorDeviceAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final InvestorDeviceListData data = mData.get(position);
-        holder.tv_startTime.setText("运行时间: " + data.getTime());
-        holder.tv_shopName.setText(data.getName());
-        holder.tv_DeviceCount.setText("设备："+data.getDevice_list());
-        holder.tv_yesterDayIncome.setText("昨日收益："+data.getYesterday());
-        holder.tv_MonthIncome.setText("本月累计："+data.getYesterday());
-        holder.tv_weizhi.setText(data.getDetails());
+        if(!TextUtils.isEmpty(data.getTime()))holder.tv_startTime.setText("运行时间: " +  TimeUtil.stampToDate(data.getTime()));
+        if(!TextUtils.isEmpty(data.getName()))holder.tv_shopName.setText(data.getName());
+        if(!TextUtils.isEmpty(data.getDevice_list()))holder.tv_DeviceCount.setText("设备："+data.getDevice_list()+"台");
+        if(!TextUtils.isEmpty(data.getYesterday()))holder.tv_yesterDayIncome.setText("昨日收益：￥"+data.getYesterday());
+        if(!TextUtils.isEmpty(data.getThismonth())) holder.tv_MonthIncome.setText("本月累计：￥"+data.getYesterday());
+        if(!TextUtils.isEmpty(data.getDetails()))holder.tv_weizhi.setText(data.getDetails());
 
         holder.llDeviceList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, FieldIncomeActivity.class);
+              /*  Intent intent = new Intent(context, FieldIncomeActivity.class);
                 intent.putExtra(FieldIncomeActivity.FIELD_ID, data.getId());
                 intent.putExtra(FieldIncomeActivity.TYPE, 1);
+                context.startActivity(intent);*/
+              Intent intent=new Intent(context, SiteDeviceListActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("bean",data);
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });

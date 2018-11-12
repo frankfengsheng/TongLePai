@@ -746,8 +746,12 @@ public class WheelTime {
 
         return sb.toString();
     }
-
-
+    public String getYear(){
+        return (wv_year.getCurrentItem())+"";
+    }
+    public String getMonth(){
+        return (wv_month.getCurrentItem())+"";
+    }
     /**
      * 农历返回对应的公历时间
      *

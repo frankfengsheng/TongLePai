@@ -1,10 +1,12 @@
 package com.cheng.tonglepai.data;
 
+import java.io.Serializable;
+
 /**
  * Created by cheng on 2018/7/23.
  */
 
-public class InvestorDeviceListData {
+public class InvestorDeviceListData implements Serializable{
     private String id;
     private String name;
     private String details;

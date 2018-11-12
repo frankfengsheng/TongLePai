@@ -2,8 +2,11 @@ package com.cheng.retrofit20;
 
 
 import com.cheng.retrofit20.bean.BankWithDrawBean;
+import com.cheng.retrofit20.bean.DevicesDetailsBean;
+import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
 import com.cheng.retrofit20.bean.SingalDetectionBean;
+import com.cheng.retrofit20.bean.SiteEquimentListBean;
 import com.cheng.retrofit20.bean.VerasionControlBean;
 import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
 import com.cheng.retrofit20.bean.WXUserInfoBean;
@@ -752,7 +755,27 @@ public interface ApiService {
     /**
      * 判断是否需要缴币
      */
-    @POST(" index.php?s=/api/user/remind_coin")
+    @POST("index.php?s=/api/user/remind_coin")
     @FormUrlEncoded
     Call<IsNeedPayBean> IsNeedPayMoney(@FieldMap Map<String, String> params);
+    /**
+     *
+     * 获取场地设备列表
+     */
+    @POST("index.php?s=/api/Investor/device_list")
+    @FormUrlEncoded
+    Call<SiteEquimentListBean> GetSiteDevicesList(@FieldMap Map<String, String> params);
+    /**
+     * 获取场地设备详情
+     */
+    @POST("index.php?s=/api/Investor/check_device")
+    @FormUrlEncoded
+    Call<DevicesDetailsBean> GetSiteDevicesDetails(@FieldMap Map<String, String> params);
+
+    /**
+     * 获取场地设备折线图
+     */
+    @POST(" index.php?s=/api/Investor/check_zx")
+    @FormUrlEncoded
+    Call<DevicesIncomeByMonthBean> GetMonthDevicesDetails(@FieldMap Map<String, String> params);
 }

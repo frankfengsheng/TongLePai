@@ -10,5 +10,6 @@ import java.util.Date;
 
 public interface OnTimeSelectListener {
 
-    void onTimeSelect(Date date, View v);
+    void onTimeSelect(Date date, View v,String year,String month);
+
 }

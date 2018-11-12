@@ -190,6 +190,8 @@
             android:exported="true"></activity>
         <activity android:name=".activity.SelectAccountActivity"
             android:launchMode="singleInstance"/>
+        <activity android:name=".activity.SiteDeviceListActivity"/>
+        <activity android:name=".activity.DeviceDetailActivity"/>
     </application>
 
 </manifest>

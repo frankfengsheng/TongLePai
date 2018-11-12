@@ -15,9 +15,9 @@
     <color name="blue">#45A7FE</color>
     <color name="text_white">#FFFFFF</color>
     <color name="line_color">#E1E1E1</color>
-    <color name="text_gray">#3E3E3E</color>
-    <color name="text_black">#393939</color>
-    <color name="text_black2">#242424</color>
+    <color name="text_gray">#C0C1C1</color>
+    <color name="text_black">#3E3E3E</color>
+    <color name="text_black2">#3E3E3E</color>
     <color name="text_blue">#45A7FE</color>
     <color name="btn_blue">#45A7FE</color>
     <color name="btn_green">#43C34C</color>

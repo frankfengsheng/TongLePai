@@ -9,7 +9,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/white_corner_shape"
-        android:layout_margin="10dp">
+        android:elevation="15dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="0dp"
+      >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -77,6 +80,7 @@
                 android:layout_alignLeft="@+id/tv_device_name"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginBottom="5dp"
                 android:layout_below="@+id/tv_yesterday_income"/>
 
             <TextView
@@ -99,15 +103,15 @@
             android:layout_height="40dp"
             android:gravity="center_vertical">
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginLeft="15dp"
                 android:src="@mipmap/dingwei"/>
             <TextView
                 android:id="@+id/tv_weizhi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/text_gray"
                 />

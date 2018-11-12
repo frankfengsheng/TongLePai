@@ -37,6 +37,7 @@
                 android:layout_toRightOf="@+id/iv_search_cancle"
                 android:layout_toLeftOf="@+id/iv_search_equipment"
                 android:hint="请输入通讯编号"
+                android:textSize="15sp"
                 android:textColor="@color/C5"
                 android:singleLine="true"
                 android:imeOptions="actionSearch"

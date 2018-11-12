@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -47,12 +49,14 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
     private int type;
     private LinearLayout llChooseType;
     private LoadingDialog loadingDialog;
+    private EditText edt_serach;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_partner_equipments);
+        getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MyApplication.getInstance().addActivity(this);
-        setMidTitle("设备管理");
+        setMidTitle("场地设备");
         initView();
         initRefreshLayout();
         initData();
@@ -62,15 +66,16 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("加载中");
         loadingDialog.setCancelable(true);
-
         type = getIntent().getIntExtra("type", type);
         llChooseType = (LinearLayout) findViewById(R.id.ll_choose_device);
-        llChooseType.setVisibility(View.GONE);
         llRbType = (LinearLayout) findViewById(R.id.ll_rb_type);
         rbAll = (LinearLayout) findViewById(R.id.rb_all);
         rbIncome = (LinearLayout) findViewById(R.id.rb_income);
         hasPutinDevice = (RadioButton) findViewById(R.id.has_putin_device);
         exceptionDevice = (RadioButton) findViewById(R.id.excption_device);
+        edt_serach= (EditText) findViewById(R.id.edt_serach_equiment);
+        edt_serach.setHint("请输入地址");
+
         popwindow = new SearchDevicePopwindow(this, getWindow(), true);
         popwindow.setChooseProductPopListener(this);
         rbAll.setOnClickListener(this);
@@ -82,7 +87,6 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
         rvDeviceManage = (ListView) findViewById(R.id.rv_device_manage);
         mAdapter = new InvestorDeviceAdapter(this);
         rvDeviceManage.setAdapter(mAdapter);
-
     }
 
     private void initRefreshLayout() {
