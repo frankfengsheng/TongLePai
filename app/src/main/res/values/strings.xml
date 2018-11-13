@@ -9,7 +9,7 @@
     <string name="learn_more">了解投资人权益 ></string>
     <string name="learn_more_other">了解合伙人权益 ></string>
     <string name="select_equiment_note">注：点击设备可以查看设备详情</string>
-    <string name="select_equiment">选择设备</string>
+    <string name="select_equiment">+ 选择设备</string>
     <drawable name="btn_pressed">#E8E8E8</drawable>
     <string name="title_activity_wxentry">WXEntryActivity</string>
 </resources>

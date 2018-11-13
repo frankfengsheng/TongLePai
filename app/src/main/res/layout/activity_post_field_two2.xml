@@ -163,12 +163,20 @@
         android:visibility="visible">
 
         <TextView
-            android:id="@+id/tv_equipment_count"
+            android:id="@+id/tv_equipment_count_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/tlp_marginleft"
+            android:text="已选设备： "
             android:textColor="@color/C5"/>
+        <TextView
+            android:id="@+id/tv_equipment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_equipment_count_title"
+            android:textColor="@color/text_blue"/>
 
         <TextView
             android:id="@+id/tv_equipment_total_price"
@@ -191,15 +199,17 @@
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:background="@drawable/chang_count_mid">
+        android:background="@drawable/blue_corner_stroke">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:visibility="gone"
             android:src="@drawable/equiment_add"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:textColor="@color/blue"
             android:text="@string/select_equiment"/>
     </LinearLayout>
 

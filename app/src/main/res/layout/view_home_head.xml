@@ -75,6 +75,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/share_code_shape"
                 android:text="邀请码"
+                android:visibility="gone"
                 android:textColor="@color/C1" />
 
             <LinearLayout

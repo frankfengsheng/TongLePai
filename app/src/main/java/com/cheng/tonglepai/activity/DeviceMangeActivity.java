@@ -69,7 +69,7 @@ public class DeviceMangeActivity extends TitleActivity implements BGARefreshLayo
         super.onCreate(savedInstanceState, R.layout.activity_partner_equipments);
         getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MyApplication.getInstance().addActivity(this);
-        setTitle("设备管理",true,"离线说明",true,0);
+        setTitle("设备管理",true,"离线说明",true,R.mipmap.explain);
         initView();
         initRefreshLayout();
         initData();

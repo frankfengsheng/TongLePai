@@ -847,7 +847,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         lvDevice.setVisibility(View.VISIBLE);
         mAdapter.setData(dataList);
         tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
-        tvNumAll.setText("已选设备："+allnum+"台");
+        tvNumAll.setText(allnum+"台");
 
     }
 
@@ -864,7 +864,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
                     {
                         for(DeviceListData data1:data){
                           if(key.equals(data1.getDevice_model())){
-                              data1.setShowNO(((Double)map.get(key)).intValue() );
+                              data1.setShowNO(Integer.parseInt((String)map.get(key)));
                               dataList.add(data1);
                           }
                         }
@@ -891,7 +891,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
         }
         allnum = allnum - 1;
         totalPrice=totalPrice-Double.parseDouble(dataList.get(position).getPrice_purchase());
-        tvNumAll.setText("已选设备："+allnum+"台");
+        tvNumAll.setText(allnum+"台");
         tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
     }
 
@@ -899,7 +899,7 @@ public class RepostFieldActivity extends TitleActivity implements DeviceListAdap
     public void addNo(int position) {
         allnum = allnum + 1;
         totalPrice=totalPrice+Double.parseDouble(dataList.get(position).getPrice_purchase());
-        tvNumAll.setText("已选设备："+allnum+"台");
+        tvNumAll.setText(allnum+"台");
         tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
     }
 

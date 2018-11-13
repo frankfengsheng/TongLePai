@@ -82,7 +82,7 @@ public class InvestorDeviceAdapter extends BaseAdapter {
         if(!TextUtils.isEmpty(data.getName()))holder.tv_shopName.setText(data.getName());
         if(!TextUtils.isEmpty(data.getDevice_list()))holder.tv_DeviceCount.setText("设备："+data.getDevice_list()+"台");
         if(!TextUtils.isEmpty(data.getYesterday()))holder.tv_yesterDayIncome.setText("昨日收益：￥"+data.getYesterday());
-        if(!TextUtils.isEmpty(data.getThismonth())) holder.tv_MonthIncome.setText("本月累计：￥"+data.getYesterday());
+        if(!TextUtils.isEmpty(data.getThismonth())) holder.tv_MonthIncome.setText("本月累计：￥"+data.getThismonth());
         if(!TextUtils.isEmpty(data.getDetails()))holder.tv_weizhi.setText(data.getDetails());
 
         holder.llDeviceList.setOnClickListener(new View.OnClickListener() {

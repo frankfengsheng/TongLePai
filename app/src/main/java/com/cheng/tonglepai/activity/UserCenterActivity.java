@@ -214,7 +214,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             tv_four.setVisibility(View.VISIBLE);
             ll_partner_income.setVisibility(View.VISIBLE);
             rl_city_income.setVisibility(View.VISIBLE);
-            tvShareCode.setVisibility(View.VISIBLE); //邀请码上线隐藏
+            tvShareCode.setVisibility(View.GONE); //邀请码上线隐藏
             tvUpdateLevel.setVisibility(View.VISIBLE);  //等级上线隐藏
             rlBindDevice.setVisibility(View.VISIBLE);  //绑定设备
             lineThree.setVisibility(View.VISIBLE);

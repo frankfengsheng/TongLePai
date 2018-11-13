@@ -2,6 +2,7 @@ package com.cheng.tonglepai.tool;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
@@ -37,6 +38,21 @@ public class DialogUtil {
         lp.dimAmount = 0.2f;
         dialog.getWindow().setAttributes(lp);
 //         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+        return dialog;
+    }
+
+    public static ProgressDialog creatDialog(Context context){
+        ProgressDialog dialog = new ProgressDialog(context);
+        dialog.setTitle(null);//设置标题
+        dialog.setMessage(null); //设置说明文字
+        dialog.setIndeterminate(false); //设置进度条是否为不明确(来回旋转)
+        dialog.setCanceledOnTouchOutside(false); //设置点击屏幕不消失
+        dialog.setCancelable(true); //设置进度条是否可以按退回键取消
+        Window wd= dialog.getWindow(); //获取屏幕管理器
+        WindowManager.LayoutParams lp = wd.getAttributes();
+        lp.alpha = 0.8f; //设置循环框的透明度
+        wd.setAttributes(lp); //设置弹出框的透明度
+        wd.setGravity(Gravity.CENTER); //设置水平居中
         return dialog;
     }
 

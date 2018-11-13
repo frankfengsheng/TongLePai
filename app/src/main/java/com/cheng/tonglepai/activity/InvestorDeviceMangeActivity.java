@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -22,6 +25,7 @@ import com.cheng.tonglepai.net.InvestorDeviceListRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.cheng.tonglepai.tool.SearchDevicePopwindow;
+import com.cheng.tonglepai.tool.ToastUtil;
 
 import java.util.List;
 
@@ -50,13 +54,14 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
     private LinearLayout llChooseType;
     private LoadingDialog loadingDialog;
     private EditText edt_serach;
+    private ImageView iv_search;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_partner_equipments);
         getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MyApplication.getInstance().addActivity(this);
-        setMidTitle("场地设备");
+        setMidTitle("场地列表");
         initView();
         initRefreshLayout();
         initData();
@@ -75,6 +80,8 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
         exceptionDevice = (RadioButton) findViewById(R.id.excption_device);
         edt_serach= (EditText) findViewById(R.id.edt_serach_equiment);
         edt_serach.setHint("请输入地址");
+        edt_serach.setOnKeyListener(onKeyListener);
+        iv_search= (ImageView) findViewById(R.id.iv_search_equipment);
 
         popwindow = new SearchDevicePopwindow(this, getWindow(), true);
         popwindow.setChooseProductPopListener(this);
@@ -83,6 +90,7 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
 
         hasPutinDevice.setOnClickListener(this);
         exceptionDevice.setOnClickListener(this);
+        iv_search.setOnClickListener(this);
 
         rvDeviceManage = (ListView) findViewById(R.id.rv_device_manage);
         mAdapter = new InvestorDeviceAdapter(this);
@@ -172,10 +180,33 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
                /* rbSearch.setTextColor(Color.parseColor("#ffffff"));
                 rbSearch.setBackgroundColor(Color.parseColor("#8CC8FE"));*/
                 break;
+            case R.id.iv_search_equipment:
+                String content=edt_serach.getText().toString();
+                if(!TextUtils.isEmpty(content)){
+                    toSearch(content);
+                }else {
+                    ToastUtil.showToast(InvestorDeviceMangeActivity.this,"搜索条件不能为空");
+                }
+
+                break;
             default:
                 break;
         }
     }
+    View.OnKeyListener onKeyListener=new View.OnKeyListener() {
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                String serch_content=edt_serach.getText().toString();
+                if(TextUtils.isEmpty(serch_content)){
+                    ToastUtil.showToast(InvestorDeviceMangeActivity.this,"通讯编号不能为空");
+                }else {
+                    toSearch(serch_content);
+                }
+            }
+            return false;
+        }
+    };
 
    /* private void initBtn() {
         rbAll.setChecked(false);

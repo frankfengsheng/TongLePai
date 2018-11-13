@@ -193,7 +193,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         tv_count= (TextView) findViewById(R.id.tv_equipment_count);
 
         tv_totlPrice.setText("总计：￥"+totalPrice);
-        tv_count.setText("已选设备："+allnum+"台");
+        tv_count.setText(allnum+"台");
 
         etManageType = (TextView) findViewById(R.id.et_manage_type);//经营属性
         etShopName = (EditText) findViewById(R.id.et_shop_name);//门店名称
@@ -292,6 +292,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 toSubmit();
             }
         });
@@ -299,6 +300,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         etUserAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (isLoaded)
                     mHandler.sendEmptyMessage(MSG_LOAD_SUCCESS);
                 else
@@ -319,6 +321,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     }
 
     private void toSubmit() {
+
         if ("0".equals(tv_count.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请选择需要设备台数");
             return;
@@ -632,7 +635,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         mAdapter.setData(dataList);
 
         tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
-        tv_count.setText("已选设备:"+allnum+"台");
+        tv_count.setText(allnum+"台");
 
     }
 
@@ -851,7 +854,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         }
         allnum = allnum - 1;
         totalPrice=totalPrice-Double.parseDouble(dataList.get(position).getPrice_purchase());
-        tv_count.setText("已选设备："+allnum+"台");
+        tv_count.setText(allnum+"台");
         tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
 
     }
@@ -860,7 +863,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     public void addNo(int position) {
         allnum = allnum + 1;
         totalPrice=totalPrice+Double.parseDouble(dataList.get(position).getPrice_purchase());
-        tv_count.setText("已选设备："+allnum+"台");
+        tv_count.setText(allnum+"台");
         tv_totlPrice.setText("总计：￥"+new DecimalFormat("#.00").format(totalPrice));
         Log.i("走不走", dataList.get(0).getShowNO() + "我我");
     }

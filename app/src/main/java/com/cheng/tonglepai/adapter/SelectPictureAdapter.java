@@ -70,8 +70,8 @@ public class SelectPictureAdapter extends BaseAdapter{
         if (position != list.size()) {
 
                 Bitmap bitmapOneOld = BitmapFactory.decodeFile(list.get(position));
-                Bitmap bitmapOne = TlpBitmapFactory.getInstance().compressScale(bitmapOneOld);
-                holder.imageView.setImageBitmap(bitmapOne);
+                //Bitmap bitmapOne = TlpBitmapFactory.getInstance().compressScale(bitmapOneOld);
+                holder.imageView.setImageBitmap(bitmapOneOld);
                 holder.layout_delete.setVisibility(View.VISIBLE);
 
         }else{

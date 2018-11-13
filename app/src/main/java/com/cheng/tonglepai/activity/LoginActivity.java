@@ -69,6 +69,7 @@ public class LoginActivity extends TitleActivity {
     //APP_ID微信
     public static final String APP_ID="wx7e91f7c83c646725";
     private IWXAPI iwxapi;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_login);
