@@ -41,10 +41,7 @@ import java.util.Map;
 public class DeviceDetailActivity extends TitleActivity implements View.OnClickListener{
 
     private TextView tv_deviceName,tv_deviceState,tv_deviceCode,tv_starTime;
-    private TextView tv_dayIncome;
-    private TextView tv_yesterdayIncome;
-    private TextView tv_monthIncome;
-    private TextView tv_lastMonthIncome;
+
     private TextView tv_totalIncome;
     private TextView tv_weizhi;
     private TextView tv_date;
@@ -55,11 +52,16 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
     private TimePickerView pvTime;
     LinearLayout ly_chart;
     LoadingDialog loadingDialog=null;
+    private TextView tv_totalSaoma,tv_totalDaijiao,tv_totalToubi;
+    private TextView tv_todaySaoma,tv_todayToubi,tv_todayIncome;
+    private TextView tv_yestodaySaoma,tv_yestodayToubi,tv_yestodayIncome;
+    private TextView tv_monthSaoma,tv_monthToubi,tv_monthIncome;
+    private LinearLayout ly_bottom;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_device_details);
         MyApplication.getInstance().addActivity(this);
-        setMidTitle("查看");
+        setMidTitle("设备详情");
         initView();
         initData();
     }
@@ -71,16 +73,25 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
         investorDeviceListData= (InvestorDeviceListData) getIntent().getSerializableExtra("siteBean");
         dataBean= (SiteEquimentListBean.DataBean) getIntent().getSerializableExtra("deviceBean");
         tv_weizhi= (TextView) findViewById(R.id.tv_device_weizhi);
-        tv_totalIncome= (TextView) findViewById(R.id.tv_all_money);
+        tv_totalIncome= (TextView) findViewById(R.id.tv_device_total_income);
         tv_deviceName= (TextView) findViewById(R.id.tv_device_name);
         tv_deviceState= (TextView) findViewById(R.id.tv_device_state);
         tv_deviceCode= (TextView) findViewById(R.id.tv_device_code);
         tv_starTime= (TextView) findViewById(R.id.tv_device_start_time);
-        tv_dayIncome= (TextView) findViewById(R.id.tv_today_income);
-        tv_yesterdayIncome= (TextView) findViewById(R.id.tv_yesterday_income);
-        tv_monthIncome= (TextView) findViewById(R.id.tv_this_month_income);
-        tv_lastMonthIncome= (TextView) findViewById(R.id.tv_last_month_income);
-        tv_yesterdayIncome= (TextView) findViewById(R.id.tv_yesterday_income);
+
+        tv_totalSaoma= (TextView) findViewById(R.id.tv_device_saoma_count);
+        tv_totalToubi= (TextView) findViewById(R.id.tv_total_toubi);
+        tv_todaySaoma= (TextView) findViewById(R.id.tv_today_saoma_count);
+        tv_todayToubi= (TextView) findViewById(R.id.tv_today_toubi_count);
+        tv_todayIncome= (TextView) findViewById(R.id.tv_today_income);
+        tv_yestodaySaoma= (TextView) findViewById(R.id.tv_yestoday_saoma_count);
+        tv_yestodayToubi= (TextView) findViewById(R.id.tv_yestoday_toubi_count);
+        tv_yestodayIncome= (TextView) findViewById(R.id.tv_yestoday_daijiao_income);
+        tv_monthSaoma= (TextView) findViewById(R.id.tv_month_saoma_count);
+        tv_monthIncome= (TextView) findViewById(R.id.tv_month_income);
+        tv_monthToubi= (TextView) findViewById(R.id.tv_month_toubi_count);
+
+        ly_bottom= (LinearLayout) findViewById(R.id.ly_bottom);
         tv_date= (TextView) findViewById(R.id.tv_date);
         ly_date= (LinearLayout) findViewById(R.id.ly_date);
         chartView= (ChartView) findViewById(R.id.chartview);
@@ -97,11 +108,25 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
             @Override
             public void Sucess(DevicesDetailsBean bean) {
                 if(bean!=null&&bean.getData()!=null){
-                    if(!TextUtils.isEmpty(bean.getData().getLast_month()))tv_lastMonthIncome.setText("￥"+bean.getData().getLast_month());
-                    if(!TextUtils.isEmpty(bean.getData().getThis_month()))tv_monthIncome.setText("￥"+bean.getData().getThis_month());
-                    if(!TextUtils.isEmpty(bean.getData().getToday()))tv_dayIncome.setText("￥"+bean.getData().getToday());
-                    if(!TextUtils.isEmpty(bean.getData().getYesterday()))tv_yesterdayIncome.setText("￥"+bean.getData().getYesterday());
+                    if(bean.getToday_data()!=null){
+                       if(!TextUtils.isEmpty(bean.getToday_data().getPrice())) tv_todayIncome.setText("￥"+bean.getToday_data().getPrice());
+                       tv_todaySaoma.setText(bean.getToday_data().getSm_price()+"");
+                       tv_todayToubi.setText(bean.getToday_data().getTb_price()+"");
+                       tv_todayIncome.setText("￥"+bean.getToday_data().getPrice());
+                    }
+                    if(bean.getYesterday_data()!=null){
+                        tv_yestodayIncome.setText("￥"+bean.getYesterday_data().getPrice());
+                        tv_yestodaySaoma.setText(bean.getYesterday_data().getSm_price()+"");
+                        tv_yestodayToubi.setText(bean.getYesterday_data().getTb_price()+"");
+                    }
+                    if(bean.getThismonth_data()!=null){
+                        tv_monthIncome.setText("￥"+bean.getThismonth_data().getPrice());
+                        tv_monthSaoma.setText(bean.getThismonth_data().getSm_price()+"");
+                        tv_monthToubi.setText(bean.getThismonth_data().getTb_price()+"");
+                     }
                     if(!TextUtils.isEmpty(bean.getData().getTotal()))tv_totalIncome.setText("￥"+bean.getData().getTotal());
+                    tv_totalSaoma.setText(bean.getData().getSm_price()+"");
+                    tv_totalToubi.setText(bean.getData().getTb_price()+"");
                     //x轴坐标对应的数据
                     List<String> xValue = new ArrayList<>();
                     //y轴坐标对应的数据
@@ -230,7 +255,7 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
                 .setDate(selectedDate)
                 .setTextColorCenter(Color.RED)
                 .setRangDate(null, selectedDate)
-                .setDecorView(ly_chart)//非dialog模式下,设置ViewGroup, pickerView将会添加到这个ViewGroup中
+                .setDecorView(ly_bottom)//非dialog模式下,设置ViewGroup, pickerView将会添加到这个ViewGroup中
                 .setBackgroundId(0x00000000)
                 .setOutSideCancelable(false)
                 .build();

@@ -1,5 +1,6 @@
 <resources>
     <dimen name="tlp_marginleft">15dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_15sp">15sp</dimen>
 
 </resources>

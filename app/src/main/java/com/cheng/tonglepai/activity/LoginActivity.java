@@ -94,7 +94,7 @@ public class LoginActivity extends TitleActivity {
                     if (bindingBean.getData().getAndroidis_update().equals("1")) {
                         if (Double.parseDouble(bindingBean.getData().getAndroid_number()) > Double.parseDouble(version)) {
                             url = bindingBean.getData().getAndroid_address();
-                            showDialogUpdate(bindingBean.getContent().replaceAll("<br/>","\n"));
+                            if(!TextUtils.isEmpty(bindingBean.getContent()))showDialogUpdate(bindingBean.getContent().replaceAll("<br/>","\n"));
                         }
                     }
                 }

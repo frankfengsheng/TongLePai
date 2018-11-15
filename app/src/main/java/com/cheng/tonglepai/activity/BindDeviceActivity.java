@@ -57,6 +57,7 @@ public class BindDeviceActivity extends TitleActivity implements BGARefreshLayou
         lvDetail = (ListView) findViewById(R.id.lv_bind_device);
         mAdapter = new BindDeviceAdapter(this);
         lvDetail.setAdapter(mAdapter);
+
     }
 
     private void initData() {
@@ -76,7 +77,7 @@ public class BindDeviceActivity extends TitleActivity implements BGARefreshLayou
                         loadingDialog.dismiss();
                     } else {
                         for (int i = 1; i < data.size(); i++) {
-                            if (!data.get(i).getStore_name().equals(data.get(i - 1).getStore_name())) {
+                            if (!data.get(i).getInfo_id().equals(data.get(i - 1).getInfo_id())) {
                                 a++;
                             }
                         }

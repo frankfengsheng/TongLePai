@@ -55,7 +55,6 @@ public class InvestorDeviceMangeActivity extends TitleActivity implements BGARef
     private LoadingDialog loadingDialog;
     private EditText edt_serach;
     private ImageView iv_search;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_partner_equipments);

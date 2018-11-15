@@ -30,9 +30,13 @@ import com.alibaba.fastjson.JSON;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.cheng.retrofit20.ApiService;
+import com.cheng.retrofit20.bean.WechatBindingBean;
 import com.cheng.retrofit20.client.BaseHttpRequest;
+import com.cheng.retrofit20.client.RetrofitClient;
 import com.cheng.retrofit20.data.BaseBackResult;
 import com.cheng.retrofit20.data.HttpConfig;
+import com.cheng.retrofit20.http.UserInfoCmd;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.adapter.DeviceListAdapter;
@@ -40,6 +44,7 @@ import com.cheng.tonglepai.adapter.SelectPictureAdapter;
 import com.cheng.tonglepai.data.BusinessTypeData;
 import com.cheng.tonglepai.data.DeviceListData;
 import com.cheng.tonglepai.data.JsonBean;
+import com.cheng.tonglepai.model.BindingModel;
 import com.cheng.tonglepai.net.BusinessTypeRequest;
 import com.cheng.tonglepai.net.DeviceListRequest;
 import com.cheng.tonglepai.net.PostFieldInfoRequest;
@@ -63,6 +68,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by cheng on 2018/7/4.
@@ -156,7 +166,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("请等待");
         loadingDialog.setCancelable(true);
-
         lvDevice = (MyListView) findViewById(R.id.lv_device_list);
         lvDevice.setVisibility(View.GONE);
         mAdapter = new DeviceListAdapter(this);
@@ -187,8 +196,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         });
 
         tvAddressShow = (TextView) findViewById(R.id.tv_address_show);
-
-
         tv_totlPrice = (TextView) findViewById(R.id.tv_equipment_total_price);
         tv_count= (TextView) findViewById(R.id.tv_equipment_count);
 
@@ -324,45 +331,36 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
 
         if ("0".equals(tv_count.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请选择需要设备台数");
-            return;
-        }
-
-        if (TextUtils.isEmpty(etManageType.getText().toString().trim())) {
+        }else if (TextUtils.isEmpty(etManageType.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入经营属性");
-            return;
-        }
-        if (TextUtils.isEmpty(etShopName.getText().toString().trim())) {
+
+        }else  if (TextUtils.isEmpty(etShopName.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入门店名称");
-            return;
-        }
-        if (TextUtils.isEmpty(etShopArea.getText().toString().trim())) {
+
+        }else if (TextUtils.isEmpty(etShopArea.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入门店面积");
-            return;
-        }
+
+        }else
         if (TextUtils.isEmpty(etDeviceArea.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入设备面积");
-            return;
-        }
-        if (TextUtils.isEmpty(etVisitPeople.getText().toString().trim())) {
+
+        }else if (TextUtils.isEmpty(etVisitPeople.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入客流量");
-            return;
-        }
-        if (TextUtils.isEmpty(etCanIncome.getText().toString().trim())) {
+
+        }else if (TextUtils.isEmpty(etCanIncome.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入预计收益");
-            return;
-        }
-        if (TextUtils.isEmpty(tvAddressShow.getText().toString().trim())) {
+
+        }else if (TextUtils.isEmpty(tvAddressShow.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入所在地区");
-            return;
-        }
-        if (TextUtils.isEmpty(etDetailAddress.getText().toString().trim())) {
+
+        }else if (TextUtils.isEmpty(etDetailAddress.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入详细地址");
-            return;
-        }
-        if (TextUtils.isEmpty(etContacts.getText().toString().trim())) {
+        }else if (TextUtils.isEmpty(etContacts.getText().toString().trim())) {
             MyToast.showDialog(FieldPostActivity.this, "请输入联系方式");
             return;
         }
+        btnSubmit.setEnabled(false);
+        btnSubmit.setBackgroundResource(R.drawable.gray_has_content_shape);
         loadingDialog.show();
         Map<String, Object> params = new HashMap<String, Object>();
         for (int i=0;i<imgUrl_list1.size();i++){
@@ -399,23 +397,6 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
                     break;
             }
         }
-/*
-        if (null != bitmapOne)
-            params.put("store_interior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapOne));
-        if (null != bitmapTwo)
-            params.put("store_interior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapTwo));
-        if (null != bitmapThree)
-            params.put("store_interior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapThree));
-        if (null != bitmapFour)
-            params.put("store_interior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapFour));
-        if (null != bitmapOneNext)
-            params.put("store_exterior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapOneNext));
-        if (null != bitmapTwoNext)
-            params.put("store_exterior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapTwoNext));
-        if (null != bitmapThreeNext)
-            params.put("store_exterior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapThreeNext));
-        if (null != bitmapFourNext)
-            params.put("store_exterior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmapFourNext));*/
         params.put("city", cityId);
         params.put("customer_flow", etVisitPeople.getText().toString().trim());
         params.put("details", etDetailAddress.getText().toString().trim());
@@ -440,10 +421,8 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             }
         }
         params.put("tlp", list);
-
         Log.i("----------", JSON.toJSONString(params));
         PostFieldInfoRequest mRequest = new PostFieldInfoRequest(this);
-
         mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseBackResult>() {
             @Override
             public void onSuccess(BaseBackResult data) {
@@ -463,7 +442,97 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         });
 
         mRequest.requestPostFieldInfo(JSON.toJSONString(params));
+
     }
+
+    /**
+     * 绑定微信
+     * @param
+     * @return
+     */
+    public void bindingWechat(String openid, String nickName, final BindingModel.BindSuccessCallBack callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(this);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+
+        for (int i=0;i<imgUrl_list1.size();i++){
+            Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list1.get(i));
+            switch (i){
+                case 0:
+                    map.put("store_interior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 1:
+                    map.put("store_interior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 2:
+                    map.put("store_interior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 3:
+                    map.put("store_interior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+            }
+        }
+        for (int i=0;i<imgUrl_list2.size();i++){
+            Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list2.get(i));
+            switch (i){
+                case 0:
+                    map.put("store_exterior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 1:
+                    map.put("store_exterior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 2:
+                    map.put("store_exterior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+                case 3:
+                    map.put("store_exterior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                    break;
+            }
+        }
+        map.put("city", cityId);
+        map.put("customer_flow", etVisitPeople.getText().toString().trim());
+        map.put("details", etDetailAddress.getText().toString().trim());
+        map.put("distinct", areaId);
+        map.put("expected_revenue", etCanIncome.getText().toString().trim());
+        map.put("mobile", etContacts.getText().toString().trim());
+        map.put("province", provinceId);
+        map.put("store_area_able", etDeviceArea.getText().toString().trim());
+        map.put("store_area_all", etShopArea.getText().toString().trim());
+        map.put("store_business_id", manageTypeId);
+        map.put("store_name", etShopName.getText().toString().trim());
+        map.put("telphone", etCompanyPhone.getText().toString().trim());
+        map.put("userid", HttpConfig.newInstance(FieldPostActivity.this).getUserid());
+        map.put("area_temp", tvAddressShow.getText().toString().trim());
+        map.put("betting_fee",totalPrice);
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (int i = 0; i < dataList.size(); i++) {
+            if (dataList.get(i).getShowNO() != 0) {
+                Map<String, Object> params1 = new HashMap<String, Object>();
+                params1.put(dataList.get(i).getDevice_model(), dataList.get(i).getShowNO());
+                list.add(params1);
+            }
+        }
+        map.put("tlp", list);
+
+        Map map1=new HashMap();
+        map1.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(this).getAccessToken());
+        map1.put("body",JSON.toJSONString(map));
+        Call<WechatBindingBean> call=loginInfoPost.bindingWechat(map1);
+        call.enqueue(new Callback<WechatBindingBean>() {
+            @Override
+            public void onResponse(Call<WechatBindingBean> call,final Response<WechatBindingBean> response) {
+                WechatBindingBean  bindingBean=response.body();
+                callBack.bindSucess(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<WechatBindingBean> call, Throwable t) {
+            }
+        });
+
+    }
+
 
 
     @Override
