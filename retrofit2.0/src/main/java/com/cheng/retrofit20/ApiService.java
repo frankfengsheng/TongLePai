@@ -778,4 +778,11 @@ public interface ApiService {
     @POST(" index.php?s=/api/Investor/check_zx")
     @FormUrlEncoded
     Call<DevicesIncomeByMonthBean> GetMonthDevicesDetails(@FieldMap Map<String, String> params);
+
+
+    /**
+     * 提交场地报备
+     */
+    @POST("index.php?s=/api/maker/report")
+    Call<BaseBackResult> GetPostFieldInfo1(@Body String params);
 }

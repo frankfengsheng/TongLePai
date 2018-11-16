@@ -55,6 +55,7 @@ import com.cheng.tonglepai.tool.GetPathFromUri4kitkat;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.cheng.tonglepai.tool.MyListView;
 import com.cheng.tonglepai.tool.MyToast;
+import com.cheng.tonglepai.tool.ToastUtil;
 import com.cheng.tonglepai.view.MyGridView;
 import com.google.gson.Gson;
 
@@ -94,6 +95,8 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
     private static final int MSG_LOAD_DATA = 0x0001;
     private static final int MSG_LOAD_SUCCESS = 0x0002;
     private static final int MSG_LOAD_FAILED = 0x0003;
+    private static final int MSG_UPDATE_PICTURE=0x121;
+
     private List<BusinessTypeData> typeList = new ArrayList<>();
     private List<String> typeName = new ArrayList<>();
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
@@ -300,7 +303,8 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             @Override
             public void onClick(View v) {
 
-                toSubmit();
+              toSubmit();
+                //bindingWechat();
             }
         });
 
@@ -362,7 +366,8 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
         btnSubmit.setEnabled(false);
         btnSubmit.setBackgroundResource(R.drawable.gray_has_content_shape);
         loadingDialog.show();
-        Map<String, Object> params = new HashMap<String, Object>();
+        mHandler.sendEmptyMessage(MSG_UPDATE_PICTURE);
+       /* Map<String, Object> params = new HashMap<String, Object>();
         for (int i=0;i<imgUrl_list1.size();i++){
             Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list1.get(i));
             switch (i){
@@ -396,8 +401,8 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
                     params.put("store_exterior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
                     break;
             }
-        }
-        params.put("city", cityId);
+        }*/
+      /*  params.put("city", cityId);
         params.put("customer_flow", etVisitPeople.getText().toString().trim());
         params.put("details", etDetailAddress.getText().toString().trim());
         params.put("distinct", areaId);
@@ -441,95 +446,7 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
             }
         });
 
-        mRequest.requestPostFieldInfo(JSON.toJSONString(params));
-
-    }
-
-    /**
-     * 绑定微信
-     * @param
-     * @return
-     */
-    public void bindingWechat(String openid, String nickName, final BindingModel.BindSuccessCallBack callBack){
-
-        Retrofit retrofit =new RetrofitClient().getRetrofit(this);
-        ApiService loginInfoPost=retrofit.create(ApiService.class);
-        Map map=new HashMap();
-
-        for (int i=0;i<imgUrl_list1.size();i++){
-            Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list1.get(i));
-            switch (i){
-                case 0:
-                    map.put("store_interior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    break;
-                case 1:
-                    map.put("store_interior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    break;
-                case 2:
-                    map.put("store_interior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    break;
-                case 3:
-                    map.put("store_interior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    break;
-            }
-        }
-        for (int i=0;i<imgUrl_list2.size();i++){
-            Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list2.get(i));
-            switch (i){
-                case 0:
-                    map.put("store_exterior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    break;
-                case 1:
-                    map.put("store_exterior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    break;
-                case 2:
-                    map.put("store_exterior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    break;
-                case 3:
-                    map.put("store_exterior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
-                    break;
-            }
-        }
-        map.put("city", cityId);
-        map.put("customer_flow", etVisitPeople.getText().toString().trim());
-        map.put("details", etDetailAddress.getText().toString().trim());
-        map.put("distinct", areaId);
-        map.put("expected_revenue", etCanIncome.getText().toString().trim());
-        map.put("mobile", etContacts.getText().toString().trim());
-        map.put("province", provinceId);
-        map.put("store_area_able", etDeviceArea.getText().toString().trim());
-        map.put("store_area_all", etShopArea.getText().toString().trim());
-        map.put("store_business_id", manageTypeId);
-        map.put("store_name", etShopName.getText().toString().trim());
-        map.put("telphone", etCompanyPhone.getText().toString().trim());
-        map.put("userid", HttpConfig.newInstance(FieldPostActivity.this).getUserid());
-        map.put("area_temp", tvAddressShow.getText().toString().trim());
-        map.put("betting_fee",totalPrice);
-        List<Map<String, Object>> list = new ArrayList<>();
-        for (int i = 0; i < dataList.size(); i++) {
-            if (dataList.get(i).getShowNO() != 0) {
-                Map<String, Object> params1 = new HashMap<String, Object>();
-                params1.put(dataList.get(i).getDevice_model(), dataList.get(i).getShowNO());
-                list.add(params1);
-            }
-        }
-        map.put("tlp", list);
-
-        Map map1=new HashMap();
-        map1.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(this).getAccessToken());
-        map1.put("body",JSON.toJSONString(map));
-        Call<WechatBindingBean> call=loginInfoPost.bindingWechat(map1);
-        call.enqueue(new Callback<WechatBindingBean>() {
-            @Override
-            public void onResponse(Call<WechatBindingBean> call,final Response<WechatBindingBean> response) {
-                WechatBindingBean  bindingBean=response.body();
-                callBack.bindSucess(bindingBean);
-
-            }
-            @Override
-            public void onFailure(Call<WechatBindingBean> call, Throwable t) {
-            }
-        });
+        mRequest.requestPostFieldInfo(JSON.toJSONString(params));*/
 
     }
 
@@ -761,6 +678,88 @@ public class FieldPostActivity extends TitleActivity implements DeviceListAdapte
 
                 case MSG_LOAD_FAILED:
 //                    Toast.makeText(SmsLoginActivity.this, "Parse Failed", Toast.LENGTH_SHORT).show();
+                    break;
+                case MSG_UPDATE_PICTURE:
+                    Map<String, Object> params = new HashMap<String, Object>();
+                    for (int i=0;i<imgUrl_list1.size();i++){
+                        Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list1.get(i));
+                        switch (i){
+                            case 0:
+                                params.put("store_interior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                break;
+                            case 1:
+                                params.put("store_interior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                break;
+                            case 2:
+                                params.put("store_interior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                break;
+                            case 3:
+                                params.put("store_interior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                break;
+                        }
+                    }
+                    for (int i=0;i<imgUrl_list2.size();i++){
+                        Bitmap bitmap = BitmapFactory.decodeFile(imgUrl_list2.get(i));
+                        switch (i){
+                            case 0:
+                                params.put("store_exterior_1", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                break;
+                            case 1:
+                                params.put("store_exterior_2", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                break;
+                            case 2:
+                                params.put("store_exterior_3", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                break;
+                            case 3:
+                                params.put("store_exterior_4", "data:image/jpeg;base64," + Base64BitmapUtil.bitmapToBase64(bitmap));
+                                break;
+                        }
+                    }
+                    params.put("city", cityId);
+                    params.put("customer_flow", etVisitPeople.getText().toString().trim());
+                    params.put("details", etDetailAddress.getText().toString().trim());
+                    params.put("distinct", areaId);
+                    params.put("expected_revenue", etCanIncome.getText().toString().trim());
+                    params.put("mobile", etContacts.getText().toString().trim());
+                    params.put("province", provinceId);
+                    params.put("store_area_able", etDeviceArea.getText().toString().trim());
+                    params.put("store_area_all", etShopArea.getText().toString().trim());
+                    params.put("store_business_id", manageTypeId);
+                    params.put("store_name", etShopName.getText().toString().trim());
+                    params.put("telphone", etCompanyPhone.getText().toString().trim());
+                    params.put("userid", HttpConfig.newInstance(FieldPostActivity.this).getUserid());
+                    params.put("area_temp", tvAddressShow.getText().toString().trim());
+                    params.put("betting_fee",totalPrice);
+                    List<Map<String, Object>> list = new ArrayList<>();
+                    for (int i = 0; i < dataList.size(); i++) {
+                        if (dataList.get(i).getShowNO() != 0) {
+                            Map<String, Object> params1 = new HashMap<String, Object>();
+                            params1.put(dataList.get(i).getDevice_model(), dataList.get(i).getShowNO());
+                            list.add(params1);
+                        }
+                    }
+                    params.put("tlp", list);
+                    Log.i("----------", JSON.toJSONString(params));
+                    PostFieldInfoRequest mRequest = new PostFieldInfoRequest(FieldPostActivity.this);
+                    mRequest.setListener(new BaseHttpRequest.IRequestListener<BaseBackResult>() {
+                        @Override
+                        public void onSuccess(BaseBackResult data) {
+                            Toast.makeText(FieldPostActivity.this, "报备成功", Toast.LENGTH_LONG).show();
+                            loadingDialog.dismiss();
+                            Intent intent = new Intent(FieldPostActivity.this, PostFieldSuccessActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onFailed(String msg, int code) {
+                            Toast.makeText(FieldPostActivity.this, msg, Toast.LENGTH_LONG).show();
+                            loadingDialog.dismiss();
+
+                        }
+                    });
+
+                    mRequest.requestPostFieldInfo(JSON.toJSONString(params));
                     break;
             }
         }
