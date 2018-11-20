@@ -148,7 +148,7 @@
                     android:id="@+id/tv_device_saoma_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sssddddddd"
+                    android:text=""
                     android:textColor="@color/text_pint"
                     android:textSize="17sp" />
 
@@ -181,7 +181,7 @@
                     android:id="@+id/tv_total_toubi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sssddddddd"
+                    android:text=""
                     android:textColor="@color/text_pint"
                     android:textSize="17sp" />
 
@@ -293,7 +293,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="扫码数"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
 
@@ -303,7 +303,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="投币数"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
 
@@ -313,7 +313,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="代缴投币"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
             </LinearLayout>
@@ -351,7 +351,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="扫码数"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
 
@@ -361,7 +361,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="投币数"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
 
@@ -371,7 +371,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="代缴投币"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
             </LinearLayout>
@@ -409,7 +409,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="扫码数"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
 
@@ -419,7 +419,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="投币数"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
 
@@ -429,7 +429,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="代缴投币"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/text_black3" />
             </LinearLayout>

@@ -187,6 +187,7 @@ public class LoginActivity extends TitleActivity {
             conn.setConnectTimeout(5000);
             //获取到文件的大小
             pd.setMax(conn.getContentLength());
+            pd.setProgressNumberFormat("");
             InputStream is = conn.getInputStream();
             long time = System.currentTimeMillis();//当前时间的毫秒数
             File file = new File(Environment.getExternalStorageDirectory(), time + "updata.apk");
@@ -362,6 +363,8 @@ public class LoginActivity extends TitleActivity {
             int read = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
             if (write != PackageManager.PERMISSION_GRANTED || read != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 300);
+            }else {
+                loadNewVersionProgress();
             }
         }else {
             loadNewVersionProgress();

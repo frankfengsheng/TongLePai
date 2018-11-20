@@ -311,6 +311,8 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
                 intent.putExtra(WX_NICKNAME,wx_nickname);
                 intent.putExtra("ACCOUNT_TYPE",ACCOUNT_TYPE);
                 startActivity(intent);
+              /*  Intent intent=new Intent(this,WechatBindingActivity.class);
+                startActivity(intent);*/
                 break;
         }
     }

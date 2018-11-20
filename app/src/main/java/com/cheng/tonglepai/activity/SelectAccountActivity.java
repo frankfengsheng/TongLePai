@@ -68,7 +68,6 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     private RelativeLayout rl_wechat;
     private IWXAPI iwxapi;
     private String wechat_return_OpenId,wechat_return_nickName;
-
     private int ACCOUNT_TYPE=0;
     private ImageView ivBack;
     @Override
@@ -97,11 +96,9 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
         tv_binding= (TextView) findViewById(R.id.tv_wechat_binding);
         ivBack= (ImageView) findViewById(R.id.title_left_back_iv);
         ivBack.setOnClickListener(this);
-
         tv_binding.setOnClickListener(this);
         rl_wechat.setOnClickListener(this);
         rl_bank.setOnClickListener(this);
-
         rb_bank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -148,18 +145,19 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_wechat_binding:
-                if(!TextUtils.isEmpty(openId)&&openId.length()>5){
+               /* if(!TextUtils.isEmpty(openId)&&openId.length()>5){
                             SendAuth.Req req = new SendAuth.Req();
                             req.scope = "snsapi_userinfo";
                             req.state = "wechat_sdk_微信登录";
                             iwxapi.sendReq(req);
-
-                }else {
+                }else{
                     SendAuth.Req req = new SendAuth.Req();
                     req.scope = "snsapi_userinfo";
                     req.state = "wechat_sdk_微信登录";
                     iwxapi.sendReq(req);
-                }
+                }*/
+               Intent intent=new Intent(SelectAccountActivity.this,WechatBindingActivity.class);
+               startActivity(intent);
                 break;
             case R.id.title_left_back_iv:
                goBack();
@@ -208,11 +206,10 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
                                     ToastUtil.showToast(SelectAccountActivity.this, "微信绑定成功");
                                     rb_wechat.setChecked(true);
                                     goBack();
-                                } else {
+                                }else {
                                     ToastUtil.showToast(SelectAccountActivity.this, bindingBean.getMsg());
                                 }
                             }
-
                             @Override
                             public void binFailed() {
                                 ToastUtil.showToast(SelectAccountActivity.this, "微信绑定失败，该账号已经绑定其他微信");
@@ -294,7 +291,6 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
         //注意要在Dialog show之后，再将宽高属性设置进去，才有效果
         dialog.show();
         window.setAttributes(lp);
-
     }
 
 

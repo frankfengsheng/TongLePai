@@ -69,7 +69,6 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
     private void initView() {
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("加载数据中...");
-
         investorDeviceListData= (InvestorDeviceListData) getIntent().getSerializableExtra("siteBean");
         dataBean= (SiteEquimentListBean.DataBean) getIntent().getSerializableExtra("deviceBean");
         tv_weizhi= (TextView) findViewById(R.id.tv_device_weizhi);
@@ -103,72 +102,77 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
     }
 
     private void initData() {
-        if(dataBean!=null)
-        new MyIncomeModle(this).GetDeviceDetails(dataBean.getDevice_id(), new MyIncomeModle.GetDeviceDetaisCallback() {
-            @Override
-            public void Sucess(DevicesDetailsBean bean) {
-                if(bean!=null&&bean.getData()!=null){
-                    if(bean.getToday_data()!=null){
-                       if(!TextUtils.isEmpty(bean.getToday_data().getPrice())) tv_todayIncome.setText("￥"+bean.getToday_data().getPrice());
-                       tv_todaySaoma.setText(bean.getToday_data().getSm_price()+"");
-                       tv_todayToubi.setText(bean.getToday_data().getTb_price()+"");
-                       tv_todayIncome.setText("￥"+bean.getToday_data().getPrice());
-                    }
-                    if(bean.getYesterday_data()!=null){
-                        tv_yestodayIncome.setText("￥"+bean.getYesterday_data().getPrice());
-                        tv_yestodaySaoma.setText(bean.getYesterday_data().getSm_price()+"");
-                        tv_yestodayToubi.setText(bean.getYesterday_data().getTb_price()+"");
-                    }
-                    if(bean.getThismonth_data()!=null){
-                        tv_monthIncome.setText("￥"+bean.getThismonth_data().getPrice());
-                        tv_monthSaoma.setText(bean.getThismonth_data().getSm_price()+"");
-                        tv_monthToubi.setText(bean.getThismonth_data().getTb_price()+"");
-                     }
-                    if(!TextUtils.isEmpty(bean.getData().getTotal()))tv_totalIncome.setText("￥"+bean.getData().getTotal());
-                    tv_totalSaoma.setText(bean.getData().getSm_price()+"");
-                    tv_totalToubi.setText(bean.getData().getTb_price()+"");
-                    //x轴坐标对应的数据
-                    List<String> xValue = new ArrayList<>();
-                    //y轴坐标对应的数据
-                    List<Integer> yValue = new ArrayList<>();
-                    //折线对应的数据
-                    Map<String, Double> value = new HashMap<>();
-                    for (int i = 0; i < bean.getZx_data().size(); i++) {
-                        xValue.add((i + 1) + "号");
-                        value.put((i + 1) + "号", bean.getZx_data().get(i).getPrice());
-                    }
-
-                    double maxIndex = 0;//定义最大值为该数组的第一个数
-                    double minIndex = 0;//定义最小值为该数组的第一个数
-
-                    for (int i = 0; i < bean.getZx_data().size(); i++) {
-                        if (maxIndex < bean.getZx_data().get(i).getPrice()) {
-                            maxIndex = bean.getZx_data().get(i).getPrice();
+        if(dataBean!=null) {
+            loadingDialog.show();
+            new MyIncomeModle(this).GetDeviceDetails(dataBean.getDevice_id(), new MyIncomeModle.GetDeviceDetaisCallback() {
+                @Override
+                public void Sucess(DevicesDetailsBean bean) {
+                    loadingDialog.dismiss();
+                    if (bean != null && bean.getData() != null) {
+                        if (bean.getToday_data() != null) {
+                            if (!TextUtils.isEmpty(bean.getToday_data().getPrice()))
+                                tv_todayIncome.setText("￥" + bean.getToday_data().getPrice());
+                            tv_todaySaoma.setText(bean.getToday_data().getSm_price() + "");
+                            tv_todayToubi.setText(bean.getToday_data().getTb_price() + "");
+                            tv_todayIncome.setText("￥" + bean.getToday_data().getPrice());
+                        }
+                        if (bean.getYesterday_data() != null) {
+                            tv_yestodayIncome.setText("￥" + bean.getYesterday_data().getPrice());
+                            tv_yestodaySaoma.setText(bean.getYesterday_data().getSm_price() + "");
+                            tv_yestodayToubi.setText(bean.getYesterday_data().getTb_price() + "");
+                        }
+                        if (bean.getThismonth_data() != null) {
+                            tv_monthIncome.setText("￥" + bean.getThismonth_data().getPrice());
+                            tv_monthSaoma.setText(bean.getThismonth_data().getSm_price() + "");
+                            tv_monthToubi.setText(bean.getThismonth_data().getTb_price() + "");
+                        }
+                        if (!TextUtils.isEmpty(bean.getData().getTotal()))
+                        tv_totalIncome.setText("￥" + bean.getData().getTotal());
+                        tv_totalSaoma.setText(bean.getData().getSm_price() + "");
+                        tv_totalToubi.setText(bean.getData().getTb_price() + "");
+                        //x轴坐标对应的数据
+                        List<String> xValue = new ArrayList<>();
+                        //y轴坐标对应的数据
+                        List<Integer> yValue = new ArrayList<>();
+                        //折线对应的数据
+                        Map<String, Double> value = new HashMap<>();
+                        for (int i = 0; i < bean.getZx_data().size(); i++) {
+                            xValue.add((i + 1) + "号");
+                            value.put((i + 1) + "号", bean.getZx_data().get(i).getPrice());
                         }
 
-                        if (minIndex > bean.getZx_data().get(i).getPrice()) {
-                            minIndex = bean.getZx_data().get(i).getPrice();
+                        double maxIndex = 0;//定义最大值为该数组的第一个数
+                        double minIndex = 0;//定义最小值为该数组的第一个数
+
+                        for (int i = 0; i < bean.getZx_data().size(); i++) {
+                            if (maxIndex < bean.getZx_data().get(i).getPrice()) {
+                                maxIndex = bean.getZx_data().get(i).getPrice();
+                            }
+
+                            if (minIndex > bean.getZx_data().get(i).getPrice()) {
+                                minIndex = bean.getZx_data().get(i).getPrice();
+                            }
+
                         }
+                        int a = (int) Math.ceil(18.6 / 6);
+                        for (int i = 0; i < 7; i++) {
+                            if (a == 0) {
+                                yValue.add(i * 500);
+                            } else
+                                yValue.add(i * a);
+                        }
+                        chartView.setValue(value, xValue, yValue);
 
                     }
-                    int a = (int)Math.ceil(18.6 / 6);
-                    for (int i = 0; i  < 7; i++) {
-
-                        if (a == 0) {
-                            yValue.add(i * 500);
-                        } else
-                            yValue.add(i * a);
-                    }
-                   chartView.setValue(value, xValue, yValue);
-
                 }
-            }
 
-            @Override
-            public void Faile() {
+                @Override
+                public void Faile() {
+                    loadingDialog.dismiss();
+                }
+            });
+        }
 
-            }
-        });
     }
 
     private void refreshUI(){

@@ -12,8 +12,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
-
     buildTypes {
         release {
             buildConfigField "boolean", "LOG_DEBUG", "true"//false为不打日志，true为打印日志
@@ -30,7 +28,6 @@ android {
             buildConfigField "boolean", "TEST_API", "true"
         }
     }
-
 
 }
 
