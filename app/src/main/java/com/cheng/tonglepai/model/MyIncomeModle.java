@@ -12,6 +12,7 @@ import com.cheng.retrofit20.client.RetrofitClient;
 import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.retrofit20.http.UserInfoCmd;
+import com.cheng.tonglepai.tool.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +50,11 @@ public class MyIncomeModle {
             @Override
             public void onResponse(Call<CanApplyResult> call,final Response<CanApplyResult> response) {
                 CanApplyResult  bindingBean=response.body();
-                callBack.bindSucess(bindingBean);
+                if(bindingBean!=null) {
+                    callBack.bindSucess(bindingBean);
+                }else {
+                    ToastUtil.showToast(context,"抱歉，数据获取失败");
+                }
 
             }
             @Override

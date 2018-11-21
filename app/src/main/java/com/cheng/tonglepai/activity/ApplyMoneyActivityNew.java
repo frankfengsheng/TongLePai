@@ -346,7 +346,6 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
         etApplyMoney.setText("");
         shouxu_money.setText("");
         tvRealMoney.setText("");
-
         if(ACCOUNT_TYPE==0&&!TextUtils.isEmpty(openid)&&openid.length()>5){
             bankName.setText(wx_nickname);
             iv_bank.setImageResource(R.mipmap.weixin_account);
@@ -556,13 +555,15 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             new MyIncomeModle(this).canapplayCallback(new MyIncomeModle.CanApplyCallback() {
                 @Override
                 public void bindSucess(CanApplyResult bindingBean) {
-                    bankNameShow=bindingBean.getData().getBank();
-                    bankShow=bindingBean.getData().getBank_account();
-                    openid = bindingBean.getData().getOpenid();
-                    wx_nickname = bindingBean.getData().getWx_nickname();
-                    canApplyMoney=bindingBean.getData().getPrice();
-                    needPay=bindingBean.getData().getPrice_pay();
-                    initData();
+                    if(bindingBean.getData()!=null) {
+                        bankNameShow = bindingBean.getData().getBank();
+                        bankShow = bindingBean.getData().getBank_account();
+                        openid = bindingBean.getData().getOpenid();
+                        wx_nickname = bindingBean.getData().getWx_nickname();
+                        canApplyMoney = bindingBean.getData().getPrice();
+                        needPay = bindingBean.getData().getPrice_pay();
+                        initData();
+                    }
                 }
             });
         }

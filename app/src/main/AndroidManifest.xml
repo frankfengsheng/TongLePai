@@ -192,6 +192,7 @@
         <activity android:name=".activity.SiteDeviceListActivity"/>
         <activity android:name=".activity.DeviceDetailActivity"/>
         <activity android:name=".activity.WechatBindingActivity"/>
+        <activity android:name=".activity.MyIncomeActivity"/>
     </application>
 
 </manifest>

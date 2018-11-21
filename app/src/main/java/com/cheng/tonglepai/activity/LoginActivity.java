@@ -298,12 +298,6 @@ public class LoginActivity extends TitleActivity {
             @Override
             public void onClick(View v) {
 
-                   /* // send oauth request
-                    SendAuth.Req req = new SendAuth.Req();
-                    req.scope = "snsapi_userinfo";
-                    req.state = "wechat_sdk_微信登录";
-                    iwxapi.sendReq(req);*/
-
                 LoginRequest mRequest = new LoginRequest(LoginActivity.this);
                 mRequest.setListener(new BaseHttpRequest.IRequestListener<SmsLoginData>() {
                     @Override
