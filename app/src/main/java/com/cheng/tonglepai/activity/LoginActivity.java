@@ -99,14 +99,11 @@ public class LoginActivity extends TitleActivity {
                     }
                 }
             }
-
             @Override
             public void onFaile() {
 
             }
         });
-
-
     }
 
     private void showDialogUpdate(String content) {
@@ -154,7 +151,6 @@ public class LoginActivity extends TitleActivity {
     }
 
     private void loadNewVersionProgress() {
-
         final ProgressDialog pd;    //进度条对话框
         pd = new ProgressDialog(this);
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -227,23 +223,19 @@ public class LoginActivity extends TitleActivity {
         loginActivity = this;
         backiv = (ImageView) findViewById(R.id.title_left_back_iv);
         backiv.setVisibility(View.GONE);
-
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("请等待...");
         loadingDialog.setCancelable(false);
         btnLogin = (Button) findViewById(R.id.btn_to_login);
-
         etPhoneNo = (EditText) findViewById(R.id.et_phone_number);
         etVerifyCode = (EditText) findViewById(R.id.et_verify_code);
         btnGetCode = (Button) findViewById(R.id.tv_get_verify_code);
         btnRegister = (Button) findViewById(R.id.btn_to_register);
         tvToRegister = (TextView) findViewById(R.id.tv_to_register);
         tvToRepsw = (TextView) findViewById(R.id.tv_to_forget_psw);
-
         if (!TextUtils.isEmpty(HttpConfig.newInstance(this).getUserPwd())) {
             etVerifyCode.setText(HttpConfig.newInstance(this).getUserPwd());
         }
-
         if (!TextUtils.isEmpty(HttpConfig.newInstance(this).getUserTel())) {
             etPhoneNo.setText(HttpConfig.newInstance(this).getUserTel());
         }

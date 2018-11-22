@@ -76,24 +76,30 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             new MyIncomeModle(this).InvestorCanapplayCallback(new MyIncomeModle.CanApplyCallback() {
                 @Override
                 public void bindSucess(CanApplyResult bindingBean) {
-                if(!TextUtils.isEmpty(bindingBean.getData().getPrice()))canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
-                    tvCanApplyMoney.setText(canApplyMoney + "元");
-                    bankAccount = bindingBean.getData().getBank_account();
-                    bankName = bindingBean.getData().getBank();
-                    openid = bindingBean.getData().getOpenid();
-                    wx_nicknam = bindingBean.getData().getWx_nickname();
+                    if(bindingBean!=null&&bindingBean.getData()!=null) {
+                        if (!TextUtils.isEmpty(bindingBean.getData().getPrice()))
+                            canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                        tvCanApplyMoney.setText(canApplyMoney + "元");
+                        bankAccount = bindingBean.getData().getBank_account();
+                        bankName = bindingBean.getData().getBank();
+                        openid = bindingBean.getData().getOpenid();
+                        wx_nicknam = bindingBean.getData().getWx_nickname();
+                    }
                 }
             });
         } else if (userType == 2) {
             new MyIncomeModle(this).MarkcanapplayCallback(new MyIncomeModle.CanApplyCallback() {
                 @Override
                 public void bindSucess(CanApplyResult bindingBean) {
-                    if(!TextUtils.isEmpty(bindingBean.getData().getPrice()))  canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
-                    tvCanApplyMoney.setText(canApplyMoney + "元");
-                    bankAccount = bindingBean.getData().getBank_account();
-                    bankName = bindingBean.getData().getBank();
-                    openid = bindingBean.getData().getOpenid();
-                    wx_nicknam = bindingBean.getData().getWx_nickname();
+                    if(bindingBean!=null&&bindingBean.getData()!=null) {
+                        if (!TextUtils.isEmpty(bindingBean.getData().getPrice()))
+                            canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                        tvCanApplyMoney.setText(canApplyMoney + "元");
+                        bankAccount = bindingBean.getData().getBank_account();
+                        bankName = bindingBean.getData().getBank();
+                        openid = bindingBean.getData().getOpenid();
+                        wx_nicknam = bindingBean.getData().getWx_nickname();
+                    }
                 }
             });
 
@@ -101,13 +107,16 @@ public class SeeProfitActivity extends TitleActivity implements BGARefreshLayout
             new MyIncomeModle(this).canapplayCallback(new MyIncomeModle.CanApplyCallback() {
                 @Override
                 public void bindSucess(CanApplyResult bindingBean) {
-                    if(!TextUtils.isEmpty(bindingBean.getData().getPrice())) canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
-                    tvCanApplyMoney.setText(canApplyMoney + "元");
-                    bankAccount = bindingBean.getData().getBank_account();
-                    bankName = bindingBean.getData().getBank();
-                    openid = bindingBean.getData().getOpenid();
-                    wx_nicknam = bindingBean.getData().getWx_nickname();
-                    pricePay=bindingBean.getData().getPrice_pay();
+                    if(bindingBean!=null&&bindingBean.getData()!=null) {
+                        if (!TextUtils.isEmpty(bindingBean.getData().getPrice()))
+                        canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                        tvCanApplyMoney.setText(canApplyMoney + "元");
+                        bankAccount = bindingBean.getData().getBank_account();
+                        bankName = bindingBean.getData().getBank();
+                        openid = bindingBean.getData().getOpenid();
+                        wx_nicknam = bindingBean.getData().getWx_nickname();
+                        pricePay = bindingBean.getData().getPrice_pay();
+                    }
                 }
             });
         }

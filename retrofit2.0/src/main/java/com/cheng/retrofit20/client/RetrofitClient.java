@@ -11,7 +11,6 @@ import retrofit2.Retrofit;
  */
 public class RetrofitClient {
     private static Retrofit retrofit;
-
     private static void createRetrofitClient(Context context) {
         //http://test.tonglepai.cn/
         //http://app.tonglepai.cn/
@@ -35,6 +34,4 @@ public class RetrofitClient {
         }
         return retrofit;
     }
-
-
 }

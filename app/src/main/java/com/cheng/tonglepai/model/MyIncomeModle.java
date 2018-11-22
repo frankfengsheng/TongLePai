@@ -132,6 +132,7 @@ public class MyIncomeModle {
         ApiService loginInfoPost=retrofit.create(ApiService.class);
         Map map=new HashMap();
         map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
         Call<IsNeedPayBean> call=loginInfoPost.IsNeedPayMoney(map);
         call.enqueue(new Callback<IsNeedPayBean>() {
             @Override
@@ -159,6 +160,7 @@ public class MyIncomeModle {
         ApiService loginInfoPost=retrofit.create(ApiService.class);
         Map map=new HashMap();
         map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
         map.put("store_info_id", id);
         Call<SiteEquimentListBean> call=loginInfoPost.GetSiteDevicesList(map);
         call.enqueue(new Callback<SiteEquimentListBean>() {
@@ -186,6 +188,7 @@ public class MyIncomeModle {
         ApiService loginInfoPost=retrofit.create(ApiService.class);
         Map map=new HashMap();
         map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
         map.put("device_id", id);
         Call<DevicesDetailsBean> call=loginInfoPost.GetSiteDevicesDetails(map);
         call.enqueue(new Callback<DevicesDetailsBean>() {
@@ -213,6 +216,7 @@ public class MyIncomeModle {
         ApiService loginInfoPost=retrofit.create(ApiService.class);
         Map map=new HashMap();
         map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
         map.put("device_id", id);
         map.put("year",year);
         map.put("month",month);
