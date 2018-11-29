@@ -24,5 +24,8 @@
     <color name="btn_blue">#45A7FE</color>
     <color name="btn_green">#43C34C</color>
     <color name="text_orange">#df9e75</color>
+    <color name="background_blue">#45A7FE</color>
+    <color name="tab_blue">#89c8fB</color>
+    <color name="dark_blue">#008BFF</color>
 
 </resources>

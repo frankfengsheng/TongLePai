@@ -77,7 +77,6 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
         tv_deviceState= (TextView) findViewById(R.id.tv_device_state);
         tv_deviceCode= (TextView) findViewById(R.id.tv_device_code);
         tv_starTime= (TextView) findViewById(R.id.tv_device_start_time);
-
         tv_totalSaoma= (TextView) findViewById(R.id.tv_device_saoma_count);
         tv_totalToubi= (TextView) findViewById(R.id.tv_total_toubi);
         tv_todaySaoma= (TextView) findViewById(R.id.tv_today_saoma_count);
@@ -89,7 +88,6 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
         tv_monthSaoma= (TextView) findViewById(R.id.tv_month_saoma_count);
         tv_monthIncome= (TextView) findViewById(R.id.tv_month_income);
         tv_monthToubi= (TextView) findViewById(R.id.tv_month_toubi_count);
-
         ly_bottom= (LinearLayout) findViewById(R.id.ly_bottom);
         tv_date= (TextView) findViewById(R.id.tv_date);
         ly_date= (LinearLayout) findViewById(R.id.ly_date);

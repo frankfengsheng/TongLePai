@@ -1,7 +1,6 @@
 package com.cheng.tonglepai.activity;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,7 @@ import android.view.View;
 
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
-import com.cheng.tonglepai.fragment.MyIncomeFragment;
+import com.cheng.tonglepai.fragment.SiteStatisticsFragment;
 import com.cheng.tonglepai.view.CacheFragmentStatePagerAdapter;
 import com.cheng.tonglepai.view.SlidingTabLayout;
 
@@ -31,16 +30,16 @@ public class MyIncomeActivity extends TitleActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState,R.layout.activity_myincome);
-        setMidTitle("微信绑定流程");
+        setMidTitle("我的收益");
         MyApplication.getInstance().addActivity(this);
         initView();
     }
 
     private void initView() {
-        daohangList.add("第一页");
-        daohangList.add("第二页");
-        daohangList.add("第三页");
-        daohangList.add("第四页");
+        daohangList.add("综合统计");
+        daohangList.add("场地收益");
+        daohangList.add("设备收益");
+        daohangList.add("低收益设备");
         slidingTabLayout= (SlidingTabLayout) findViewById(R.id.sliding_tab);
         viewPager= (ViewPager) findViewById(R.id.vp_income);
         initSlidingTabLayout();
@@ -61,13 +60,12 @@ public class MyIncomeActivity extends TitleActivity implements View.OnClickListe
         viewPager.setOnPageChangeListener(new PageChangeListener());
         slidingTabLayout.setCustomTabView(R.layout.news_tab_view2,
                 R.id.news_tab_tv2);
-        slidingTabLayout.setBackgroundColor(Color.parseColor("#ffffff"));
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(viewPager);
         slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.text_red);
+                return getResources().getColor(R.color.tab_blue);
             }
 
         });
@@ -76,7 +74,6 @@ public class MyIncomeActivity extends TitleActivity implements View.OnClickListe
     }
     private static class NavigationAdapter extends
             CacheFragmentStatePagerAdapter {
-
 
         private List<String> fragmentList;
         private List<String > daohangList;
@@ -91,7 +88,7 @@ public class MyIncomeActivity extends TitleActivity implements View.OnClickListe
 
         @Override
         protected Fragment createItem(int position) {
-                f=new MyIncomeFragment();
+                f=new SiteStatisticsFragment();
             return f;
         }
 
@@ -114,10 +111,12 @@ public class MyIncomeActivity extends TitleActivity implements View.OnClickListe
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
+
         }
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
+
         }
     }
 

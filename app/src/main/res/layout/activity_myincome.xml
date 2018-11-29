@@ -7,18 +7,23 @@
     <include
         style="@style/TitleLayout"
         layout="@layout/view_activity_title" />
-    <com.cheng.tonglepai.view.SlidingTabLayout
-        android:id="@+id/sliding_tab"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@color/text_white"/>
+        android:layout_height="wrap_content"
+        android:background="@color/background_blue">
+
+        <com.cheng.tonglepai.view.SlidingTabLayout
+            android:id="@+id/sliding_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/background_blue" />
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_income"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+
         android:background="@android:color/white" />
 </LinearLayout>

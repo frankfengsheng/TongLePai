@@ -9,7 +9,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
         android:gravity="center"
-        android:textColor="@drawable/novel_tab_selector_blue"
+        android:textColor="@color/text_white"
         android:textSize="16sp"
         android:singleLine="true"
         android:layout_marginLeft="9dp"
