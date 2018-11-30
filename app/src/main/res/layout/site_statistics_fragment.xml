@@ -23,7 +23,7 @@
             android:background="@drawable/oragane_ring_shape"
             android:gravity="center"
             android:orientation="vertical">
-
+嗯
             <TextView
                 android:id="@+id/tv_totalIncom"
                 android:layout_width="wrap_content"

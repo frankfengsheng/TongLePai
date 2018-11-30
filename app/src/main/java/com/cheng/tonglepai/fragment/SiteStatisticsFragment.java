@@ -39,7 +39,6 @@ public class SiteStatisticsFragment extends android.support.v4.app.Fragment impl
     private TextView tv_yestodaySaoma,tv_yestodayToubi,tv_yestodayIncome;
     private TextView tv_monthSaoma,tv_monthToubi,tv_monthIncome;
     private TextView tv_date;
-
     private LinearLayout ly_date;
     ChartView chartView;
     private TimePickerView pvTime;
@@ -100,12 +99,11 @@ public class SiteStatisticsFragment extends android.support.v4.app.Fragment impl
                 break;
         }
     }
-    
+
     private void initTimePicker() {
         //控制时间范围(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
         //因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
         Calendar selectedDate = Calendar.getInstance();
-
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
         endDate.set(endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH), 28);

@@ -15,7 +15,7 @@
            android:layout_height="match_parent"
            android:gravity="center"
            android:text="今日"
-           android:textColor="@color/text_black"
+           android:textColor="@color/text_blue"
            android:textSize="16sp"
            android:layout_weight="1"/>
         <TextView
@@ -58,4 +58,74 @@
            android:textSize="16sp"
            android:layout_weight="1"/>
    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal">
+        <!--开始时间-->
+        <LinearLayout
+            android:id="@+id/ly_start_date"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/date"/>
+            <TextView
+                android:id="@+id/tv_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_black"
+                android:layout_marginLeft="5dp"
+                android:textSize="16sp"
+                android:text="2018-09-12"/>
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/down_arr_black"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="至"
+            android:textColor="@color/text_blue"/>
+        <!--开始结束时间-->
+        <LinearLayout
+            android:id="@+id/ly_end_date"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/date"/>
+            <TextView
+                android:id="@+id/tv_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_black"
+                android:layout_marginLeft="5dp"
+                android:textSize="16sp"
+                android:text="2018-09-12"/>
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/down_arr_black"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/myincome_fragment_ry"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
