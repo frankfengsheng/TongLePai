@@ -7,6 +7,8 @@ import com.cheng.retrofit20.bean.DevicesDetailsBean;
 import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
 import com.cheng.retrofit20.bean.SiteEquimentListBean;
+import com.cheng.retrofit20.bean.SiteIncomeBean;
+import com.cheng.retrofit20.bean.SiteTotalIncomeBean;
 import com.cheng.retrofit20.bean.WechatBindingBean;
 import com.cheng.retrofit20.client.RetrofitClient;
 import com.cheng.retrofit20.data.CanApplyResult;
@@ -235,6 +237,62 @@ public class MyIncomeModle {
         });
     }
 
+
+    /**
+     * 场地方获取我的收益
+     * @param
+     * @return
+     */
+    public void SiteIncome(final SiteIncomeSucessCallback callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
+        Call<SiteIncomeBean> call=loginInfoPost.GetSiteIncome(map);
+        call.enqueue(new Callback<SiteIncomeBean>() {
+            @Override
+            public void onResponse(Call<SiteIncomeBean> call,final Response<SiteIncomeBean> response) {
+                SiteIncomeBean  bindingBean=response.body();
+                callBack.Sucess(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<SiteIncomeBean> call, Throwable t) {
+                callBack.Faile();
+            }
+        });
+    }
+
+    /**
+     * 设备方根据月份获取设备收益折线图数据
+     * @param
+     * @return
+     */
+    public void SiteGetTotalIncomeByMonth(String year,String month, final SiteTotalIncomeSucessCallback callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
+        map.put("year",year);
+        map.put("month",month);
+        Call<SiteTotalIncomeBean> call=loginInfoPost.GetSiteIncomeByMonth(map);
+        call.enqueue(new Callback<SiteTotalIncomeBean>() {
+            @Override
+            public void onResponse(Call<SiteTotalIncomeBean> call,final Response<SiteTotalIncomeBean> response) {
+                SiteTotalIncomeBean  bindingBean=response.body();
+                callBack.Sucess(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<SiteTotalIncomeBean> call, Throwable t) {
+                callBack.Faile();
+            }
+        });
+    }
     /**
      * 获取收益回调
      */
@@ -271,6 +329,21 @@ public class MyIncomeModle {
      */
     public interface  GetIncomeByMonthCallback{
         void Sucess(DevicesIncomeByMonthBean bean);
+        void Faile();
+    }
+
+    /**
+     * 场地方总收益
+     */
+    public interface SiteIncomeSucessCallback{
+        void Sucess(SiteIncomeBean bean);
+        void Faile();
+    }
+    /**
+     * 场地方总收益根据月份
+     */
+    public interface SiteTotalIncomeSucessCallback{
+        void Sucess(SiteTotalIncomeBean bean);
         void Faile();
     }
 }

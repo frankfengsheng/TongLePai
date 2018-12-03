@@ -4,6 +4,7 @@ package com.cheng.tonglepai.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,6 +84,12 @@ public class SiteDeviceIncomeFragment extends android.support.v4.app.Fragment im
         tv_startDate= (TextView) contentView.findViewById(R.id.tv_start_date);
         tv_endDate= (TextView) contentView.findViewById(R.id.tv_end_date);
         recyclerView= (RecyclerView) contentView.findViewById(R.id.myincome_fragment_ry);
+
+        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+
         ly_startDate.setOnClickListener(this);
         ly_endDate.setOnClickListener(this);
         tv_today.setOnClickListener(this);

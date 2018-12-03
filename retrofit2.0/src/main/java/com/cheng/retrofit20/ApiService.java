@@ -7,6 +7,8 @@ import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
 import com.cheng.retrofit20.bean.SingalDetectionBean;
 import com.cheng.retrofit20.bean.SiteEquimentListBean;
+import com.cheng.retrofit20.bean.SiteIncomeBean;
+import com.cheng.retrofit20.bean.SiteTotalIncomeBean;
 import com.cheng.retrofit20.bean.VerasionControlBean;
 import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
 import com.cheng.retrofit20.bean.WXUserInfoBean;
@@ -775,7 +777,7 @@ public interface ApiService {
     /**
      * 获取场地设备折线图
      */
-    @POST(" index.php?s=/api/Investor/check_zx")
+    @POST("index.php?s=/api/Investor/check_zx")
     @FormUrlEncoded
     Call<DevicesIncomeByMonthBean> GetMonthDevicesDetails(@FieldMap Map<String, String> params);
 
@@ -785,4 +787,34 @@ public interface ApiService {
      */
     @POST("index.php?s=/api/maker/report")
     Call<BaseBackResult> GetPostFieldInfo1(@Body String params);
+
+    /**
+     * 场地方我的收益
+     */
+    @POST("index.php?s=/api/Field/info_earnings")
+    @FormUrlEncoded
+    Call<SiteIncomeBean> GetSiteIncome(@FieldMap Map<String, String> params);
+
+    /**
+     * 场地方我的收益表格
+     */
+    @POST("index.php?s=/api/Field/check_zx")
+    @FormUrlEncoded
+    Call<SiteTotalIncomeBean> GetSiteIncomeByMonth(@FieldMap Map<String, String> params);
+
+    /**
+     * 场地方设备收益
+     */
+    @POST("index.php?s=/api/Field/place_statistics")
+    @FormUrlEncoded
+    Call<BaseBackResult> GetSiteDeviceIncome(@FieldMap Map<String, String> params);
+
+
+
+    /**
+     * 场地方单个设备收益详情
+     */
+    @POST("index.php?s=/api/Field/onep_deive")
+    @FormUrlEncoded
+    Call<BaseBackResult> GetSiteDeviceIncomeDetails(@FieldMap Map<String, String> params);
 }
