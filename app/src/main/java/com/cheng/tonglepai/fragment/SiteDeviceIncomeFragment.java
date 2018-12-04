@@ -92,6 +92,9 @@ public class SiteDeviceIncomeFragment extends android.support.v4.app.Fragment im
         recyclerView= (RecyclerView) contentView.findViewById(R.id.myincome_fragment_ry);
         ly_bottom= (LinearLayout) contentView.findViewById(R.id.ly_bottom);
 
+        tv_startDate.setText(getTodayDate());
+        tv_endDate.setText(getTodayDate());
+
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -150,6 +153,8 @@ public class SiteDeviceIncomeFragment extends android.support.v4.app.Fragment im
                             ToastUtil.showToast(getActivity(),"开始时间不得晚于结束时间");
                         }else {
                             tv_startDate.setText(date);
+                            mList.clear();
+                            getDeviceIncome(tv_startDate.getText().toString(),tv_endDate.getText().toString(),1+"");
                         }
                     }
                 });
@@ -164,6 +169,7 @@ public class SiteDeviceIncomeFragment extends android.support.v4.app.Fragment im
                             ToastUtil.showToast(getActivity(),"开始时间不得晚于结束时间");
                         }else {
                             tv_endDate.setText(date);
+                            getDeviceIncome(tv_startDate.getText().toString(),tv_endDate.getText().toString(),1+"");
                         }
                     }
                 });

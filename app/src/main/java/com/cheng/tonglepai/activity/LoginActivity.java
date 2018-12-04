@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cheng.retrofit20.bean.CheckVersionBean;
 import com.cheng.retrofit20.bean.VerasionControlBean;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.data.HttpConfig;
@@ -32,9 +33,12 @@ import com.cheng.tonglepai.model.VersionControlModel;
 import com.cheng.tonglepai.net.LoginRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
+import com.cheng.tonglepai.tool.ToastUtil;
 import com.cheng.tonglepai.tool.VerifyTimerUtil;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import junit.runner.Version;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -104,7 +108,21 @@ public class LoginActivity extends TitleActivity {
 
             }
         });
-    }
+
+        //将当前版本号记录到后台
+        if(!TextUtils.isEmpty(HttpConfig.newInstance(this).getUserTel()))
+        new VersionControlModel(this).checkVersion(version, HttpConfig.newInstance(this).getUserTel(), new VersionControlModel.CheckVersionCallback() {
+            @Override
+            public void callBackSuccess(CheckVersionBean bindingBean) {
+
+            }
+
+            @Override
+            public void onFaile() {
+
+            }
+        });
+}
 
     private void showDialogUpdate(String content) {
         DialogUtil.showUpDateDialog(content,this, new DialogUtil.OnDialogSureClick() {
@@ -294,6 +312,7 @@ public class LoginActivity extends TitleActivity {
                 mRequest.setListener(new BaseHttpRequest.IRequestListener<SmsLoginData>() {
                     @Override
                     public void onSuccess(SmsLoginData data) {
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra(MainActivity.USER_PHONE, data.getTel());
                         HttpConfig.newInstance(LoginActivity.this).setUserTel(data.getTel());

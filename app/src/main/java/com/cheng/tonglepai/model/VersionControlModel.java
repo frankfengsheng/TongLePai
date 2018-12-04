@@ -3,6 +3,7 @@ package com.cheng.tonglepai.model;
 import android.content.Context;
 
 import com.cheng.retrofit20.ApiService;
+import com.cheng.retrofit20.bean.CheckVersionBean;
 import com.cheng.retrofit20.bean.VerasionControlBean;
 import com.cheng.retrofit20.bean.WechatBindingBean;
 import com.cheng.retrofit20.bean.WechatWithDrawBean;
@@ -55,10 +56,45 @@ public class VersionControlModel {
     }
 
     /**
+     * 将用户当前版本记录到后台
+     * @param
+     * @return
+     */
+    public void checkVersion(String version,String telphone, final CheckVersionCallback callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put("number", version);
+        map.put("tel",telphone);
+        map.put("type",1+"");
+        Call<CheckVersionBean> call=loginInfoPost.checkVersion(map);
+        call.enqueue(new Callback<CheckVersionBean>() {
+            @Override
+            public void onResponse(Call<CheckVersionBean> call,final Response<CheckVersionBean> response) {
+                CheckVersionBean  bindingBean=response.body();
+                callBack.callBackSuccess(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<CheckVersionBean> call, Throwable t) {
+            }
+        });
+
+    }
+    /**
      * 微信提现结果回调
      */
     public interface  VersionControlCallback{
         void callBackSuccess(VerasionControlBean bindingBean);
+        void onFaile();
+    }
+
+    /**
+     * 微信提现结果回调
+     */
+    public interface  CheckVersionCallback{
+        void callBackSuccess(CheckVersionBean bindingBean);
         void onFaile();
     }
 }

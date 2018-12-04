@@ -432,8 +432,8 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
                 break;
             //我的收益
             case R.id.rl_my_income:
-                 //jumpNextActivity(SeeProfitActivity.class, userType);
-                jumpNextActivity(MyIncomeActivity.class,userType);
+                 jumpNextActivity(SeeProfitActivity.class, userType);
+                //jumpNextActivity(MyIncomeActivity.class,userType);
                 break;
             //运费
             case R.id.ll_freight:

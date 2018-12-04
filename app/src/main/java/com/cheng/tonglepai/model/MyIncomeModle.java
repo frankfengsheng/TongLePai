@@ -3,6 +3,7 @@ package com.cheng.tonglepai.model;
 import android.content.Context;
 
 import com.cheng.retrofit20.ApiService;
+import com.cheng.retrofit20.bean.DeviceIncomeDetailBean;
 import com.cheng.retrofit20.bean.DevicesDetailsBean;
 import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
@@ -15,6 +16,7 @@ import com.cheng.retrofit20.client.RetrofitClient;
 import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.retrofit20.http.UserInfoCmd;
+import com.cheng.tonglepai.activity.DeviceIncomeDetail;
 import com.cheng.tonglepai.tool.ToastUtil;
 
 import java.util.HashMap;
@@ -325,6 +327,37 @@ public class MyIncomeModle {
             }
         });
     }
+
+    /**
+     * 合伙人获取设备流水
+     * @param
+     * @return
+     */
+    public void SiteGetDeviceIncomeDetails(String id,String startime,String endtime,String page, final DeviceIncomeDetailSuccessCallback callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
+        map.put("start_time",startime);
+        map.put("end_time",endtime);
+        map.put("page",page);
+        map.put("id",id);
+        Call<DeviceIncomeDetailBean> call=loginInfoPost.GetSiteDeviceIncomeDetails(map);
+        call.enqueue(new Callback<DeviceIncomeDetailBean>() {
+            @Override
+            public void onResponse(Call<DeviceIncomeDetailBean> call,final Response<DeviceIncomeDetailBean> response) {
+                DeviceIncomeDetailBean  bindingBean=response.body();
+                callBack.Sucess(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<DeviceIncomeDetailBean> call, Throwable t) {
+                callBack.Faile();
+            }
+        });
+    }
     /**
      * 获取收益回调
      */
@@ -384,6 +417,14 @@ public class MyIncomeModle {
      */
     public interface SiteFielIncomeSucessCallback{
         void Sucess(SiteFileIncomeListBean bean);
+        void Faile();
+    }
+
+    /**
+     * 场地方设备收益流水
+     */
+    public interface DeviceIncomeDetailSuccessCallback{
+        void Sucess(DeviceIncomeDetailBean bean);
         void Faile();
     }
 }

@@ -2,6 +2,7 @@ package com.cheng.retrofit20;
 
 
 import com.cheng.retrofit20.bean.BankWithDrawBean;
+import com.cheng.retrofit20.bean.CheckVersionBean;
 import com.cheng.retrofit20.bean.DevicesDetailsBean;
 import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
@@ -818,4 +819,11 @@ public interface ApiService {
     @POST("index.php?s=/api/Field/onep_deive")
     @FormUrlEncoded
     Call<BaseBackResult> GetSiteDeviceIncomeDetails(@FieldMap Map<String, String> params);
+
+    /**
+     * 版本号检测
+     */
+    @POST("index.php?s=/api/User/testing_version")
+    @FormUrlEncoded
+    Call<CheckVersionBean> checkVersion(@FieldMap Map<String, String> params);
 }

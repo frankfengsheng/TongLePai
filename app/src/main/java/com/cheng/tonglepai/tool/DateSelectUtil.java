@@ -54,9 +54,7 @@ public class DateSelectUtil {
                 public void onTimeSelect(Date date, View v, String year, String month) {//选中事件回调
                     // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
                     /*btn_Time.setText(getTime(date));*/
-                    TextView btn = (TextView) v;
                     String data=getTime(date);
-                    btn.setText(data);
                     selectDateCallBack.dateselect(data);
                 }
             }).setLayoutRes(R.layout.pickerview_custom_time, new CustomListener() {
