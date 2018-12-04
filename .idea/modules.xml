@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/RecyclerViewHelper/RecyclerViewHelper.iml" filepath="$PROJECT_DIR$/RecyclerViewHelper/RecyclerViewHelper.iml" />
       <module fileurl="file://$PROJECT_DIR$/TongLePai.iml" filepath="$PROJECT_DIR$/TongLePai.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pickerview/pickerview.iml" filepath="$PROJECT_DIR$/pickerview/pickerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/retrofit2.0/retrofit2.0.iml" filepath="$PROJECT_DIR$/retrofit2.0/retrofit2.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/testbanner/testbanner.iml" filepath="$PROJECT_DIR$/testbanner/testbanner.iml" />
       <module fileurl="file://$PROJECT_DIR$/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/wheelview/wheelview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wraprecycleview/wraprecycleview.iml" filepath="$PROJECT_DIR$/wraprecycleview/wraprecycleview.iml" />
     </modules>
   </component>
 </project>

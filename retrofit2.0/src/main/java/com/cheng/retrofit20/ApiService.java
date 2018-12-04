@@ -7,6 +7,7 @@ import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
 import com.cheng.retrofit20.bean.SingalDetectionBean;
 import com.cheng.retrofit20.bean.SiteEquimentListBean;
+import com.cheng.retrofit20.bean.SiteFileIncomeListBean;
 import com.cheng.retrofit20.bean.SiteIncomeBean;
 import com.cheng.retrofit20.bean.SiteTotalIncomeBean;
 import com.cheng.retrofit20.bean.VerasionControlBean;
@@ -807,7 +808,7 @@ public interface ApiService {
      */
     @POST("index.php?s=/api/Field/place_statistics")
     @FormUrlEncoded
-    Call<BaseBackResult> GetSiteDeviceIncome(@FieldMap Map<String, String> params);
+    Call<SiteFileIncomeListBean> GetSiteDeviceIncome(@FieldMap Map<String, String> params);
 
 
 

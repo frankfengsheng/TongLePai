@@ -65,20 +65,28 @@
                 android:id="@+id/tv_device_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
+                android:text="星际小章鱼"
                 android:textSize="15sp"
-                android:textColor="@color/text_black"
+                android:textColor="@color/text_black3"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp" />
+            <TextView
+                android:id="@+id/tv_device_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="通讯吗：12345"
+                android:textSize="15sp"
+                android:textColor="@color/text_black3"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="15dp"
-                android:layout_toLeftOf="@+id/tv_device_time"/>
+                android:layout_below="@+id/tv_device_count"/>
             <!--投币，扫码，收益-->
             <!--设备数，投币数，待缴币数-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
-                android:layout_below="@+id/tv_device_count">
+                android:layout_below="@+id/tv_device_code">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -95,8 +103,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="投币"
-                        android:textColor="@color/text_black"
+                        android:text="投币收益"
+                        android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -115,8 +123,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="扫码"
-                        android:textColor="@color/text_black"
+                        android:text="扫码收益"
+                        android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -135,8 +143,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="收益"
-                        android:textColor="@color/text_black"
+                        android:text="总收益"
+                        android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>
             </LinearLayout>

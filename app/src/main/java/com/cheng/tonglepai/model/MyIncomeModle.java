@@ -7,6 +7,7 @@ import com.cheng.retrofit20.bean.DevicesDetailsBean;
 import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
 import com.cheng.retrofit20.bean.SiteEquimentListBean;
+import com.cheng.retrofit20.bean.SiteFileIncomeListBean;
 import com.cheng.retrofit20.bean.SiteIncomeBean;
 import com.cheng.retrofit20.bean.SiteTotalIncomeBean;
 import com.cheng.retrofit20.bean.WechatBindingBean;
@@ -293,6 +294,37 @@ public class MyIncomeModle {
             }
         });
     }
+
+
+    /**
+     * 设备方根据月份获取设备收益折线图数据
+     * @param
+     * @return
+     */
+    public void SiteGetFileIncome(String startime,String endtime,String page, final SiteFielIncomeSucessCallback callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
+        map.put("start_time",startime);
+        map.put("end_time",endtime);
+        map.put("page",page);
+        Call<SiteFileIncomeListBean> call=loginInfoPost.GetSiteDeviceIncome(map);
+        call.enqueue(new Callback<SiteFileIncomeListBean>() {
+            @Override
+            public void onResponse(Call<SiteFileIncomeListBean> call,final Response<SiteFileIncomeListBean> response) {
+                SiteFileIncomeListBean  bindingBean=response.body();
+                callBack.Sucess(bindingBean);
+
+            }
+            @Override
+            public void onFailure(Call<SiteFileIncomeListBean> call, Throwable t) {
+                callBack.Faile();
+            }
+        });
+    }
     /**
      * 获取收益回调
      */
@@ -344,6 +376,14 @@ public class MyIncomeModle {
      */
     public interface SiteTotalIncomeSucessCallback{
         void Sucess(SiteTotalIncomeBean bean);
+        void Faile();
+    }
+
+    /**
+     * 场地方设备总收益
+     */
+    public interface SiteFielIncomeSucessCallback{
+        void Sucess(SiteFileIncomeListBean bean);
         void Faile();
     }
 }
