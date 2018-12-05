@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="星际小章鱼"
                 android:textSize="15sp"
+                android:visibility="gone"
                 android:textColor="@color/text_black3"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="15dp" />
@@ -103,7 +104,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="投币"
+                        android:text="投币收益"
                         android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>
@@ -123,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="扫码"
+                        android:text="扫码收益"
                         android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>
@@ -143,7 +144,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="收益"
+                        android:text="总收益"
                         android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>

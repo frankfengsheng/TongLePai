@@ -3,9 +3,14 @@ package com.cheng.retrofit20;
 
 import com.cheng.retrofit20.bean.BankWithDrawBean;
 import com.cheng.retrofit20.bean.CheckVersionBean;
+import com.cheng.retrofit20.bean.DeviceIncomeDetailBean;
 import com.cheng.retrofit20.bean.DevicesDetailsBean;
 import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
+import com.cheng.retrofit20.bean.PartnerDeviceIncomeListBean;
+import com.cheng.retrofit20.bean.PartnerSiteDeviceIncomeListBean;
+import com.cheng.retrofit20.bean.PartnerSiteIncomeBean;
+import com.cheng.retrofit20.bean.PartnerStaticIncomeBean;
 import com.cheng.retrofit20.bean.SingalDetectionBean;
 import com.cheng.retrofit20.bean.SiteEquimentListBean;
 import com.cheng.retrofit20.bean.SiteFileIncomeListBean;
@@ -818,7 +823,7 @@ public interface ApiService {
      */
     @POST("index.php?s=/api/Field/onep_deive")
     @FormUrlEncoded
-    Call<BaseBackResult> GetSiteDeviceIncomeDetails(@FieldMap Map<String, String> params);
+    Call<DeviceIncomeDetailBean> GetSiteDeviceIncomeDetails(@FieldMap Map<String, String> params);
 
     /**
      * 版本号检测
@@ -826,4 +831,49 @@ public interface ApiService {
     @POST("index.php?s=/api/User/testing_version")
     @FormUrlEncoded
     Call<CheckVersionBean> checkVersion(@FieldMap Map<String, String> params);
+
+    /**
+     * 合伙人收益统计
+     */
+    @POST("index.php?s=/api/Maker/info_earnings")
+    @FormUrlEncoded
+    Call<PartnerStaticIncomeBean> GetPartnerStatisticIncome(@FieldMap Map<String, String> params);
+
+
+    /**
+     * 合伙人收益切换折线图
+     */
+    @POST("index.php?s=/api/Maker/check_zx")
+    @FormUrlEncoded
+    Call<SiteTotalIncomeBean> GetPartnerZhexianIncome(@FieldMap Map<String, String> params);
+
+
+    /**
+     * 合伙人我的收益：场地收益
+     */
+    @POST("index.php?s=/api/Maker/info_statistics")
+    @FormUrlEncoded
+    Call<PartnerSiteIncomeBean> GetPartnerSiteIncomeInfo(@FieldMap Map<String, String> params);
+
+    /**
+     * 合伙人我的收益：场地点击查看场地列表
+     */
+    @POST("index.php?s=/api/Maker/onei_deive")
+    @FormUrlEncoded
+    Call<PartnerSiteDeviceIncomeListBean> GetPartnerSiteDeviceListIncomeInfo(@FieldMap Map<String, String> params);
+
+
+    /**
+     * 合伙人查看设备流水
+     */
+    @POST("index.php?s=/api/Maker/onep_deive")
+    @FormUrlEncoded
+    Call<DeviceIncomeDetailBean> PartnerGetDeviceIncomeListInfo(@FieldMap Map<String, String> params);
+
+    /**
+     * 合伙人查看设备收益
+     */
+    @POST("index.php?s=/api/Maker/partner_statistics")
+    @FormUrlEncoded
+    Call<PartnerDeviceIncomeListBean> PartnerGetDeviceIncomeInfo(@FieldMap Map<String, String> params);
 }

@@ -12,6 +12,7 @@
         android:elevation="15dp"
         android:layout_margin="10dp"
         android:layout_marginTop="0dp"
+        android:paddingBottom="10dp"
       >
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,6 +23,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="15dp"
+                android:visibility="gone"
                 android:src="@drawable/shangjia_blue" />
 
             <TextView
@@ -67,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="星际小章鱼"
                 android:textSize="15sp"
+                android:visibility="gone"
                 android:textColor="@color/text_black3"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="15dp" />
@@ -103,7 +106,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="投币"
+                        android:text="投币收益"
                         android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>
@@ -123,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="扫码"
+                        android:text="扫码收益"
                         android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>
@@ -143,18 +146,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="收益"
+                        android:text="总收益"
                         android:textColor="@color/text_black3"
                         android:textSize="@dimen/text_15sp"/>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
-        <TextView
-            style="@style/horizontal_line"
-            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:visibility="gone"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="20dp"

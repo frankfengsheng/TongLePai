@@ -47,7 +47,7 @@ public class DeviceIncomeDetailBean {
          */
 
         private String updated;
-        private String pay_type;
+        private String pay_type;//0扫码  1.投币
         private String price;
 
         public String getUpdated() {

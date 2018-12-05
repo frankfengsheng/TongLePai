@@ -151,12 +151,20 @@
                         android:src="@mipmap/down_arr_black" />
                 </LinearLayout>
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/myincome_fragment_ry"
+            <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+                android:id="@+id/bga_bind_device"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background_gray" />
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/lv_bind_device"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null">
+
+                </ListView>
+            </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ly_bottom"
@@ -166,5 +174,12 @@
             android:layout_alignParentTop="true"
             android:visibility="gone"
             android:orientation="vertical" />
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:visibility="gone"
+            android:textColor="@color/text_black3"/>
     </RelativeLayout>
 </LinearLayout>

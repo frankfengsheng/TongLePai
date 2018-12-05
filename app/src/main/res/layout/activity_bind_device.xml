@@ -14,10 +14,18 @@
         <ListView
             android:id="@+id/lv_bind_device"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:divider="@null">
 
         </ListView>
     </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
 
-
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:visibility="gone"
+        android:textColor="@color/text_gray"/>
 </LinearLayout>

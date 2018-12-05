@@ -11,12 +11,10 @@ import com.cheng.retrofit20.bean.SiteEquimentListBean;
 import com.cheng.retrofit20.bean.SiteFileIncomeListBean;
 import com.cheng.retrofit20.bean.SiteIncomeBean;
 import com.cheng.retrofit20.bean.SiteTotalIncomeBean;
-import com.cheng.retrofit20.bean.WechatBindingBean;
 import com.cheng.retrofit20.client.RetrofitClient;
 import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.retrofit20.data.HttpConfig;
 import com.cheng.retrofit20.http.UserInfoCmd;
-import com.cheng.tonglepai.activity.DeviceIncomeDetail;
 import com.cheng.tonglepai.tool.ToastUtil;
 
 import java.util.HashMap;
@@ -269,7 +267,7 @@ public class MyIncomeModle {
     }
 
     /**
-     * 设备方根据月份获取设备收益折线图数据
+     * 场地方根据月份获取设备收益折线图数据
      * @param
      * @return
      */
@@ -299,7 +297,7 @@ public class MyIncomeModle {
 
 
     /**
-     * 设备方根据月份获取设备收益折线图数据
+     * 场地方获取场地设备收益
      * @param
      * @return
      */
@@ -329,7 +327,7 @@ public class MyIncomeModle {
     }
 
     /**
-     * 合伙人获取设备流水
+     * 场地方获取设备流水
      * @param
      * @return
      */

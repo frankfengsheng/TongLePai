@@ -10,6 +10,9 @@ import android.view.View;
 
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
+import com.cheng.tonglepai.fragment.partner.PartnerDeviceIncomeFragment;
+import com.cheng.tonglepai.fragment.partner.PartnerSiteIncomeFragment;
+import com.cheng.tonglepai.fragment.partner.PartnerStatisticsFragment;
 import com.cheng.tonglepai.fragment.site.SiteDeviceIncomeFragment;
 import com.cheng.tonglepai.fragment.site.SiteStatisticsFragment;
 import com.cheng.tonglepai.view.CacheFragmentStatePagerAdapter;
@@ -22,7 +25,7 @@ import java.util.List;
  * Created by cheng on 2018/6/8.
  */
 
-public class MyIncomeActivity extends TitleActivity implements View.OnClickListener {
+public class PartnerIncomeActivity extends TitleActivity implements View.OnClickListener {
 
     SlidingTabLayout slidingTabLayout;
     ViewPager viewPager;
@@ -32,13 +35,14 @@ public class MyIncomeActivity extends TitleActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_myincome);
-        setMidTitle("我的收益");
+        setMidTitle("我的");
         MyApplication.getInstance().addActivity(this);
         initView();
     }
 
     private void initView() {
         daohangList.add("综合统计");
+        daohangList.add("场地收益");
         daohangList.add("设备收益");
         daohangList.add("低收益设备");
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tab);
@@ -90,9 +94,10 @@ public class MyIncomeActivity extends TitleActivity implements View.OnClickListe
 
         @Override
         protected Fragment createItem(int position) {
-            if (position == 0) f = new SiteStatisticsFragment();
-            if (position == 1) f = new SiteDeviceIncomeFragment();
-            if (position == 2) f = new SiteDeviceIncomeFragment();
+            if (position == 0) f = new PartnerStatisticsFragment();
+            if (position == 1) f = new PartnerSiteIncomeFragment();
+            if (position == 2) f = new PartnerDeviceIncomeFragment();
+            if (position == 3) f = new PartnerDeviceIncomeFragment();
             return f;
         }
 
