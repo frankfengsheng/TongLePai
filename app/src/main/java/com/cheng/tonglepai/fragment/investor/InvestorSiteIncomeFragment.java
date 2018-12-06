@@ -1,5 +1,5 @@
 
-package com.cheng.tonglepai.fragment.partner;
+package com.cheng.tonglepai.fragment.investor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +13,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cheng.retrofit20.bean.PartnerSiteIncomeBean;
-import com.cheng.retrofit20.bean.SiteFileIncomeListBean;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.activity.DeviceIncomeDetailActivity;
 import com.cheng.tonglepai.activity.PartnerSiteIncomeActivity;
-import com.cheng.tonglepai.adapter.FragmentSiteIncomeListAdapter2;
+import com.cheng.tonglepai.activity.investor.InvestorSiteIncomeActivity;
 import com.cheng.tonglepai.adapter.PartnerSiteIncomeAdpter;
 import com.cheng.tonglepai.model.IncomeModle;
-import com.cheng.tonglepai.model.MyIncomeModle;
 import com.cheng.tonglepai.tool.DateSelectUtil;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
@@ -41,7 +39,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by User on 2016/6/28.冯
  */
 
-public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment implements View.OnClickListener,BGARefreshLayout.BGARefreshLayoutDelegate {
+public class InvestorSiteIncomeFragment extends android.support.v4.app.Fragment implements View.OnClickListener,BGARefreshLayout.BGARefreshLayoutDelegate {
     private View contentView;
     private TextView tv_today;
     private TextView tv_yestoday;
@@ -65,10 +63,10 @@ public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment i
     private TextView tv_empty;
     private LoadingDialog loadingDialog;
 
-    public static PartnerSiteIncomeFragment newInstance() {
+    public static InvestorSiteIncomeFragment newInstance() {
 
         Bundle args = new Bundle();
-        PartnerSiteIncomeFragment fragment = new PartnerSiteIncomeFragment();
+        InvestorSiteIncomeFragment fragment = new InvestorSiteIncomeFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -124,7 +122,7 @@ public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment i
         lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getContext(), PartnerSiteIncomeActivity.class);
+                Intent intent=new Intent(getContext(), InvestorSiteIncomeActivity.class);
                 intent.putExtra(DeviceIncomeDetailActivity.DEVICEID,mList.get(position).getInfo_id());
                 intent.putExtra(DeviceIncomeDetailActivity.STARTTIME,tv_startDate.getText().toString());
                 intent.putExtra(DeviceIncomeDetailActivity.EndTime,tv_endDate.getText().toString());
@@ -133,13 +131,13 @@ public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment i
         });
         adapter=new PartnerSiteIncomeAdpter(getActivity(),mList);
         lvDetail.setAdapter(adapter);
+
         ly_startDate.setOnClickListener(this);
         ly_endDate.setOnClickListener(this);
         tv_today.setOnClickListener(this);
         tv_yestoday.setOnClickListener(this);
         tv_week.setOnClickListener(this);
         tv_month.setOnClickListener(this);
-        loadingDialog.show();
         getDeviceIncome(tv_startDate.getText().toString(),tv_endDate.getText().toString(),page+"");
 
     }
@@ -283,7 +281,7 @@ public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment i
      * 获取设备收益详情
      */
     private void getDeviceIncome(String start_tiem,String end_time,String page){
-        new IncomeModle(getActivity()).PartnerSiteIncomeInfo(start_tiem, end_time, page, new IncomeModle.PartnerSiteIncomeSucess() {
+        new IncomeModle(getActivity()).TzChangdiList(start_tiem, end_time, page, new IncomeModle.PartnerSiteIncomeSucess() {
             @Override
             public void Sucess(PartnerSiteIncomeBean bean) {
                 loadingDialog.dismiss();

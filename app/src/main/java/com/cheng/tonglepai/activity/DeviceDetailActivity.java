@@ -152,7 +152,7 @@ public class DeviceDetailActivity extends TitleActivity implements View.OnClickL
                             }
 
                         }
-                        int a = (int) Math.ceil(18.6 / 6);
+                        int a = (int) Math.ceil(maxIndex*2 / 6);
                         for (int i = 0; i < 7; i++) {
                             if (a == 0) {
                                 yValue.add(i * 500);

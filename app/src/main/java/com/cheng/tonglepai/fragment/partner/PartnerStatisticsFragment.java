@@ -51,6 +51,10 @@ public class PartnerStatisticsFragment extends android.support.v4.app.Fragment i
     private TextView tv_monthSaoma,tv_monthToubi,tv_monthIncome;
     private TextView tv_date;
     private LinearLayout ly_date;
+    private LinearLayout ly_xiaqu_income;
+    private TextView tv_xiaquIncome;
+    private TextView tv_lineXiaqu;
+
     ChartView chartView;
     private TimePickerView pvTime;
     private LinearLayout ly_bottom;
@@ -100,6 +104,13 @@ public class PartnerStatisticsFragment extends android.support.v4.app.Fragment i
         ly_date= (LinearLayout) contentView.findViewById(R.id.ly_date);
         chartView= (ChartView) contentView.findViewById(R.id.chartview);
         ly_bottom= (LinearLayout) contentView.findViewById(R.id.ly_bottom);
+        ly_xiaqu_income= (LinearLayout) contentView.findViewById(R.id.ly_xiaqu_income);
+        tv_xiaquIncome= (TextView) contentView.findViewById(R.id.tv_xiaqu_income);
+        tv_lineXiaqu= (TextView) contentView.findViewById(R.id.tv_line_xiaqu);
+
+        ly_xiaqu_income.setVisibility(View.VISIBLE);
+        tv_lineXiaqu.setVisibility(View.VISIBLE);
+
         ly_date.setOnClickListener(this);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月");// HH:mm:ss
@@ -136,6 +147,7 @@ public class PartnerStatisticsFragment extends android.support.v4.app.Fragment i
                    if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getTotal()))tv_totalIncome.setText("￥"+bean.getData().getTotal());
                    if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getSm_price()))tv_saomaIncome.setText("￥"+bean.getData().getSm_price());
                    if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getTb_price()))tv_toubiIncome.setText("￥"+bean.getData().getTb_price());
+                   if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getJurisdiction_price()))tv_xiaquIncome.setText("￥"+bean.getData().getJurisdiction_price());
                    if(bean.getData_m()!=null)tv_toubiCount.setText(""+bean.getData_m().getDevice_nums());
                    if(bean.getData_m()!=null)tv_deviceCount.setText(""+bean.getData_m().getCd_nums());
                    if(bean.getData_m()!=null)tv_daijiaoCount.setText(""+bean.getData_m().getLow_device_nums());
@@ -173,7 +185,7 @@ public class PartnerStatisticsFragment extends android.support.v4.app.Fragment i
                            }
 
                        }
-                       int a = (int) Math.ceil(18.6 / 6);
+                       int a = (int) Math.ceil(maxIndex*2 / 6);
                        for (int i = 0; i < 7; i++) {
 
                            if (a == 0) {
@@ -291,7 +303,7 @@ public class PartnerStatisticsFragment extends android.support.v4.app.Fragment i
                         }
 
                     }
-                    int a = (int) Math.ceil(18.6 / 6);
+                    int a = (int) Math.ceil(maxIndex*2/ 6);
                     for (int i = 0; i < 7; i++) {
 
                         if (a == 0) {

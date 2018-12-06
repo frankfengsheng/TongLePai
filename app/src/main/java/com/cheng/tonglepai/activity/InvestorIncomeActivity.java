@@ -10,12 +10,13 @@ import android.view.View;
 
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
+import com.cheng.tonglepai.fragment.investor.InvestorDeviceIncomeFragment;
+import com.cheng.tonglepai.fragment.investor.InvestorDishouyiDeviceIncomeFragment;
+import com.cheng.tonglepai.fragment.investor.InvestorSiteIncomeFragment;
+import com.cheng.tonglepai.fragment.investor.InvestorStatisticsFragment;
 import com.cheng.tonglepai.fragment.partner.PartnerDeviceIncomeFragment;
-import com.cheng.tonglepai.fragment.partner.PartnerDishouyiDeviceIncomeFragment;
 import com.cheng.tonglepai.fragment.partner.PartnerSiteIncomeFragment;
 import com.cheng.tonglepai.fragment.partner.PartnerStatisticsFragment;
-import com.cheng.tonglepai.fragment.site.SiteDeviceIncomeFragment;
-import com.cheng.tonglepai.fragment.site.SiteStatisticsFragment;
 import com.cheng.tonglepai.view.CacheFragmentStatePagerAdapter;
 import com.cheng.tonglepai.view.SlidingTabLayout;
 
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by cheng on 2018/6/8.
  */
 
-public class PartnerIncomeActivity extends TitleActivity implements View.OnClickListener {
+public class InvestorIncomeActivity extends TitleActivity implements View.OnClickListener {
 
     SlidingTabLayout slidingTabLayout;
     ViewPager viewPager;
@@ -95,10 +96,10 @@ public class PartnerIncomeActivity extends TitleActivity implements View.OnClick
 
         @Override
         protected Fragment createItem(int position) {
-            if (position == 0) f = new PartnerStatisticsFragment();
-            if (position == 1) f = new PartnerSiteIncomeFragment();
-            if (position == 2) f = new PartnerDeviceIncomeFragment();
-            if (position == 3) f = new PartnerDishouyiDeviceIncomeFragment();
+            if (position == 0) f = new InvestorStatisticsFragment();
+            if (position == 1) f = new InvestorSiteIncomeFragment();
+            if (position == 2) f = new InvestorDeviceIncomeFragment();
+            if (position == 3) f = new InvestorDishouyiDeviceIncomeFragment();
             return f;
         }
 

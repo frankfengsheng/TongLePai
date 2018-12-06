@@ -1,5 +1,5 @@
 
-package com.cheng.tonglepai.fragment.partner;
+package com.cheng.tonglepai.fragment.investor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,15 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cheng.retrofit20.bean.PartnerSiteIncomeBean;
-import com.cheng.retrofit20.bean.SiteFileIncomeListBean;
+import com.cheng.retrofit20.bean.PartnerDeviceIncomeListBean;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.activity.DeviceIncomeDetailActivity;
-import com.cheng.tonglepai.activity.PartnerSiteIncomeActivity;
-import com.cheng.tonglepai.adapter.FragmentSiteIncomeListAdapter2;
-import com.cheng.tonglepai.adapter.PartnerSiteIncomeAdpter;
+import com.cheng.tonglepai.activity.investor.InvestorDeviceIncomeListActivity;
+import com.cheng.tonglepai.adapter.PartenerDeviceIncomeAdapter;
 import com.cheng.tonglepai.model.IncomeModle;
-import com.cheng.tonglepai.model.MyIncomeModle;
 import com.cheng.tonglepai.tool.DateSelectUtil;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
@@ -41,7 +38,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by User on 2016/6/28.冯
  */
 
-public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment implements View.OnClickListener,BGARefreshLayout.BGARefreshLayoutDelegate {
+public class InvestorDishouyiDeviceIncomeFragment extends android.support.v4.app.Fragment implements View.OnClickListener,BGARefreshLayout.BGARefreshLayoutDelegate {
     private View contentView;
     private TextView tv_today;
     private TextView tv_yestoday;
@@ -53,7 +50,7 @@ public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment i
     private TextView tv_endDate;
     private LinearLayout ly_bottom;
     SimpleDateFormat simpleDateFormat;
-    PartnerSiteIncomeAdpter adapter;
+    PartenerDeviceIncomeAdapter adapter;
 
     private BGARefreshLayout mRefreshLayout;
     private int page = 1;
@@ -61,14 +58,14 @@ public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment i
     private boolean isLoad;
     private boolean isFirst;
     private boolean needLoad=false;
-    private List<PartnerSiteIncomeBean.DataBean> mList=new ArrayList<>();
+    private List<PartnerDeviceIncomeListBean.DataBean> mList=new ArrayList<>();
     private TextView tv_empty;
     private LoadingDialog loadingDialog;
 
-    public static PartnerSiteIncomeFragment newInstance() {
+    public static InvestorDishouyiDeviceIncomeFragment newInstance() {
 
         Bundle args = new Bundle();
-        PartnerSiteIncomeFragment fragment = new PartnerSiteIncomeFragment();
+        InvestorDishouyiDeviceIncomeFragment fragment = new InvestorDishouyiDeviceIncomeFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -124,22 +121,22 @@ public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment i
         lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getContext(), PartnerSiteIncomeActivity.class);
-                intent.putExtra(DeviceIncomeDetailActivity.DEVICEID,mList.get(position).getInfo_id());
+                Intent intent=new Intent(getContext(), InvestorDeviceIncomeListActivity.class);
+                intent.putExtra(DeviceIncomeDetailActivity.DEVICEID,mList.get(position).getId());
                 intent.putExtra(DeviceIncomeDetailActivity.STARTTIME,tv_startDate.getText().toString());
                 intent.putExtra(DeviceIncomeDetailActivity.EndTime,tv_endDate.getText().toString());
                 startActivity(intent);
             }
         });
-        adapter=new PartnerSiteIncomeAdpter(getActivity(),mList);
+        adapter=new PartenerDeviceIncomeAdapter(getActivity(),mList);
         lvDetail.setAdapter(adapter);
+
         ly_startDate.setOnClickListener(this);
         ly_endDate.setOnClickListener(this);
         tv_today.setOnClickListener(this);
         tv_yestoday.setOnClickListener(this);
         tv_week.setOnClickListener(this);
         tv_month.setOnClickListener(this);
-        loadingDialog.show();
         getDeviceIncome(tv_startDate.getText().toString(),tv_endDate.getText().toString(),page+"");
 
     }
@@ -283,9 +280,9 @@ public class PartnerSiteIncomeFragment extends android.support.v4.app.Fragment i
      * 获取设备收益详情
      */
     private void getDeviceIncome(String start_tiem,String end_time,String page){
-        new IncomeModle(getActivity()).PartnerSiteIncomeInfo(start_tiem, end_time, page, new IncomeModle.PartnerSiteIncomeSucess() {
+        new IncomeModle(getActivity()).InvestordishouyiIncomeFragment(start_tiem, end_time, page, new IncomeModle.PartenerDeviceIncomeSuccessCallback() {
             @Override
-            public void Sucess(PartnerSiteIncomeBean bean) {
+            public void Sucess(PartnerDeviceIncomeListBean bean) {
                 loadingDialog.dismiss();
                 if(bean!=null&&bean.getData()!=null&&bean.getData().size()>0){
                     mList.addAll(bean.getData());

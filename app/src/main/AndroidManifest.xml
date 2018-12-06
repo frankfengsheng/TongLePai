@@ -197,6 +197,9 @@
         <activity android:name=".activity.PartnerIncomeActivity"/>
         <activity android:name=".activity.PartnerSiteIncomeActivity"/>
         <activity android:name=".activity.PartnerDeviceIncomeListActivity"/>
+        <activity android:name=".activity.InvestorIncomeActivity"/>
+        <activity android:name=".activity.investor.InvestorSiteIncomeActivity"/>
+        <activity android:name=".activity.investor.InvestorDeviceIncomeListActivity"/>
     </application>
 
 </manifest>

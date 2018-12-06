@@ -11,6 +11,7 @@ import android.view.View;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
 import com.cheng.tonglepai.fragment.site.SiteDeviceIncomeFragment;
+import com.cheng.tonglepai.fragment.site.SiteDishouyiDeviceIncomeFragment;
 import com.cheng.tonglepai.fragment.site.SiteStatisticsFragment;
 import com.cheng.tonglepai.view.CacheFragmentStatePagerAdapter;
 import com.cheng.tonglepai.view.SlidingTabLayout;
@@ -92,7 +93,7 @@ public class MyIncomeActivity extends TitleActivity implements View.OnClickListe
         protected Fragment createItem(int position) {
             if (position == 0) f = new SiteStatisticsFragment();
             if (position == 1) f = new SiteDeviceIncomeFragment();
-            if (position == 2) f = new SiteDeviceIncomeFragment();
+            if (position == 2) f = new SiteDishouyiDeviceIncomeFragment();
             return f;
         }
 

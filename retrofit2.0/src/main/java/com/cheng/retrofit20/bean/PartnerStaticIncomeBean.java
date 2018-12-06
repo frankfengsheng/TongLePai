@@ -102,6 +102,7 @@ public class PartnerStaticIncomeBean {
         private String total;
         private String sm_price;
         private String tb_price;
+        private String jurisdiction_price;
 
         public String getTotal() {
             return total;
@@ -125,6 +126,14 @@ public class PartnerStaticIncomeBean {
 
         public void setTb_price(String tb_price) {
             this.tb_price = tb_price;
+        }
+
+        public String getJurisdiction_price() {
+            return jurisdiction_price;
+        }
+
+        public void setJurisdiction_price(String jurisdiction_price) {
+            this.jurisdiction_price = jurisdiction_price;
         }
     }
 

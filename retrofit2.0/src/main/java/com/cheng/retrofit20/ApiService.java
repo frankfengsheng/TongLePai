@@ -876,4 +876,72 @@ public interface ApiService {
     @POST("index.php?s=/api/Maker/partner_statistics")
     @FormUrlEncoded
     Call<PartnerDeviceIncomeListBean> PartnerGetDeviceIncomeInfo(@FieldMap Map<String, String> params);
+
+    ///
+
+    /**
+     * 投资人综合统计
+     */
+    @POST("index.php?s=/api/Investor/info_earnings")
+    @FormUrlEncoded
+    Call<PartnerStaticIncomeBean> TongzirenZongheTongji(@FieldMap Map<String, String> params);
+
+
+    /**
+     * 投资人收益切换折线图
+     */
+    @POST("index.php?s=/api/Investor/check_zxs")
+    @FormUrlEncoded
+    Call<SiteTotalIncomeBean> TouzirenZhexiantu(@FieldMap Map<String, String> params);
+
+
+    /**
+     * 投资人场地收益：fragment
+     */
+    @POST("index.php?s=/api/Investor/info_statistics")
+    @FormUrlEncoded
+    Call<PartnerSiteIncomeBean> TouzirenChangdiShouyiFrgment(@FieldMap Map<String, String> params);
+
+    /**
+     * 投资人场地内  设备收益列表
+     */
+    @POST("index.php?s=/api/Investor/onei_deive")
+    @FormUrlEncoded
+    Call<PartnerSiteDeviceIncomeListBean> TZChangdiNeiDeviceIncomeList(@FieldMap Map<String, String> params);
+
+
+    /**
+     * 投资人查看设备流水
+     */
+    @POST("index.php?s=/api/Investor/onep_deive")
+    @FormUrlEncoded
+    Call<DeviceIncomeDetailBean> TZShebeiLiushui(@FieldMap Map<String, String> params);
+
+    /**
+     * 合伙人查看设备收益Fragment
+     */
+    @POST("index.php?s=/api/Investor/invest_statistics")
+    @FormUrlEncoded
+    Call<PartnerDeviceIncomeListBean> TZShebeiShouyiFragment(@FieldMap Map<String, String> params);
+
+
+    /**
+     * 场地方低设备收益Fragment
+     */
+    @POST("index.php?s=/api/Field/low_place_statistics")
+    @FormUrlEncoded
+    Call<PartnerDeviceIncomeListBean> CDDiShouyiFragment(@FieldMap Map<String, String> params);
+    /**
+     * 合伙人低设备收益Fragment
+     */
+    @POST("index.php?s=/api/Maker/low_partner_statistics")
+    @FormUrlEncoded
+    Call<PartnerDeviceIncomeListBean> PartnerDiShouyiFragment(@FieldMap Map<String, String> params);
+    /**
+     * 投资人低设备收益Fragment
+     */
+    @POST("index.php?s=/api/Investor/low_invest_statistics")
+    @FormUrlEncoded
+    Call<PartnerDeviceIncomeListBean> InvestorDiShouyiFragment(@FieldMap Map<String, String> params);
+
 }

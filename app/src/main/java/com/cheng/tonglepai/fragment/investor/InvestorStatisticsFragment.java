@@ -1,5 +1,5 @@
 
-package com.cheng.tonglepai.fragment.site;
+package com.cheng.tonglepai.fragment.investor;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,11 +15,10 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
-import com.cheng.retrofit20.bean.SiteIncomeBean;
+import com.cheng.retrofit20.bean.PartnerStaticIncomeBean;
 import com.cheng.retrofit20.bean.SiteTotalIncomeBean;
 import com.cheng.tonglepai.R;
-import com.cheng.tonglepai.model.MyIncomeModle;
+import com.cheng.tonglepai.model.IncomeModle;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 import com.cheng.tonglepai.view.ChartView;
@@ -38,7 +36,7 @@ import java.util.Map;
  * Created by User on 2016/6/28.冯
 */
 
-public class SiteStatisticsFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class InvestorStatisticsFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private View contentView;
     private TextView tv_totalIncome;
     private TextView tv_saomaIncome;
@@ -128,62 +126,62 @@ public class SiteStatisticsFragment extends android.support.v4.app.Fragment impl
      */
     private void getIncome(){
         loadingDialog.show();
-       new MyIncomeModle(getActivity()).SiteIncome(new MyIncomeModle.SiteIncomeSucessCallback() {
+       new IncomeModle(getActivity()).TZGetStatisticIncome(new IncomeModle.PartnerStatisticIncomeSucess() {
            @Override
-           public void Sucess(SiteIncomeBean bean) {
+           public void Sucess(PartnerStaticIncomeBean bean) {
                loadingDialog.dismiss();
-                if(bean!=null){
-                    if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getTotal()))tv_totalIncome.setText("￥"+bean.getData().getTotal());
-                    if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getSm_price()))tv_saomaIncome.setText("￥"+bean.getData().getSm_price());
-                    if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getTb_price()))tv_toubiIncome.setText("￥"+bean.getData().getTb_price());
-                    if(bean.getData_m()!=null)tv_toubiCount.setText(""+bean.getData_m().getTb_nums());
-                    if(bean.getData_m()!=null)tv_deviceCount.setText(""+bean.getData_m().getDevice_nums());
-                    if(bean.getData_m()!=null)tv_daijiaoCount.setText(""+bean.getData_m().getDj_price());
-                    if(bean.getToday_data()!=null)tv_todaySaoma.setText(""+bean.getToday_data().getSm_price());
-                    if(bean.getToday_data()!=null)tv_todayToubi.setText(""+bean.getToday_data().getTb_price());
-                    if(bean.getToday_data()!=null&&!TextUtils.isEmpty(bean.getToday_data().getPrice()))tv_todayIncome.setText(""+bean.getToday_data().getPrice());
-                    if(bean.getYesterday_data()!=null)tv_yestodaySaoma.setText(""+bean.getYesterday_data().getSm_price());
-                    if(bean.getYesterday_data()!=null)tv_yestodayToubi.setText(""+bean.getYesterday_data().getTb_price());
-                    if(bean.getYesterday_data()!=null&&!TextUtils.isEmpty(bean.getYesterday_data().getPrice()))tv_yestodayIncome.setText(""+bean.getYesterday_data().getPrice());
-                    if(bean.getThismonth_data()!=null)tv_monthSaoma.setText(""+bean.getThismonth_data().getSm_price());
-                    if(bean.getThismonth_data()!=null)tv_monthToubi.setText(""+bean.getThismonth_data().getTb_price());
-                    if(bean.getThismonth_data()!=null&&!TextUtils.isEmpty(bean.getThismonth_data().getPrice()))tv_monthIncome.setText(""+bean.getThismonth_data().getPrice());
-                    if(bean!=null&&bean.getZx_data()!=null&&bean.getZx_data().size()>0) {
-                        //x轴坐标对应的数据
-                        List<String> xValue = new ArrayList<>();
-                        //y轴坐标对应的数据
-                        List<Integer> yValue = new ArrayList<>();
-                        //折线对应的数据
-                        Map<String, Double> value = new HashMap<>();
-                        for (int i = 0; i < bean.getZx_data().size(); i++) {
-                            xValue.add((i + 1) + "号");
-                            value.put((i + 1) + "号", bean.getZx_data().get(i).getPrice());
-                        }
+               if(bean!=null){
+                   if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getTotal()))tv_totalIncome.setText("￥"+bean.getData().getTotal());
+                   if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getSm_price()))tv_saomaIncome.setText("￥"+bean.getData().getSm_price());
+                   if(bean.getData()!=null&&!TextUtils.isEmpty(bean.getData().getTb_price()))tv_toubiIncome.setText("￥"+bean.getData().getTb_price());
+                   if(bean.getData_m()!=null)tv_toubiCount.setText(""+bean.getData_m().getDevice_nums());
+                   if(bean.getData_m()!=null)tv_deviceCount.setText(""+bean.getData_m().getCd_nums());
+                   if(bean.getData_m()!=null)tv_daijiaoCount.setText(""+bean.getData_m().getLow_device_nums());
+                   if(bean.getToday_data()!=null)tv_todaySaoma.setText(""+bean.getToday_data().getSm_price());
+                   if(bean.getToday_data()!=null)tv_todayToubi.setText(""+bean.getToday_data().getTb_price());
+                   if(bean.getToday_data()!=null&&!TextUtils.isEmpty(bean.getToday_data().getPrice()))tv_todayIncome.setText(""+bean.getToday_data().getPrice());
+                   if(bean.getYesterday_data()!=null)tv_yestodaySaoma.setText(""+bean.getYesterday_data().getSm_price());
+                   if(bean.getYesterday_data()!=null)tv_yestodayToubi.setText(""+bean.getYesterday_data().getTb_price());
+                   if(bean.getYesterday_data()!=null&&!TextUtils.isEmpty(bean.getYesterday_data().getPrice()))tv_yestodayIncome.setText(""+bean.getYesterday_data().getPrice());
+                   if(bean.getThismonth_data()!=null)tv_monthSaoma.setText(""+bean.getThismonth_data().getSm_price());
+                   if(bean.getThismonth_data()!=null)tv_monthToubi.setText(""+bean.getThismonth_data().getTb_price());
+                   if(bean.getThismonth_data()!=null&&!TextUtils.isEmpty(bean.getThismonth_data().getPrice()))tv_monthIncome.setText(""+bean.getThismonth_data().getPrice());
+                   if(bean!=null&&bean.getZx_data()!=null&&bean.getZx_data().size()>0) {
+                       //x轴坐标对应的数据
+                       List<String> xValue = new ArrayList<>();
+                       //y轴坐标对应的数据
+                       List<Integer> yValue = new ArrayList<>();
+                       //折线对应的数据
+                       Map<String, Double> value = new HashMap<>();
+                       for (int i = 0; i < bean.getZx_data().size(); i++) {
+                           xValue.add((i + 1) + "号");
+                           value.put((i + 1) + "号", bean.getZx_data().get(i).getPrice());
+                       }
 
-                        double maxIndex = 0;//定义最大值为该数组的第一个数
-                        double minIndex = 0;//定义最小值为该数组的第一个数
+                       double maxIndex = 0;//定义最大值为该数组的第一个数
+                       double minIndex = 0;//定义最小值为该数组的第一个数
 
-                        for (int i = 0; i < bean.getZx_data().size(); i++) {
-                            if (maxIndex < bean.getZx_data().get(i).getPrice()) {
-                                maxIndex = bean.getZx_data().get(i).getPrice();
-                            }
+                       for (int i = 0; i < bean.getZx_data().size(); i++) {
+                           if (maxIndex < bean.getZx_data().get(i).getPrice()) {
+                               maxIndex = bean.getZx_data().get(i).getPrice();
+                           }
 
-                            if (minIndex > bean.getZx_data().get(i).getPrice()) {
-                                minIndex = bean.getZx_data().get(i).getPrice();
-                            }
+                           if (minIndex > bean.getZx_data().get(i).getPrice()) {
+                               minIndex = bean.getZx_data().get(i).getPrice();
+                           }
 
-                        }
-                        int a = (int) Math.ceil(maxIndex*2/ 6);
-                        for (int i = 0; i < 7; i++) {
+                       }
+                       int a = (int) Math.ceil(maxIndex*2/ 6);
+                       for (int i = 0; i < 7; i++) {
 
-                            if (a == 0) {
-                                yValue.add(i * 500);
-                            } else
-                                yValue.add(i * a);
-                        }
-                        chartView.setValue(value, xValue, yValue);
-                    }
-                }
+                           if (a == 0) {
+                               yValue.add(i * 500);
+                           } else
+                               yValue.add(i * a);
+                       }
+                       chartView.setValue(value, xValue, yValue);
+                   }
+               }
            }
 
            @Override
@@ -262,7 +260,7 @@ public class SiteStatisticsFragment extends android.support.v4.app.Fragment impl
      */
     private void getIncomeByMonth(String year,String month){
         loadingDialog.show();
-        new MyIncomeModle(getActivity()).SiteGetTotalIncomeByMonth(year,month, new MyIncomeModle.SiteTotalIncomeSucessCallback() {
+        new IncomeModle(getActivity()).TzZhexiantu(year,month, new IncomeModle.PartnerZhexianIncomeSucess() {
             @Override
             public void Sucess(SiteTotalIncomeBean bean) {
                 loadingDialog.dismiss();
