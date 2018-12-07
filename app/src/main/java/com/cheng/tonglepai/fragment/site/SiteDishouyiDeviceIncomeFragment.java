@@ -117,8 +117,8 @@ public class SiteDishouyiDeviceIncomeFragment extends android.support.v4.app.Fra
         ly_bottom= (LinearLayout) contentView.findViewById(R.id.ly_bottom);
         lvDetail = (ListView) contentView.findViewById(R.id.lv_bind_device);
         tv_empty= (TextView) contentView.findViewById(R.id.tv_empty);
-        tv_startDate.setText(getTodayDate());
-        tv_endDate.setText(getTodayDate());
+        tv_startDate.setText(DateSelectUtil.getInstance().getTodayDate(simpleDateFormat));
+        tv_endDate.setText(DateSelectUtil.getInstance().getTodayDate(simpleDateFormat));
         lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -148,29 +148,29 @@ public class SiteDishouyiDeviceIncomeFragment extends android.support.v4.app.Fra
             case R.id.tv_today:
                 init_title();
                 tv_today.setTextColor(getResources().getColor(R.color.tab_blue));
-                tv_startDate.setText(getTodayDate());
-                tv_endDate.setText(getTodayDate());
+                tv_startDate.setText(DateSelectUtil.getInstance().getTodayDate(simpleDateFormat));
+                tv_endDate.setText(DateSelectUtil.getInstance().getTodayDate(simpleDateFormat));
                 loadData();
                 break;
             case R.id.tv_yesterday:
                 init_title();
                 tv_yestoday.setTextColor(getResources().getColor(R.color.tab_blue));
-                tv_startDate.setText(getYesterdayTime());
-                tv_endDate.setText(getTodayDate());
+                tv_startDate.setText(DateSelectUtil.getInstance().getYesterdayTime(simpleDateFormat));
+                tv_endDate.setText(DateSelectUtil.getInstance().getYesterdayTime(simpleDateFormat));
                 loadData();
                 break;
             case R.id.tv_this_month:
                 init_title();
                 tv_month.setTextColor(getResources().getColor(R.color.tab_blue));
-                tv_startDate.setText(getMonthsTime());
-                tv_endDate.setText(getTodayDate());
+                tv_startDate.setText(DateSelectUtil.getInstance().getMonthsTime(simpleDateFormat));
+                tv_endDate.setText(DateSelectUtil.getInstance().getTodayDate(simpleDateFormat));
                 loadData();
                 break;
             case R.id.tv_this_week:
                 init_title();
                 tv_week.setTextColor(getResources().getColor(R.color.tab_blue));
-                tv_startDate.setText(getWeekTime());
-                tv_endDate.setText(getTodayDate());
+                tv_startDate.setText(DateSelectUtil.getInstance().getWeekTime(simpleDateFormat));
+                tv_endDate.setText(DateSelectUtil.getInstance().getTodayDate(simpleDateFormat));
                 loadData();
                 break;
             case R.id.ly_start_date:
@@ -179,7 +179,7 @@ public class SiteDishouyiDeviceIncomeFragment extends android.support.v4.app.Fra
                     @Override
                     public void dateselect(String date) {
                         ly_bottom.setVisibility(View.GONE);
-                        if(judgeDate(date,tv_endDate.getText().toString())){
+                        if(DateSelectUtil.getInstance().judgeDate(date,tv_endDate.getText().toString())){
                             ToastUtil.showToast(getActivity(),"开始时间不得晚于结束时间");
                         }else {
                             tv_startDate.setText(date);
@@ -195,7 +195,7 @@ public class SiteDishouyiDeviceIncomeFragment extends android.support.v4.app.Fra
                     @Override
                     public void dateselect(String date) {
                         ly_bottom.setVisibility(View.GONE);
-                        if(judgeDate(tv_startDate.getText().toString(),date)){
+                        if(DateSelectUtil.getInstance().judgeDate(tv_startDate.getText().toString(),date)){
                             ToastUtil.showToast(getActivity(),"开始时间不得晚于结束时间");
                         }else {
                             tv_endDate.setText(date);
@@ -224,59 +224,7 @@ public class SiteDishouyiDeviceIncomeFragment extends android.support.v4.app.Fra
         tv_month.setTextColor(getResources().getColor(R.color.text_black3));
     }
 
-    /**
-     * 获取今日日期
-     */
-    private String getTodayDate() {
 
-        //获取当前时间
-        Date date = new Date(System.currentTimeMillis());
-        return simpleDateFormat.format(date);
-    }
-    /**
-     * 获取昨日日期
-     */
-    private  String getYesterdayTime(){
-        Calendar  calendar =Calendar. getInstance();
-        calendar.add( Calendar. DATE, -1); //向前走一天
-        Date date= calendar.getTime();
-        return simpleDateFormat.format(date);
-    }
-    /**
-     * 获取本周第一天日期
-     */
-    private  String getWeekTime(){
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_WEEK, 1);
-        Date date= cal.getTime();
-        return simpleDateFormat.format(date);
-    }
-    /**
-     * 获取本月第一天日期
-     */
-    private  String getMonthsTime(){
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date date= cal.getTime();
-        return simpleDateFormat.format(date);
-    }
-    /**
-     * 判断开始时间是否大于结束时间
-     */
-    private boolean judgeDate(String startDate,String endDate){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date start_date=dateFormat.parse(startDate);
-            Date end_date=dateFormat.parse(endDate);
-            if(start_date.getTime()>end_date.getTime()){
-                return true;
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
     /**
      * 获取设备收益详情
      */

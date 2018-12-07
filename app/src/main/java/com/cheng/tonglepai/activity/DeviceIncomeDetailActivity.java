@@ -109,7 +109,6 @@ public class DeviceIncomeDetailActivity extends TitleActivity implements BGARefr
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
     }
 
     private void initData(){

@@ -71,7 +71,7 @@ public class PartnerStatisticsFragment extends android.support.v4.app.Fragment i
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        contentView=inflater.inflate(R.layout.site_statistics_fragment, null);
+        contentView=inflater.inflate(R.layout.partner_statistics_fragment, null);
         return contentView;
     }
 

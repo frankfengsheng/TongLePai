@@ -13,6 +13,8 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.cheng.tonglepai.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -99,6 +101,60 @@ public class DateSelectUtil {
     private String getTime(Date date) {//可根据需要自行截取数据显示
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
+    }
+
+    /**
+     * 获取今日日期
+     */
+    public String getTodayDate(DateFormat simpleDateFormat) {
+
+        //获取当前时间
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
+    }
+    /**
+     * 获取昨日日期
+     */
+    public  String getYesterdayTime(DateFormat simpleDateFormat){
+        Calendar  calendar =Calendar. getInstance();
+        calendar.add( Calendar. DATE, -1); //向前走一天
+        Date date= calendar.getTime();
+        return simpleDateFormat.format(date);
+    }
+    /**
+     * 获取本周第一天日期
+     */
+    public  String getWeekTime(DateFormat simpleDateFormat){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, 2);
+        Date date= cal.getTime();
+        return simpleDateFormat.format(date);
+    }
+    /**
+     * 获取本月第一天日期
+     */
+    public  String getMonthsTime(DateFormat simpleDateFormat){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date date= cal.getTime();
+        return simpleDateFormat.format(date);
+    }
+    /**
+     * 判断开始时间是否大于结束时间
+     */
+    public boolean judgeDate(String startDate,String endDate){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date start_date=dateFormat.parse(startDate);
+            Date end_date=dateFormat.parse(endDate);
+            if(start_date.getTime()>end_date.getTime()){
+                return true;
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
   public   interface  selectDateCallBack{

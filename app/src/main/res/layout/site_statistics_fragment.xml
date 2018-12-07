@@ -116,45 +116,7 @@
                     android:text=""
                     android:layout_marginLeft="10dp"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/tv_line_xiaqu"
-                style="@style/horizontal_line"
-                android:visibility="gone"/>
-            <LinearLayout
-                android:id="@+id/ly_xiaqu_income"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-               >
-                <ImageView
-                    android:layout_width="7dp"
-                    android:layout_height="7dp"
-                    android:src="@drawable/red_corner_shape" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="辖区收益"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/text_black3" />
-                <TextView
-                    android:id="@+id/tv_xiaqu_income"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
-                    android:textColor="@color/text_pint_light"
-                    android:textSize="17sp"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text=""
-                    android:layout_marginLeft="10dp"/>
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <!--设备数，投币数，待缴币数-->

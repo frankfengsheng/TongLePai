@@ -171,23 +171,23 @@ public class SiteIncomeBean {
          * price : 0.00
          */
 
-        private int sm_price;
-        private int tb_price;
+        private double sm_price;
+        private double tb_price;
         private String price;
 
-        public int getSm_price() {
+        public double getSm_price() {
             return sm_price;
         }
 
-        public void setSm_price(int sm_price) {
+        public void setSm_price(double sm_price) {
             this.sm_price = sm_price;
         }
 
-        public int getTb_price() {
+        public double getTb_price() {
             return tb_price;
         }
 
-        public void setTb_price(int tb_price) {
+        public void setTb_price(double tb_price) {
             this.tb_price = tb_price;
         }
 
@@ -207,23 +207,23 @@ public class SiteIncomeBean {
          * price : 0.00
          */
 
-        private int sm_price;
-        private int tb_price;
+        private double sm_price;
+        private double tb_price;
         private String price;
 
-        public int getSm_price() {
+        public double getSm_price() {
             return sm_price;
         }
 
-        public void setSm_price(int sm_price) {
+        public void setSm_price(double sm_price) {
             this.sm_price = sm_price;
         }
 
-        public int getTb_price() {
+        public double getTb_price() {
             return tb_price;
         }
 
-        public void setTb_price(int tb_price) {
+        public void setTb_price(double tb_price) {
             this.tb_price = tb_price;
         }
 
@@ -243,23 +243,23 @@ public class SiteIncomeBean {
          * price : 0.00
          */
 
-        private int sm_price;
-        private int tb_price;
+        private double sm_price;
+        private double tb_price;
         private String price;
 
-        public int getSm_price() {
+        public double getSm_price() {
             return sm_price;
         }
 
-        public void setSm_price(int sm_price) {
+        public void setSm_price(double sm_price) {
             this.sm_price = sm_price;
         }
 
-        public int getTb_price() {
+        public double getTb_price() {
             return tb_price;
         }
 
-        public void setTb_price(int tb_price) {
+        public void setTb_price(double tb_price) {
             this.tb_price = tb_price;
         }
 

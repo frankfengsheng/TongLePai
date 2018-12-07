@@ -51,12 +51,10 @@ public class PartnerIncomeActivity extends TitleActivity implements View.OnClick
         initSlidingTabLayout();
     }
 
-
     @Override
     public void onClick(View v) {
 
     }
-
     /*
      * 实例顶部Tab
      **/
@@ -78,7 +76,6 @@ public class PartnerIncomeActivity extends TitleActivity implements View.OnClick
         slidingTabLayout.setOnPageChangeListener(new PageChangeListener());
 
     }
-
     private static class NavigationAdapter extends
             CacheFragmentStatePagerAdapter {
 
@@ -90,9 +87,7 @@ public class PartnerIncomeActivity extends TitleActivity implements View.OnClick
             fragmentList = new ArrayList<String>();
             this.daohangList = daohangList;
         }
-
         Fragment f;
-
         @Override
         protected Fragment createItem(int position) {
             if (position == 0) f = new PartnerStatisticsFragment();

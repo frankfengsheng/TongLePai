@@ -12,7 +12,5 @@
         android:textColor="@color/text_white"
         android:textSize="16sp"
         android:singleLine="true"
-        android:layout_marginLeft="9dp"
-        android:layout_marginRight="9dp"
         />
 </LinearLayout>
