@@ -171,6 +171,7 @@ public class InvestorStatisticsFragment extends android.support.v4.app.Fragment 
                            }
 
                        }
+                       if(maxIndex==0)maxIndex=20;
                        int a = (int) Math.ceil(maxIndex*2/ 6);
                        for (int i = 0; i < 7; i++) {
 
@@ -289,6 +290,7 @@ public class InvestorStatisticsFragment extends android.support.v4.app.Fragment 
                         }
 
                     }
+                    if(maxIndex==0)maxIndex=20;
                     int a = (int) Math.ceil(maxIndex*2 / 6);
                     for (int i = 0; i < 7; i++) {
 

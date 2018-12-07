@@ -173,6 +173,7 @@ public class SiteStatisticsFragment extends android.support.v4.app.Fragment impl
                             }
 
                         }
+                        if(maxIndex==0)maxIndex=20;
                         int a = (int) Math.ceil(maxIndex*2/ 6);
                         for (int i = 0; i < 7; i++) {
 
@@ -291,6 +292,7 @@ public class SiteStatisticsFragment extends android.support.v4.app.Fragment impl
                         }
 
                     }
+                    if(maxIndex==0)maxIndex=20;
                     int a = (int) Math.ceil(maxIndex*2 / 6);
                     for (int i = 0; i < 7; i++) {
 
