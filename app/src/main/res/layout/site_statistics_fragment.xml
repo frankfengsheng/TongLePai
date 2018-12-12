@@ -224,7 +224,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="扫码数"
+                    android:text="扫码收益"
                     android:textSize="16sp"
                     android:textColor="@color/text_black2" />
 
@@ -233,7 +233,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="投币数"
+                    android:text="投币收益"
                     android:textSize="16sp"
                     android:textColor="@color/text_black2" />
 
@@ -242,7 +242,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="收益/元"
+                    android:text="总收益/元"
                     android:textSize="16sp"
                     android:textColor="@color/text_black2" />
             </LinearLayout>

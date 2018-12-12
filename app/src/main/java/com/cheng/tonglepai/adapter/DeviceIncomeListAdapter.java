@@ -62,7 +62,7 @@ public class DeviceIncomeListAdapter extends BaseAdapter {
         }
         if(!TextUtils.isEmpty(mData.get(position).getUpdated()))holder.tv_time.setText( TimeUtil.allTimeNew(mData.get(position).getUpdated()));
         //0扫码 1投币
-        if(!TextUtils.isEmpty(mData.get(position).getPay_type())&&mData.get(position).getPay_type().equals("0")){
+        if(!TextUtils.isEmpty(mData.get(position).getPay_source())&&mData.get(position).getPay_source().equals("0")){
             if(!TextUtils.isEmpty(mData.get(position).getPrice())) holder.tv_income.setText("扫码+"+mData.get(position).getPrice());
         }else{
             if(!TextUtils.isEmpty(mData.get(position).getPrice())) holder.tv_income.setText("投币+"+mData.get(position).getPrice());

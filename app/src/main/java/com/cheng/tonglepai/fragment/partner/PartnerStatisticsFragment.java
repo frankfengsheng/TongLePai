@@ -151,15 +151,15 @@ public class PartnerStatisticsFragment extends android.support.v4.app.Fragment i
                    if(bean.getData_m()!=null)tv_toubiCount.setText(""+bean.getData_m().getDevice_nums());
                    if(bean.getData_m()!=null)tv_deviceCount.setText(""+bean.getData_m().getCd_nums());
                    if(bean.getData_m()!=null)tv_daijiaoCount.setText(""+bean.getData_m().getLow_device_nums());
-                   if(bean.getToday_data()!=null)tv_todaySaoma.setText(""+bean.getToday_data().getSm_price());
-                   if(bean.getToday_data()!=null)tv_todayToubi.setText(""+bean.getToday_data().getTb_price());
-                   if(bean.getToday_data()!=null&&!TextUtils.isEmpty(bean.getToday_data().getPrice()))tv_todayIncome.setText(""+bean.getToday_data().getPrice());
-                   if(bean.getYesterday_data()!=null)tv_yestodaySaoma.setText(""+bean.getYesterday_data().getSm_price());
-                   if(bean.getYesterday_data()!=null)tv_yestodayToubi.setText(""+bean.getYesterday_data().getTb_price());
-                   if(bean.getYesterday_data()!=null&&!TextUtils.isEmpty(bean.getYesterday_data().getPrice()))tv_yestodayIncome.setText(""+bean.getYesterday_data().getPrice());
-                   if(bean.getThismonth_data()!=null)tv_monthSaoma.setText(""+bean.getThismonth_data().getSm_price());
-                   if(bean.getThismonth_data()!=null)tv_monthToubi.setText(""+bean.getThismonth_data().getTb_price());
-                   if(bean.getThismonth_data()!=null&&!TextUtils.isEmpty(bean.getThismonth_data().getPrice()))tv_monthIncome.setText(""+bean.getThismonth_data().getPrice());
+                   if(bean.getToday_data()!=null)tv_todaySaoma.setText("￥"+bean.getToday_data().getSm_price());
+                   if(bean.getToday_data()!=null)tv_todayToubi.setText("￥"+bean.getToday_data().getTb_price());
+                   if(bean.getToday_data()!=null&&!TextUtils.isEmpty(bean.getToday_data().getPrice()))tv_todayIncome.setText("￥"+bean.getToday_data().getPrice());
+                   if(bean.getYesterday_data()!=null)tv_yestodaySaoma.setText("￥"+bean.getYesterday_data().getSm_price());
+                   if(bean.getYesterday_data()!=null)tv_yestodayToubi.setText("￥"+bean.getYesterday_data().getTb_price());
+                   if(bean.getYesterday_data()!=null&&!TextUtils.isEmpty(bean.getYesterday_data().getPrice()))tv_yestodayIncome.setText("￥"+bean.getYesterday_data().getPrice());
+                   if(bean.getThismonth_data()!=null)tv_monthSaoma.setText("￥"+bean.getThismonth_data().getSm_price());
+                   if(bean.getThismonth_data()!=null)tv_monthToubi.setText("￥"+bean.getThismonth_data().getTb_price());
+                   if(bean.getThismonth_data()!=null&&!TextUtils.isEmpty(bean.getThismonth_data().getPrice()))tv_monthIncome.setText("￥"+bean.getThismonth_data().getPrice());
                    if(bean!=null&&bean.getZx_data()!=null&&bean.getZx_data().size()>0) {
                        //x轴坐标对应的数据
                        List<String> xValue = new ArrayList<>();

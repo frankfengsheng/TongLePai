@@ -56,7 +56,10 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
     private ListView lvHomePage;
     private LinearLayout llTypeOne,ll_partner_income,llLinePost;
     private RelativeLayout rlReportIncome,rl_city_income,rlCoinPost,rlDayIncome,rlDaySaoma,rlDayToubi;
-
+    private RelativeLayout rl_tixian;
+    private String canApplyMoney = "", bankAccount = "", bankName = "", pricePay = "", zPrice = "";
+    private String openid="";
+    private String wx_nicknam="";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_to_investment);
@@ -72,8 +75,6 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         initView();
         initData();
     }
-
-
     private void initView() {
         bgaRefreshLayout = (BGARefreshLayout) findViewById(R.id.bga_home_page);
         bgaRefreshLayout.setDelegate(this);
@@ -156,6 +157,8 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
 
         rlToInput = (RelativeLayout) headView.findViewById(R.id.rl_to_input);
         rlDeviceManagement = (RelativeLayout) headView.findViewById(R.id.rl_device_management);
+        rl_tixian= (RelativeLayout) headView.findViewById(R.id.rl_tixian);
+
         rlToInput.setOnClickListener(this);
         rlDeviceManagement.setOnClickListener(this);
         rlHasPostField.setOnClickListener(this);
@@ -179,9 +182,9 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         llThree.setOnClickListener(this);
         rl_city_income.setOnClickListener(this);
         rlCoinPost.setOnClickListener(this);
+        rl_tixian.setOnClickListener(this);
+
 //        tvUpdateLevel.setOnClickListener(this);
-
-
         if (userType == 1) {
             btnToFieldPost.setVisibility(View.GONE);
             llFreight.setVisibility(View.GONE);
@@ -247,6 +250,8 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             tvCanUse.setText("我的场地");
             tvhasUse.setText("已投设备");
         }
+
+        initHeadData();
     }
 
     private void initData() {
@@ -432,7 +437,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
                 break;
             //我的收益
             case R.id.rl_my_income:
-                 //jumpNextActivity(SeeProfitActivity.class, userType);
+                // jumpNextActivity(SeeProfitActivity.class, userType);
                 if(userType==3) jumpNextActivity(MyIncomeActivity.class,userType);//场地方
                 if(userType==1) jumpNextActivity(InvestorIncomeActivity.class,userType);//投资人
                 if(userType==2) jumpNextActivity(PartnerIncomeActivity.class,userType);//合伙人
@@ -471,6 +476,17 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
             //投币上缴
             case R.id.rl_coin_post:
                 jumpNextActivity(PostMoneyRecordActivity.class, userType);
+                break;
+            case R.id.rl_tixian:
+                intent = new Intent(UserCenterActivity.this, ApplyMoneyActivityNew.class);
+                intent.putExtra(ApplyMoneyActivityNew.CAN_APPLY_MONEY, canApplyMoney);
+                intent.putExtra(ApplyMoneyActivityNew.BANK_ACCOUNT, bankAccount);
+                intent.putExtra(ApplyMoneyActivityNew.BANK_NAME, bankName);
+                intent.putExtra(ApplyMoneyActivityNew.USER_TYPE, userType);
+                intent.putExtra(ApplyMoneyActivityNew.NEED_PAY, pricePay);
+                intent.putExtra(ApplyMoneyActivityNew.OPEN_ID,openid);
+                intent.putExtra(ApplyMoneyActivityNew.WX_NICKNAME,wx_nicknam);
+                startActivity(intent);
                 break;
         }
     }
@@ -521,4 +537,52 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
         return false;
     }
 
+
+    private void initHeadData() {
+        if (userType == 1) {
+            new MyIncomeModle(this).InvestorCanapplayCallback(new MyIncomeModle.CanApplyCallback() {
+                @Override
+                public void bindSucess(CanApplyResult bindingBean) {
+                    if(bindingBean!=null&&bindingBean.getData()!=null) {
+                        if (!TextUtils.isEmpty(bindingBean.getData().getPrice()))
+                            canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                        bankAccount = bindingBean.getData().getBank_account();
+                        bankName = bindingBean.getData().getBank();
+                        openid = bindingBean.getData().getOpenid();
+                        wx_nicknam = bindingBean.getData().getWx_nickname();
+                    }
+                }
+            });
+        } else if (userType == 2) {
+            new MyIncomeModle(this).MarkcanapplayCallback(new MyIncomeModle.CanApplyCallback() {
+                @Override
+                public void bindSucess(CanApplyResult bindingBean) {
+                    if(bindingBean!=null&&bindingBean.getData()!=null) {
+                        if (!TextUtils.isEmpty(bindingBean.getData().getPrice()))
+                            canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                        bankAccount = bindingBean.getData().getBank_account();
+                        bankName = bindingBean.getData().getBank();
+                        openid = bindingBean.getData().getOpenid();
+                        wx_nicknam = bindingBean.getData().getWx_nickname();
+                    }
+                }
+            });
+
+        } else if (userType == 3) {
+            new MyIncomeModle(this).canapplayCallback(new MyIncomeModle.CanApplyCallback() {
+                @Override
+                public void bindSucess(CanApplyResult bindingBean) {
+                    if(bindingBean!=null&&bindingBean.getData()!=null) {
+                        if (!TextUtils.isEmpty(bindingBean.getData().getPrice()))
+                         canApplyMoney = Double.parseDouble(bindingBean.getData().getPrice()) + "";
+                        bankAccount = bindingBean.getData().getBank_account();
+                        bankName = bindingBean.getData().getBank();
+                        openid = bindingBean.getData().getOpenid();
+                        wx_nicknam = bindingBean.getData().getWx_nickname();
+                        pricePay = bindingBean.getData().getPrice_pay();
+                    }
+                }
+            });
+        }
+    }
 }

@@ -6,22 +6,14 @@ public class DeviceIncomeDetailBean {
 
 
     /**
-     * data : [{"updated":"1541056346","pay_type":"1","price":"0.50"},{"updated":"1541048504","pay_type":"1","price":"0.50"},{"updated":"1540549733","pay_type":"1","price":"0.50"},{"updated":"1540432446","pay_type":"1","price":"0.50"},{"updated":"1540352731","pay_type":"1","price":"0.50"},{"updated":"1535711429","pay_type":"1","price":"1.00"},{"updated":"1535525943","pay_type":"1","price":"1.00"},{"updated":"1535440012","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"},{"updated":"1535252100","pay_type":"1","price":"1.00"}]
-     * msg : 成功
+     * data : [{"pay_source":"1","updated":"1544358564","price":"0.10"},{"pay_source":"1","updated":"1544354612","price":"0.10"},{"pay_source":"1","updated":"1544348030","price":"0.10"},{"pay_source":"1","updated":"1544340933","price":"0.10"},{"pay_source":"1","updated":"1544266868","price":"0.10"},{"pay_source":"1","updated":"1544259048","price":"0.10"},{"pay_source":"1","updated":"1544258789","price":"0.10"},{"pay_source":"1","updated":"1544255014","price":"0.10"},{"pay_source":"0","updated":"1544250069","price":"0.10"},{"pay_source":"1","updated":"1544247955","price":"0.10"},{"pay_source":"1","updated":"1544235873","price":"0.10"},{"pay_source":"1","updated":"1544182582","price":"0.10"},{"pay_source":"1","updated":"1544158170","price":"0.10"},{"pay_source":"0","updated":"1544097635","price":"0.10"},{"pay_source":"0","updated":"1544087733","price":"0.10"},{"pay_source":"0","updated":"1544087136","price":"0.10"},{"pay_source":"1","updated":"1544074339","price":"0.10"},{"pay_source":"0","updated":"1544067455","price":"0.10"},{"pay_source":"0","updated":"1544066160","price":"0.10"},{"pay_source":"0","updated":"1544064949","price":"0.10"}]
      * status : 1
+     * msg : 成功
      */
 
-    private String msg;
     private int status;
+    private String msg;
     private List<DataBean> data;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public int getStatus() {
         return status;
@@ -29,6 +21,14 @@ public class DeviceIncomeDetailBean {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public List<DataBean> getData() {
@@ -41,14 +41,21 @@ public class DeviceIncomeDetailBean {
 
     public static class DataBean {
         /**
-         * updated : 1541056346
-         * pay_type : 1
-         * price : 0.50
+         * pay_source : 1
+         * updated : 1544358564
+         * price : 0.10
          */
-
+        private String pay_source;
         private String updated;
-        private String pay_type;//0扫码  1.投币
         private String price;
+
+        public String getPay_source() {
+            return pay_source;
+        }
+
+        public void setPay_source(String pay_source) {
+            this.pay_source = pay_source;
+        }
 
         public String getUpdated() {
             return updated;
@@ -56,14 +63,6 @@ public class DeviceIncomeDetailBean {
 
         public void setUpdated(String updated) {
             this.updated = updated;
-        }
-
-        public String getPay_type() {
-            return pay_type;
-        }
-
-        public void setPay_type(String pay_type) {
-            this.pay_type = pay_type;
         }
 
         public String getPrice() {

@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -390,7 +392,38 @@
                 android:id="@+id/line_shangjiao"
                 layout="@layout/view_divider_line"
                 android:visibility="gone" />
+            <RelativeLayout
+                android:id="@+id/rl_tixian"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp">
 
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/tixian_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:text="余额提现" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/icon_right" />
+            </RelativeLayout>
+            <TextView
+               style="@style/horizontal_line" />
             <RelativeLayout
                 android:id="@+id/rl_tixian_detail"
                 android:layout_width="match_parent"
@@ -904,4 +937,5 @@
             android:text="场地报备"
             android:textColor="@color/C1" />
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>
