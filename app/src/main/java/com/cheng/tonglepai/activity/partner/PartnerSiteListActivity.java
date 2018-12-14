@@ -39,7 +39,7 @@ public class PartnerSiteListActivity extends TitleActivity implements BGARefresh
     private TextView tv_empty;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState, R.layout.activity_bind_device);
         MyApplication.getInstance().addActivity(this);
         setMidTitle("场地列表");

@@ -109,8 +109,13 @@ public class LoginActivity extends TitleActivity {
             }
         });
 
-        //将当前版本号记录到后台
-        if(!TextUtils.isEmpty(HttpConfig.newInstance(this).getUserTel()))
+}
+
+    /**
+     * 记录版本号
+     * @param
+     */
+    private void submitVersion(){
         new VersionControlModel(this).checkVersion(version, HttpConfig.newInstance(this).getUserTel(), new VersionControlModel.CheckVersionCallback() {
             @Override
             public void callBackSuccess(CheckVersionBean bindingBean) {
@@ -122,8 +127,7 @@ public class LoginActivity extends TitleActivity {
 
             }
         });
-}
-
+    }
     private void showDialogUpdate(String content) {
         DialogUtil.showUpDateDialog(content,this, new DialogUtil.OnDialogSureClick() {
             @Override
@@ -312,7 +316,7 @@ public class LoginActivity extends TitleActivity {
                 mRequest.setListener(new BaseHttpRequest.IRequestListener<SmsLoginData>() {
                     @Override
                     public void onSuccess(SmsLoginData data) {
-
+                        submitVersion();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra(MainActivity.USER_PHONE, data.getTel());
                         HttpConfig.newInstance(LoginActivity.this).setUserTel(data.getTel());

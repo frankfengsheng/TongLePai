@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.data.CanApplyResult;
@@ -286,8 +287,9 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
 
                     if (!TextUtils.isEmpty(data.getImg())) {
                         useImg = data.getImg();
-                        MyBitmapUtil myBitmapUtil = new MyBitmapUtil(UserCenterActivity.this, data.getImg());
-                        myBitmapUtil.display(data.getImg(), ivUserImage);
+                        Glide.with(UserCenterActivity.this).load(data.getImg()).into(ivUserImage);
+                       /* MyBitmapUtil myBitmapUtil = new MyBitmapUtil(UserCenterActivity.this, data.getImg());
+                        myBitmapUtil.display(data.getImg(), ivUserImage);*/
                     }
                 }
 
@@ -326,8 +328,9 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
                     }
                     if (!TextUtils.isEmpty(data.getImg())) {
                         useImg = data.getImg();
-                        MyBitmapUtil myBitmapUtil = new MyBitmapUtil(UserCenterActivity.this, data.getImg());
-                        myBitmapUtil.display(data.getImg(), ivUserImage);
+                        Glide.with(UserCenterActivity.this).load(data.getImg()).into(ivUserImage);
+                       /* MyBitmapUtil myBitmapUtil = new MyBitmapUtil(UserCenterActivity.this, data.getImg());
+                        myBitmapUtil.display(data.getImg(), ivUserImage);*/
                     }
                 }
                 @Override
@@ -353,8 +356,7 @@ public class UserCenterActivity extends TitleActivity implements View.OnClickLis
                     tvToubi.setText(data.getTb_shouyi());
                     if (!TextUtils.isEmpty(data.getImg())) {
                         useImg = data.getImg();
-                        MyBitmapUtil myBitmapUtil = new MyBitmapUtil(UserCenterActivity.this, data.getImg());
-                        myBitmapUtil.display(data.getImg(), ivUserImage);
+                        Glide.with(UserCenterActivity.this).load(data.getImg()).into(ivUserImage);
                     }
                 }
                 @Override

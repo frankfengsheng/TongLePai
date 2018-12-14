@@ -77,7 +77,6 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
         bankName = (TextView) findViewById(R.id.bank_name);
         bankAccount = (TextView) findViewById(R.id.bank_account);
         iv_bank= (ImageView) findViewById(R.id.iv_bank);
-
         tvCanApplyMoney = (TextView) findViewById(R.id.tv_can_apply_money);
         tvRealMoney = (TextView) findViewById(R.id.tv_real_money);
         btnToApply = (Button) findViewById(R.id.btn_to_apply);
@@ -186,51 +185,17 @@ public class ApplyMoneyActivityNew extends TitleActivity implements View.OnClick
             btnToApply.setEnabled(false);
             btnToApply.setBackgroundResource(R.drawable.gray_has_content_shape);
         }
-
-
-      /*  if ("0".equals(getIntent().getStringExtra(CAN_APPLY_MONEY)))
-            tvCanApplyMoney.setText("0.00");
-        else {*/
         if (userType == 3) {
             if(!TextUtils.isEmpty(canApplyMoney)&&!TextUtils.isEmpty(needPay)) {
-               /* if(ACCOUNT_TYPE==0) {
-                    if ((Double.parseDouble(canApplyMoney) - Double.parseDouble(needPay)) < 10) {
-                        btnToApply.setEnabled(false);
-                    } else {
-                        btnToApply.setEnabled(true);
-                    }
-                }else if(ACCOUNT_TYPE==1){
-                    if ((Double.parseDouble(canApplyMoney) - Double.parseDouble(needPay)) < 100) {
-                        btnToApply.setEnabled(false);
-                    } else {
-                        btnToApply.setEnabled(true);
-                        btnToApply.setBackgroundResource(R.drawable.apply_select);
-                    }
-                }*/
+
                 tvCanApplyMoney.setText(new DecimalFormat("#.00").format(Double.parseDouble(canApplyMoney) - Double.parseDouble(needPay))+"");
             }
         } else {
             if(!TextUtils.isEmpty(canApplyMoney)) {
-              /*  if(ACCOUNT_TYPE==0) {
-                    if (Double.parseDouble(canApplyMoney) < 10) {
-                        btnToApply.setEnabled(false);
-                    } else {
-                        btnToApply.setEnabled(true);
-                        btnToApply.setBackgroundResource(R.drawable.apply_select);
-                    }
-                }else if(ACCOUNT_TYPE==1) {
-                    if (Double.parseDouble(canApplyMoney) < 100) {
-                        btnToApply.setEnabled(false);
-                    } else {
-                        btnToApply.setEnabled(true);
-                        btnToApply.setBackgroundResource(R.drawable.apply_select);
-                    }
-                }*/
+
                 tvCanApplyMoney.setText(canApplyMoney);
             }
         }
-
-       /* }*/
         if (userType == 3) {
             llLastMoney.setVisibility(View.VISIBLE);
             llNeedMoney.setVisibility(View.VISIBLE);
