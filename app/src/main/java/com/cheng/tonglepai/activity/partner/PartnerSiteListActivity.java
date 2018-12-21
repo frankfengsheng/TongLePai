@@ -39,7 +39,7 @@ public class PartnerSiteListActivity extends TitleActivity implements BGARefresh
     private TextView tv_empty;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) { 
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_bind_device);
         MyApplication.getInstance().addActivity(this);
         setMidTitle("场地列表");
@@ -48,7 +48,6 @@ public class PartnerSiteListActivity extends TitleActivity implements BGARefresh
         initData();
 
     }
-
     private void initRefreshLayout() {
         mRefreshLayout = (BGARefreshLayout) findViewById(R.id.bga_bind_device);
         mRefreshLayout.setDelegate(this);
@@ -61,14 +60,11 @@ public class PartnerSiteListActivity extends TitleActivity implements BGARefresh
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("加载中");
         loadingDialog.setCancelable(true);
-
         lvDetail = (ListView) findViewById(R.id.lv_bind_device);
         mAdapter = new DeviceIncomeListAdapter(this,mList);
-
         tv_empty= (TextView) findViewById(R.id.tv_empty);
         tv_empty.setText("设备暂无流水");
         lvDetail.setAdapter(mAdapter);
-
     }
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
@@ -99,6 +95,5 @@ public class PartnerSiteListActivity extends TitleActivity implements BGARefresh
 
     private void initData(){
         loadingDialog.show();
-
     }
 }
