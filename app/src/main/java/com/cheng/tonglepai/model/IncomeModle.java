@@ -299,7 +299,6 @@ public class IncomeModle {
             public void onResponse(Call<PartnerSiteIncomeBean> call,final Response<PartnerSiteIncomeBean> response) {
                 PartnerSiteIncomeBean  bindingBean=response.body();
                 callBack.Sucess(bindingBean);
-
             }
             @Override
             public void onFailure(Call<PartnerSiteIncomeBean> call, Throwable t) {
