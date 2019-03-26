@@ -20,6 +20,7 @@ import com.cheng.retrofit20.bean.VerasionControlBean;
 import com.cheng.retrofit20.bean.WXLoginGetAccesBean;
 import com.cheng.retrofit20.bean.WXUserInfoBean;
 import com.cheng.retrofit20.bean.WechatBindingBean;
+import com.cheng.retrofit20.bean.WechatPayResultBean;
 import com.cheng.retrofit20.bean.WechatWithDrawBean;
 import com.cheng.retrofit20.client.BaseHttpResult;
 import com.cheng.retrofit20.data.AlipayResult;
@@ -943,5 +944,10 @@ public interface ApiService {
     @POST("index.php?s=/api/Investor/low_invest_statistics")
     @FormUrlEncoded
     Call<PartnerDeviceIncomeListBean> InvestorDiShouyiFragment(@FieldMap Map<String, String> params);
-
+    /**
+     * 微信支付
+     */
+    @POST("api/Field/wechat_pricepay")
+    @FormUrlEncoded
+    Call<WechatPayResultBean> WechatPay(@FieldMap Map<String, String> params);
 }

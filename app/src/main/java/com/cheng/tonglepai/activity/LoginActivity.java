@@ -72,6 +72,7 @@ public class LoginActivity extends TitleActivity {
     public static LoginActivity loginActivity;
     //APP_ID微信
     public static final String APP_ID="wx7e91f7c83c646725";
+    public static final String PARTNER_ID="1505174751";
     private IWXAPI iwxapi;
 
     @Override

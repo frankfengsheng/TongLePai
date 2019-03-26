@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.tonglepai.MyApplication;
 import com.cheng.tonglepai.R;
@@ -17,8 +16,8 @@ import com.cheng.tonglepai.net.AllApplyDetailRequest;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
@@ -54,16 +53,13 @@ public class ApplyDetailActivity extends TitleActivity implements BGARefreshLayo
         loadingDialog = DialogUtil.createLoaddingDialog(this);
         loadingDialog.setMessage("加载中");
         loadingDialog.setCancelable(true);
-
         lvDetail = (ListView) findViewById(R.id.lv_apply_detail);
         mAdapter = new ApplyDetailAdapter(this);
         lvDetail.setAdapter(mAdapter);
-
         rbAll = (RadioButton) findViewById(R.id.rb_all);
         rbIng = (RadioButton) findViewById(R.id.rb_ing);
         rbFair = (RadioButton) findViewById(R.id.rb_fair);
         rbFinish = (RadioButton) findViewById(R.id.rb_finish);
-
         rbAll.setOnClickListener(this);
         rbIng.setOnClickListener(this);
         rbFair.setOnClickListener(this);
@@ -71,6 +67,8 @@ public class ApplyDetailActivity extends TitleActivity implements BGARefreshLayo
     }
 
     private void initData() {
+        List<List<String>> list=new ArrayList<>();
+        list.contains(list);
         loadingDialog.show();
         AllApplyDetailRequest mRequest = new AllApplyDetailRequest(this);
         mRequest.setListener(new BaseHttpRequest.IRequestListener<List<ApplyDetailUseData>>() {
@@ -97,7 +95,6 @@ public class ApplyDetailActivity extends TitleActivity implements BGARefreshLayo
                 mRefreshLayout.endLoadingMore();
                 loadingDialog.dismiss();
             }
-
             @Override
             public void onFailed(String msg, int code) {
                 loadingDialog.dismiss();

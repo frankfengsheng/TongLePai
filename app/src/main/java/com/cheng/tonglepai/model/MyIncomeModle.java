@@ -7,10 +7,12 @@ import com.cheng.retrofit20.bean.DeviceIncomeDetailBean;
 import com.cheng.retrofit20.bean.DevicesDetailsBean;
 import com.cheng.retrofit20.bean.DevicesIncomeByMonthBean;
 import com.cheng.retrofit20.bean.IsNeedPayBean;
+import com.cheng.retrofit20.bean.PartnerDeviceIncomeListBean;
 import com.cheng.retrofit20.bean.SiteEquimentListBean;
 import com.cheng.retrofit20.bean.SiteFileIncomeListBean;
 import com.cheng.retrofit20.bean.SiteIncomeBean;
 import com.cheng.retrofit20.bean.SiteTotalIncomeBean;
+import com.cheng.retrofit20.bean.WechatPayResultBean;
 import com.cheng.retrofit20.client.RetrofitClient;
 import com.cheng.retrofit20.data.CanApplyResult;
 import com.cheng.retrofit20.data.HttpConfig;
@@ -356,6 +358,33 @@ public class MyIncomeModle {
             }
         });
     }
+
+    public void WechatPay(String money, final WechatPayCallBack callBack){
+
+        Retrofit retrofit =new RetrofitClient().getRetrofit(context);
+        ApiService loginInfoPost=retrofit.create(ApiService.class);
+        Map map=new HashMap();
+        map.put(UserInfoCmd.K_USER_ID, HttpConfig.newInstance(context).getUserid());
+        map.put(UserInfoCmd.K_TOKEN,HttpConfig.newInstance(context).getAccessToken());
+        map.put("price_pays",money);
+        Call<WechatPayResultBean> call=loginInfoPost.WechatPay(map);
+        call.enqueue(new Callback<WechatPayResultBean>() {
+            @Override
+            public void onResponse(Call<WechatPayResultBean> call,final Response<WechatPayResultBean> response) {
+                WechatPayResultBean  bindingBean=response.body();
+                callBack.Sucess(bindingBean);
+
+            }
+
+            @Override
+            public void onFailure(Call<WechatPayResultBean> call, Throwable t) {
+
+            }
+
+        });
+    }
+
+
     /**
      * 获取收益回调
      */
@@ -423,6 +452,14 @@ public class MyIncomeModle {
      */
     public interface DeviceIncomeDetailSuccessCallback{
         void Sucess(DeviceIncomeDetailBean bean);
+        void Faile();
+    }
+
+    /**
+     * 微信支付结果
+     */
+    public interface WechatPayCallBack{
+        void Sucess(WechatPayResultBean payResultBean);
         void Faile();
     }
 }

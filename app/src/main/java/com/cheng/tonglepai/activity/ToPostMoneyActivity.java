@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.cheng.retrofit20.bean.WechatPayResultBean;
 import com.cheng.retrofit20.client.BaseHttpRequest;
 import com.cheng.retrofit20.client.BaseHttpResult;
 import com.cheng.retrofit20.data.AlipayResult;
@@ -35,6 +36,10 @@ import com.cheng.tonglepai.pay.PayResult;
 import com.cheng.tonglepai.tool.AlipayUtil;
 import com.cheng.tonglepai.tool.DialogUtil;
 import com.cheng.tonglepai.tool.LoadingDialog;
+import com.cheng.tonglepai.tool.ToastUtil;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Map;
 
@@ -48,12 +53,14 @@ public class ToPostMoneyActivity extends TitleActivity {
     private String zPrice = "";
     private TextView tvNeedPay, tvLastMoney;
     private CheckBox ivChooseOne, ivChooseTwo;
+    private CheckBox cb_Wechat;
     private Button btnToPost;
     private EditText etToPost;
     private LoadingDialog loadingDialog;
     private AlipayResult alipayResult;
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
+    private IWXAPI iwxapi;  //微信api
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -115,9 +122,7 @@ public class ToPostMoneyActivity extends TitleActivity {
                 default:
                     break;
             }
-        }
-
-        ;
+        };
     };
 
     @Override
@@ -125,7 +130,13 @@ public class ToPostMoneyActivity extends TitleActivity {
         super.onCreate(savedInstanceState, R.layout.activity_post_money);
         MyApplication.getInstance().addActivity(this);
         setMidTitle("上缴");
+        regToWx();
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initData();
     }
 
@@ -133,7 +144,6 @@ public class ToPostMoneyActivity extends TitleActivity {
         new MyIncomeModle(this).canapplayCallback(new MyIncomeModle.CanApplyCallback() {
             @Override
             public void bindSucess(CanApplyResult bindingBean) {
-
                 zPrice=bindingBean.getData().getPrice();
                 pricePay=bindingBean.getData().getPrice_pay();
                 tvNeedPay.setText("￥" + pricePay);
@@ -151,16 +161,14 @@ public class ToPostMoneyActivity extends TitleActivity {
         tvLastMoney = (TextView) findViewById(R.id.tv_last_post);
         ivChooseOne = (CheckBox) findViewById(R.id.iv_choose_one);
         ivChooseTwo = (CheckBox) findViewById(R.id.iv_choose_two);
+        cb_Wechat= (CheckBox) findViewById(R.id.cb_wechat);
 
         ivChooseOne.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    ivChooseOne.setChecked(true);
                     ivChooseTwo.setChecked(false);
-                } else {
-                    ivChooseOne.setChecked(false);
-                    ivChooseTwo.setChecked(true);
+                    cb_Wechat.setChecked(false);
                 }
             }
         });
@@ -170,9 +178,16 @@ public class ToPostMoneyActivity extends TitleActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     ivChooseOne.setChecked(false);
-                    ivChooseTwo.setChecked(true);
-                } else {
-                    ivChooseOne.setChecked(true);
+                    cb_Wechat.setChecked(false);
+                }
+            }
+        });
+
+        cb_Wechat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    ivChooseOne.setChecked(false);
                     ivChooseTwo.setChecked(false);
                 }
             }
@@ -187,6 +202,9 @@ public class ToPostMoneyActivity extends TitleActivity {
                 } else if (ivChooseTwo.isChecked()) {
 
                     postAliMoney();
+                }else {
+                    loadingDialog.show();
+                    postWechat();
                 }
             }
         });
@@ -205,7 +223,6 @@ public class ToPostMoneyActivity extends TitleActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().contains(".")) {
-
                     if (s.length() - 1 - s.toString().indexOf(".") >= 0) {
                         etToPost.setText(s.toString().subSequence(0, s.toString().indexOf(".")));
                         etToPost.setSelection(s.toString().subSequence(0, s.toString().indexOf(".")).length());
@@ -226,6 +243,7 @@ public class ToPostMoneyActivity extends TitleActivity {
         });
     }
 
+
     private void postAliMoney() {
         if (TextUtils.isEmpty(etToPost.getText().toString().trim())) {
             Toast.makeText(this, "请输入上缴金额", Toast.LENGTH_SHORT).show();
@@ -242,7 +260,6 @@ public class ToPostMoneyActivity extends TitleActivity {
             public void onSuccess(AlipayResult data) {
                 alipayResult = data;
                 Runnable payRunnable = new Runnable() {
-
                     @Override
                     public void run() {
                         PayTask alipay = new PayTask(ToPostMoneyActivity.this);
@@ -264,6 +281,47 @@ public class ToPostMoneyActivity extends TitleActivity {
             }
         });
         mRequest.requestFieldAlipay(etToPost.getText().toString().trim());
+    }
+
+    /**
+     * 微信缴币
+     */
+    private void postWechat(){
+        if (TextUtils.isEmpty(etToPost.getText().toString().trim())) {
+            Toast.makeText(this, "请输入上缴金额", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        new MyIncomeModle(this).WechatPay(etToPost.getText().toString().trim(), new MyIncomeModle.WechatPayCallBack() {
+            @Override
+            public void Sucess(WechatPayResultBean payResultBean) {
+                loadingDialog.dismiss();
+                if(payResultBean!=null&&payResultBean.getData()!=null) {
+                    PayReq req = new PayReq();
+                    //req.appId = "wxf8b4f85f3a794e77";  // ������appId
+                    req.appId = payResultBean.getData().getAppid();
+                    req.partnerId = payResultBean.getData().getPartnerid();
+                    req.prepayId = payResultBean.getData().getPrepayid();
+                    req.nonceStr = payResultBean.getData().getNoncestr();
+                    req.timeStamp = payResultBean.getData().getTimestamp();
+                    req.packageValue = "Sign=WXPay";
+                    req.sign = payResultBean.getData().getSign();
+                    ;
+                    // ��֧��֮ǰ�����Ӧ��û��ע�ᵽ΢�ţ�Ӧ���ȵ���IWXMsg.registerApp��Ӧ��ע�ᵽ΢��
+                    iwxapi.sendReq(req);
+                }else {
+                    if(payResultBean!=null)ToastUtil.showToast(ToPostMoneyActivity.this,payResultBean.getMsg());
+                }
+            }
+
+            @Override
+            public void Faile() {
+                ToastUtil.showToast(ToPostMoneyActivity.this,"微信缴币发起失败，请联系客服");
+                loadingDialog.dismiss();
+            }
+        });
+
+
+
     }
 
     private void postMoney() {
@@ -291,5 +349,12 @@ public class ToPostMoneyActivity extends TitleActivity {
             }
         });
         mRequest.requestApplyMoney(etToPost.getText().toString().trim());
+    }
+
+    public void regToWx(){
+        //通过Factory工厂获取IWAPi实例
+        iwxapi= WXAPIFactory.createWXAPI(this,LoginActivity.APP_ID,true);
+        //将应用API注册到微信
+        if(iwxapi!=null) iwxapi.registerApp(LoginActivity.APP_ID);
     }
 }

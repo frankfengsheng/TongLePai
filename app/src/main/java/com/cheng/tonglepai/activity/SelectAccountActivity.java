@@ -218,7 +218,7 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
                     }
                 });
         }else {
-            DialogUtil.showChangDialog("您是否确定将微信号“"+wechat_return_nickName+"”绑定到当前童乐派帐号作为提现账户？", this, "确定", new DialogUtil.OnDialogSureClick() {
+           /* DialogUtil.showChangDialog("您是否确定将微信号“"+wechat_return_nickName+"”绑定到当前童乐派帐号作为提现账户？", this, "确定", new DialogUtil.OnDialogSureClick() {
                 @Override
                 public void sureClick(){
                     new BindingModel(SelectAccountActivity.this).bindingWechat(wechat_return_OpenId, wechat_return_nickName, new BindingModel.BindSuccessCallBack() {
@@ -240,8 +240,8 @@ public class SelectAccountActivity extends TitleActivity  implements View.OnClic
                         }
                     });
 
-                }});
-           // showDialog(wechat_return_nickName);
+                }});*/
+            //showDialog(wechat_return_nickName);
         }
     }
 
